@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+ID:wght@100..400&display=swap');
+
+@import "tailwindcss";
+
+{/* Color */}
+@theme {
+  --color-primary: #1269CC;
+  --color-secondary: #00183E;
+  --color-text: #303030;
+  --color-background: #ffff;
+}
+
+{/* Fonts */}
+@theme {
+  --font-poppins: "Poppins", sans-serif;
+  --font-play: "Play", sans-serif;
+}
+
+{/* Radius */}
+@theme {
+  --radius-card: 12px;
+  --radius-button: 9999px;
+}
+
+.scroll-behavior {
+  scroll-behavior: smooth;
+}
+
+.slider-track {
+  animation: slider-scroll 8s linear infinite;
+}
+
+@keyframes slider-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Shifts exactly one full group's width to the left, so it loops seamlessly */
+    transform: translateX(-5%);
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .slider-track {
+    animation: none;
+  }
+}

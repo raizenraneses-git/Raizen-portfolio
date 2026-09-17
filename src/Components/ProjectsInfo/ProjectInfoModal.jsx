@@ -21,6 +21,7 @@ import { FiX, FiChevronLeft, FiChevronRight } from "react-icons/fi";
  *     }}
  *   />
  */
+
 export default function ProjectInfoModal({ isOpen, onClose, project }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -58,7 +59,7 @@ export default function ProjectInfoModal({ isOpen, onClose, project }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-white/10 backdrop-blur-xl p-4 "
+      className="fixed inset-0 z-50 flex items-center justify-center bg-white/10 backdrop-blur-xl p-4"
       onClick={onClose}
     >
       <div

@@ -1,9 +1,26 @@
+import { useState } from "react";
 import SandreaLee from "../assets/projects/project1.png";
 import { FiInfo } from "react-icons/fi";
 import { FaGithub } from "react-icons/fa";
-
+import ProjectInfoModal from "./ProjectsInfo/ProjectInfoModal";
+import heroThree from "../assets/heroImage/image3.jpg";
+import sdleeOne from "../assets/sandreaLeeImages/image1.png"
+import sdleeTwo from "../assets/sandreaLeeImages/image2.png"
+import sdleeThree from "../assets/sandreaLeeImages/image3.png"
+import sdleeFour from "../assets/sandreaLeeImages/image4.png"
+import sdleeFive from "../assets/sandreaLeeImages/image5.png"
 
 function Projects() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const project = {
+        name: "Smart Automated Link & Operations Network",
+        description:
+            "A salon management system designed to streamline appointment booking, online shopping, and administrative tasks through an intuitive user experience.",
+        images: [sdleeOne, sdleeTwo, sdleeThree, sdleeFour, sdleeFive],
+        tools: ["React.Js", "Tailwind CSS", "Node.Js", "Typescript", "Figma"],
+    };
+
     return (
 
         <section className="w-full px-4 sm:px-6 lg:px-8 py-10">
@@ -32,24 +49,15 @@ function Projects() {
 
                     <div className="lg:mt-0 sm:mt-10">
 
-                        <div 
-                        className="font-poppins text-primary font-bold lg:text-4xl sm:text-[42px] text-left ">
+                        <div
+                        className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
                             Smart Automated Link & Operations Network
                         </div>
 
                         <div
-                        className="font-poppins text-black   text-base mt-5 text-justify">
+                        className="font-poppins text-text text-base mt-5 text-justify">
                             A salon management system designed to streamline appointment booking, online shopping, and administrative tasks through an intuitive user experience.
                         </div>
-
-                        <ul 
-                        className="list-inside list-disc mt-5 ">
-                            <li className="marker:text-blue-500 font-poppins text-sm text-text">Responsive & Optimized - Seamless browsing across all device.</li>
-                            <li className="marker:text-blue-500 mt-2 font-poppins text-sm text-text">Optimized modern design ensuring responsive performance.</li>
-                            <li className="marker:text-blue-500 mt-2 font-poppins text-sm text-text">Modern, responsive design focused on speed and usability.</li>
-                            <li className="marker:text-blue-500 mt-2 font-poppins text-sm text-text">Showcase Salon market with proper and optimized system.</li>
-                        </ul>
-
 
                         <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
 
@@ -86,7 +94,8 @@ function Projects() {
                             className="group flex flex-wrap gap-2 mt-5">
 
                                 <button
-                                className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5 ">
+                                onClick={() => setIsModalOpen(true)}
+                                className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
 
                                     <span
                                     className="">Information</span>
@@ -95,16 +104,19 @@ function Projects() {
                                     
                                 </button>
 
-                                <button
+                                <a
+                                href="https://github.com/raizenraneses-git/Raizen-portfolio.git"
+                                target="_blank"
+                                rel="noopener norefferer"
                                 className="group flex flex-wrap items-center bg-black font-poppins text-white text-xs rounded-2xl
-                                gap-2 border-black py-2 px-6">
+                                gap-2 border-black py-2 px-6    ">
                                     
                                     <FaGithub className="text-sm"/>
 
                                     <span className="">
                                         View
                                     </span>
-                                </button>
+                                </a>
                         </div>
 
                     </div>
@@ -113,6 +125,12 @@ function Projects() {
                 </div>
 
             </div>
+
+            <ProjectInfoModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                project={project}
+            />
             
         </section>
     );

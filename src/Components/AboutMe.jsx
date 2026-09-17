@@ -32,7 +32,7 @@ function AboutMe() {
                         </div> 
  
                         <div  
-                        className="font-poppins text-secondary text-3xl sm:text-4xl lg:text-5xl text-left font-bold tracking-wider mt-5 sm:mt-5 leading-tight"> 
+                        className="font-poppins text-secondary text-3xl sm:text-5xl lg:text-5xl text-left font-bold mt-5 sm:mt-5"> 
                             I like clean designs and functional code. 
                         </div> 
  

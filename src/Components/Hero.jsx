@@ -114,7 +114,7 @@ function Hero() {
 
           {/* Greeting */}
           <div className="font-poppins text-[24px] text-primary">
-            ─────── Hello Everyone! I am
+            ─── Hello Everyone! I am
           </div>
 
 
@@ -146,9 +146,8 @@ function Hero() {
           >
             <RotatingText
               words={[
-                "DEVELOPER",
-                "FRONTEND",
-                "STUDENT",
+                "Frontend",
+                "UI/UX",
                 "Web Designer",
               ]}
               interval={2000}

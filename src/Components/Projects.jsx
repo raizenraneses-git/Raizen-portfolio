@@ -1,6 +1,6 @@
 import SandreaLee from "../assets/projects/project1.png";
 import { FiInfo } from "react-icons/fi";
-import { LuArrowUpRight } from "react-icons/lu"
+import { FaGithub } from "react-icons/fa";
 
 
 function Projects() {
@@ -96,8 +96,14 @@ function Projects() {
                                 </button>
 
                                 <button
-                                className="bg-amber-200">
-                                    Brother
+                                className="group flex flex-wrap items-center bg-black font-poppins text-white text-xs rounded-2xl
+                                gap-2 border-black py-2 px-6">
+                                    
+                                    <FaGithub className="text-sm"/>
+
+                                    <span className="">
+                                        View
+                                    </span>
                                 </button>
                         </div>
 

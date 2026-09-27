@@ -3,7 +3,8 @@ import SandreaLee from "../assets/projects/project1.png";
 import Pop from "../assets/projects/project2.png";
 import { FiInfo } from "react-icons/fi";
 import { FaGithub } from "react-icons/fa";
-import ProjectInfoModal from "./ProjectsInfo/ProjectInfoModal";
+import ProjectSDL from "./ProjectsInfo/ProjectSDL";
+import ProjectPop from "./ProjectsInfo/ProjectPop";
 import sdleeOne from "../assets/sandreaLeeImages/image1.png"
 import sdleeTwo from "../assets/sandreaLeeImages/image2.png"
 import sdleeThree from "../assets/sandreaLeeImages/image3.png"
@@ -13,10 +14,18 @@ import sdleeFive from "../assets/sandreaLeeImages/image5.png"
 function Projects() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const project = {
+    const projectSDL = {
         name: "Smart Automated Link & Operations Network",
         description:
             "A salon management system designed to streamline appointment booking, online shopping, and administrative tasks through an intuitive user experience.",
+        images: [sdleeOne, sdleeTwo, sdleeThree, sdleeFour, sdleeFive],
+        tools: ["React.Js", "Tailwind CSS", "Node.Js", "Typescript", "Figma"],
+    };
+
+    const projectPop = {
+        name: "Pop!",
+        description:
+            "This was one of my final projects during my internship. I was assigned this task to strengthen my HTML and CSS fundamentals and learn how to build frontend pages using Elementor and WordPress with guidance from my team leader..",
         images: [sdleeOne, sdleeTwo, sdleeThree, sdleeFour, sdleeFive],
         tools: ["React.Js", "Tailwind CSS", "Node.Js", "Typescript", "Figma"],
     };
@@ -211,10 +220,10 @@ function Projects() {
 
             </div>
 
-            <ProjectInfoModal
+            <ProjectSDL
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                project={project}
+                project={projectSDL}
             />
             
         </section>

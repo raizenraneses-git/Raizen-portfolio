@@ -70,20 +70,20 @@ export default function ProjectSDL({ isOpen, onClose, project }) {
         // MOBILE FIX:
         // max-h-[calc(100vh-2rem)] keeps the modal inside the phone screen.
         // overflow-y-auto allows the modal content to scroll vertically.
-        className="relative w-full max-w-4xl max-h-[calc(100vh-2rem)] bg-white rounded-3xl overflow-y-auto md:overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-2xl my-4 md:my-0"
+        className="relative w-full max-w-4xl max-h-[calc(100vh-2rem)] bg-white rounded-3xl overflow-y-auto md:overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-2xl my-5 md:my-0"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-4 right-4 z-10 text-text hover:text-primary transition-colors"
+          className="absolute top-5 right-4 z-10 text-text hover:text-primary transition-colors"
         >
           <FiX size={18} />
         </button>
 
         {/* LEFT SIDE — images */}
-        <div className="flex flex-col gap-3 p-6 bg-white">
+        <div className="flex flex-col gap-2 p-5 bg-white">
           {/* Main image */}
           <div className="relative flex-1 min-h-[260px] rounded-2xl overflow-hidden bg-white/40">
             {images[activeIndex] && (
@@ -140,24 +140,24 @@ export default function ProjectSDL({ isOpen, onClose, project }) {
         </div>
 
         {/* RIGHT SIDE — details */}
-        <div className="flex flex-col justify-between p-9 font-poppins text-primary">
+        <div className="flex flex-col justify-between p-5 md:p-12 lg:p-9 font-poppins text-primary">
           <div>
-            <h1 className="text-3xl font-bold">{name}</h1>
+            <h1 className="text-3xl font-bold mt-3">{name}</h1>
 
-            <p className="text-text mt-4 leading-relaxed text-xs">
+            <p className="text-text mt-4 leading-relaxed text-xs text-justify">
               {description}
             </p>
           </div>
 
           {tools.length > 0 && (
-            <div className="mt-4">
-              <p className="text-sm mb-3">Softwared Tools</p>
+            <div className="mt-6 lg:mt-3">
+              <p className="text-sm mb-3 font-semibold">Softwared Tools</p>
 
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-3 lg:gap-2">
                 {tools.map((tool, idx) => (
                   <span
                     key={idx}
-                    className="bg-primary/20 text-text text-xs px-2 py-1 rounded-full"
+                    className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
                   >
                     {tool}
                   </span>

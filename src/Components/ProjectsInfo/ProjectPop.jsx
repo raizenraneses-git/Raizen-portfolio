@@ -83,7 +83,7 @@ export default function ProjectPop({ isOpen, onClose, project }) {
         </button>
 
         {/* LEFT SIDE — images */}
-        <div className="flex flex-col gap-3 p-6 bg-white">
+        <div className="flex flex-col gap-2 p-5 bg-white">
           {/* Main image */}
           <div className="relative flex-1 min-h-[260px] rounded-2xl overflow-hidden bg-white/40">
             {images[activeIndex] && (
@@ -140,24 +140,24 @@ export default function ProjectPop({ isOpen, onClose, project }) {
         </div>
 
         {/* RIGHT SIDE — details */}
-        <div className="flex flex-col justify-between p-9 font-poppins text-primary">
+        <div className="flex flex-col justify-between p-5 md:p-12 lg:p-9 font-poppins text-primary">
           <div>
-            <h1 className="text-3xl font-bold">{name}</h1>
+            <h1 className="text-4xl lg:text-3xl font-bold mt-3">{name}</h1>
 
-            <p className="text-text mt-4 leading-relaxed text-xs">
+            <p className="text-text text-justify mt-4 leading-relaxed text-xs">
               {description}
             </p>
           </div>
 
           {tools.length > 0 && (
-            <div className="mt-4">
-              <p className="text-sm mb-3">Softwared Tools</p>
+            <div className="mt-6 lg:mt-4">
+              <p className="text-sm mb-3 font-semibold">Softwared Tools</p>
 
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-2">
                 {tools.map((tool, idx) => (
                   <span
                     key={idx}
-                    className="bg-primary/20 text-text text-xs px-2 py-1 rounded-full"
+                    className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
                   >
                     {tool}
                   </span>
@@ -170,7 +170,7 @@ export default function ProjectPop({ isOpen, onClose, project }) {
             href="https://pop.inquirer.net/"
             target="_blank"
             rel="noopener"
-            className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs transition-all duration-300 hover:bg-primary hover:scale-105 rounded-2xl gap-3 w-50 h-8 mt-2"
+            className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs transition-all duration-300 hover:bg-primary hover:scale-105 rounded-2xl gap-3 w-50 h-8 mt-5 lg:mt-0"
           >
             <span className="ml-9">
               View on Website

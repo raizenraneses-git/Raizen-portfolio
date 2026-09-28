@@ -76,27 +76,27 @@ function Projects() {
                         <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
                                 React.Js
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
                                 Tailwind CSS
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
                                 Node.Js
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
                                 Typescript
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
                                 Canva
                             </div>
 
@@ -163,27 +163,27 @@ function Projects() {
                         <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
                                 HTML
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
                                 CSS
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
                                 Bootstrap
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
                                 Wordpress
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
                                 Elementor
                             </div>
 

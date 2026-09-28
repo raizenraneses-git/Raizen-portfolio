@@ -166,18 +166,6 @@ export default function ProjectSDL({ isOpen, onClose, project }) {
             </div>
           )}
 
-          <a
-            href="https://pop.inquirer.net/"
-            target="_blank"
-            rel="noopener"
-            className="group flex flex-wrap items-center bg-primary font-poppins text-white text-xs rounded-2xl gap-5 w-50 h-8 mt-5"
-          >
-            <span className="ml-9">
-              View on Website
-            </span>
-
-            <FaExternalLinkAlt className="text-xs" />
-          </a>
         </div>
       </div>
     </div>

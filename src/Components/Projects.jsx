@@ -4,15 +4,20 @@ import Pop from "../assets/projects/project2.png";
 import { FiInfo } from "react-icons/fi";
 import { FaGithub } from "react-icons/fa";
 import ProjectSDL from "./ProjectsInfo/ProjectSDL";
-import ProjectPop from "./ProjectsInfo/ProjectPop";
 import sdleeOne from "../assets/sandreaLeeImages/image1.png"
 import sdleeTwo from "../assets/sandreaLeeImages/image2.png"
 import sdleeThree from "../assets/sandreaLeeImages/image3.png"
 import sdleeFour from "../assets/sandreaLeeImages/image4.png"
 import sdleeFive from "../assets/sandreaLeeImages/image5.png"
 
+import ProjectPop from "./ProjectsInfo/ProjectPop";
+import popImageOne from "../assets/popImage/image1.png"
+import popImageTwo from "../assets/popImage/image2.png"
+import popImageThree from "../assets/popImage/image3.png"
+
 function Projects() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedProject, setSelectedProject] = useState("");
 
     const projectSDL = {
         name: "Smart Automated Link & Operations Network",
@@ -25,9 +30,9 @@ function Projects() {
     const projectPop = {
         name: "Pop!",
         description:
-            "This was one of my final projects during my internship. I was assigned this task to strengthen my HTML and CSS fundamentals and learn how to build frontend pages using Elementor and WordPress with guidance from my team leader..",
-        images: [sdleeOne, sdleeTwo, sdleeThree, sdleeFour, sdleeFive],
-        tools: ["React.Js", "Tailwind CSS", "Node.Js", "Typescript", "Figma"],
+            "This was one of my final projects during my internship. I was assigned this task to strengthen my HTML and CSS fundamentals and learn how to build frontend pages using Elementor and WordPress with guidance from my team leader.",
+        images: [popImageOne, popImageTwo, popImageThree],
+        tools: ["HTML", "CSS", "Bootstrap", "Elementor", "Wordpress"],
     };
 
     return (
@@ -93,8 +98,6 @@ function Projects() {
                             <div
                             className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
                                 Canva
-
-                                
                             </div>
 
                         </div>
@@ -103,7 +106,10 @@ function Projects() {
                             className="group flex flex-wrap gap-2 mt-5">
 
                                 <button
-                                onClick={() => setIsModalOpen(true)}
+                                onClick={() => {
+                                    setSelectedProject("sandreaLee");
+                                    setIsModalOpen(true);
+                                }}
                                 className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
 
                                     <span
@@ -187,7 +193,10 @@ function Projects() {
                             className="group flex flex-wrap gap-2 mt-5">
 
                                 <button
-                                onClick={() => setIsModalOpen(true)}
+                                onClick={() => {
+                                    setSelectedProject("pop");
+                                    setIsModalOpen(true);
+                                }}
                                 className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
 
                                     <span
@@ -198,7 +207,7 @@ function Projects() {
                                 </button>
 
                                 <a
-                                href="https://github.com/raizenraneses-git/Raizen-portfolio.git"
+                                href="https://github.com/raizenraneses-git/Pop-.git"
                                 target="_blank"
                                 rel="noopener norefferer"
                                 className="group flex flex-wrap items-center bg-black font-poppins text-white text-xs rounded-2xl
@@ -220,11 +229,21 @@ function Projects() {
 
             </div>
 
-            <ProjectSDL
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                project={projectSDL}
-            />
+            {selectedProject === "sandreaLee" && (
+                <ProjectSDL
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    project={projectSDL}
+                />
+            )}
+
+            {selectedProject === "pop" && (
+                <ProjectPop
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    project={projectPop}
+                />
+            )}
             
         </section>
     );

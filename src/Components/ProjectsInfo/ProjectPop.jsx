@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { FiX, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FiX, FiChevronLeft, FiChevronRight } from
+"react-icons/fi";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 
 /**
@@ -59,11 +61,16 @@ export default function ProjectPop({ isOpen, onClose, project }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-white/10 backdrop-blur-xl p-4"
+      // MOBILE FIX:
+      // Added overflow-y-auto so the whole modal can be scrolled on phones.
+      className="fixed inset-0 z-50 flex items-start md:items-center justify-center overflow-y-auto bg-white/10 backdrop-blur-xl p-4"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-4xl max-h-4xl bg-white rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-2xl"
+        // MOBILE FIX:
+        // max-h-[calc(100vh-2rem)] keeps the modal inside the phone screen.
+        // overflow-y-auto allows the modal content to scroll vertically.
+        className="relative w-full max-w-4xl max-h-[calc(100vh-2rem)] bg-white rounded-3xl overflow-y-auto md:overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-2xl my-4 md:my-0"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
@@ -96,6 +103,7 @@ export default function ProjectPop({ isOpen, onClose, project }) {
                 >
                   <FiChevronLeft size={18} />
                 </button>
+
                 <button
                   onClick={goNext}
                   aria-label="Next image"
@@ -132,17 +140,19 @@ export default function ProjectPop({ isOpen, onClose, project }) {
         </div>
 
         {/* RIGHT SIDE — details */}
-        <div className="flex flex-col justify-between p-6 font-poppins text-primary">
+        <div className="flex flex-col justify-between p-9 font-poppins text-primary">
           <div>
             <h1 className="text-3xl font-bold">{name}</h1>
-            <p className="text-sm text-text mt-4 leading-relaxed">
+
+            <p className="text-text mt-4 leading-relaxed text-xs">
               {description}
             </p>
           </div>
 
           {tools.length > 0 && (
             <div className="mt-4">
-              <p className="text-sm text-primary mb-3">Softwared Tools</p>
+              <p className="text-sm mb-3">Softwared Tools</p>
+
               <div className="flex flex-wrap gap-1">
                 {tools.map((tool, idx) => (
                   <span
@@ -155,6 +165,20 @@ export default function ProjectPop({ isOpen, onClose, project }) {
               </div>
             </div>
           )}
+
+          <a
+            href="https://pop.inquirer.net/"
+            target="_blank"
+            rel="noopener"
+            className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs transition-all duration-300 hover:bg-primary hover:scale-105 rounded-2xl gap-3 w-50 h-8 mt-2"
+          >
+            <span className="ml-9">
+              View on Website
+            </span>
+
+            <FaExternalLinkAlt className="text-xs "/>
+          </a>
+
         </div>
       </div>
     </div>

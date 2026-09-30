@@ -1,8 +1,13 @@
 import { useState } from "react";
+
 import SandreaLee from "../assets/projects/project1.png";
 import Pop from "../assets/projects/project2.png";
+import WP from "../assets/projects/project3.png";
+
+
 import { FiInfo } from "react-icons/fi";
 import { FaGithub } from "react-icons/fa";
+
 import ProjectSDL from "./ProjectsInfo/ProjectSDL";
 import sdleeOne from "../assets/sandreaLeeImages/image1.png"
 import sdleeTwo from "../assets/sandreaLeeImages/image2.png"
@@ -15,9 +20,16 @@ import popImageOne from "../assets/popImage/image1.png"
 import popImageTwo from "../assets/popImage/image2.png"
 import popImageThree from "../assets/popImage/image3.png"
 
+import ProjectWP from "./ProjectsInfo/ProjectWP"
+import wpOne from "../assets/wpImage/image1.png"
+import wpTwo from "../assets/wpImage/image2.png"
+import wpThree from "../assets/wpImage/image3.png"
+import wpFour from "../assets/wpImage/image4.png"
+
 function Projects() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState("");
+    
 
     const projectSDL = {
         name: "Smart Automated Link & Operations Network",
@@ -33,6 +45,14 @@ function Projects() {
             "This was one of my final projects during my internship. I was assigned this task to strengthen my HTML and CSS fundamentals and learn how to build frontend pages using Elementor and WordPress with guidance from my team leader.",
         images: [popImageOne, popImageTwo, popImageThree],
         tools: ["HTML", "CSS", "Bootstrap", "Elementor", "Wordpress"],
+    };
+
+    const projectWP = {
+        name: "Women Power",
+        description:
+            "Women of Power is a website created for Women’s Month that celebrates the achievements, and contributions of women. It features inspiring stories and highlights women who have made an impact in different fields. The website aims to recognize and empower women through a informative, and engaging design.",
+        images: [wpOne, wpTwo, wpThree, wpFour],
+        tools: ["HTML", "CSS", "Bootstrap", "Elementor", "Wordpress", "Figma"],
     };
 
     return (
@@ -226,6 +246,98 @@ function Projects() {
 
                 </div>
 
+                <div
+                className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 mx-auto max-w-7xl mt-20">
+
+                    <img
+                    src={WP}
+                    alt="Logo 3"
+                    className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
+                    />
+
+                    <div className="lg:mt-0 sm:mt-10">
+
+                        <div
+                        className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
+                            Women Of Power
+                        </div>
+
+                        <div
+                        className="font-poppins text-text text-base mt-5 text-justify">
+                            Women of Power is a website created for Women’s Month that celebrates the achievements, and contributions of women. It features inspiring stories and highlights women who have made an impact in different fields. The website aims to recognize and empower women through a informative, and engaging design.
+                        </div>
+
+                        <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
+
+                            <div
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                                HTML
+                            </div>
+
+                            <div
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                                CSS
+                            </div>
+
+                            <div
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                                Bootstrap
+                            </div>
+
+                            <div
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                                Elementor
+                            </div>
+
+                            <div
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                                Wordpress
+                            </div>
+
+                            <div
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                                Figma
+                            </div>
+
+                        </div>
+
+                        <div
+                            className="group flex flex-wrap gap-2 mt-5">
+
+                                <button
+                                onClick={() => {
+                                    setSelectedProject("wp");
+                                    setIsModalOpen(true);
+                                }}
+                                className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
+
+                                    <span
+                                    className="">Information</span>
+
+                                    <FiInfo className="text-sm"/>
+                                    
+                                </button>
+
+                                <a
+                                href="https://github.com/raizenraneses-git/Raizen-portfolio.git"
+                                target="_blank"
+                                rel="noopener norefferer"
+                                className="group flex flex-wrap items-center bg-black font-poppins text-white text-xs rounded-2xl
+                                gap-2 border-black py-2 px-6    ">
+                                    
+                                    <FaGithub className="text-sm"/>
+
+                                    <span className="">
+                                        View
+                                    </span>
+                                </a>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
 
             </div>
 
@@ -242,6 +354,14 @@ function Projects() {
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                     project={projectPop}
+                />
+            )}
+
+            {selectedProject === "wp" && (
+                <ProjectWP
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    project={projectWP}
                 />
             )}
             

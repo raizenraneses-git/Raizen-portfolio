@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import cv from "../assets/documents/cv.pdf";
 import facebook from "../assets/smIcons/facebook.png";
 import instagram from "../assets/smIcons/instagram.png";

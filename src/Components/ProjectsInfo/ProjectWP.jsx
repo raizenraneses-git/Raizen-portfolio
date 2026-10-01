@@ -70,7 +70,7 @@ export default function ProjectWP({ isOpen, onClose, project }) {
         // MOBILE FIX:
         // max-h-[calc(100vh-2rem)] keeps the modal inside the phone screen.
         // overflow-y-auto allows the modal content to scroll vertically.
-        className="relative w-full md:max-w-3xl max-h-[calc(100vh-2rem)] bg-white rounded-3xl overflow-y-auto  grid grid-cols-1 md:grid-cols-2 shadow-2xl my-4 md:my-0 scroll-smooth scrollbar-none"
+        className="relative w-full md:max-w-2xl max-h-[calc(100vh-2rem)] bg-white rounded-3xl overflow-y-auto  grid grid-cols-1 md:grid-cols-2 shadow-2xl my-4 md:my-0 scroll-smooth scrollbar-none"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
@@ -149,8 +149,8 @@ export default function ProjectWP({ isOpen, onClose, project }) {
             </p>
           </div>
 
-          {tools.length > 0 && (
-            <div className="mt-6 lg:mt-0">
+          {tools.length > 1 && (
+            <div className="mt-6 lg:mt-5">
               <p className="text-sm mb-3 font-semibold">Softwared Tools</p>
 
               <div className="flex flex-wrap gap-2">
@@ -170,7 +170,7 @@ export default function ProjectWP({ isOpen, onClose, project }) {
             href="https://www.inquirer.net/women-of-power/"
             target="_blank"
             rel="noopener"
-            className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs transition-all duration-300 hover:bg-primary hover:scale-105 rounded-2xl gap-3 w-50 h-8 mt-5 lg:mt-0"
+            className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs transition-all duration-300 hover:bg-primary hover:scale-105 rounded-2xl gap-3 w-50 h-8 mt-5 lg:mt-5"
           >
             <span className="ml-9">
               View on Website

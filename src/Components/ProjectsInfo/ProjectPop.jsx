@@ -70,7 +70,7 @@ export default function ProjectPop({ isOpen, onClose, project }) {
         // MOBILE FIX:
         // max-h-[calc(100vh-2rem)] keeps the modal inside the phone screen.
         // overflow-y-auto allows the modal content to scroll vertically.
-        className="relative w-full max-w-4xl max-h-[calc(100vh-2rem)] bg-white rounded-3xl overflow-y-auto md:overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-2xl my-4 md:my-0"
+        className="relative w-full max-w-4xl max-h-[calc(100vh-2rem)] bg-white rounded-3xl overflow-y-auto grid grid-cols-1 md:grid-cols-2 shadow-2xl my-4 md:my-0 scrollbar-none "
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}

@@ -3,6 +3,7 @@ import { useState } from "react";
 import SandreaLee from "../assets/projects/project1.png";
 import Pop from "../assets/projects/project2.png";
 import WP from "../assets/projects/project3.png";
+import HW from "../assets/projects/project4.png";
 
 
 import { FiInfo } from "react-icons/fi";
@@ -25,6 +26,14 @@ import wpOne from "../assets/wpImage/image1.png"
 import wpTwo from "../assets/wpImage/image2.png"
 import wpThree from "../assets/wpImage/image3.png"
 import wpFour from "../assets/wpImage/image4.png"
+
+import ProjectHW from "./ProjectsInfo/ProjectHW"
+import hwOne from "../assets/hwImage/image1.png"
+import hwTwo from "../assets/hwImage/image2.png"
+import hwThree from "../assets/hwImage/image3.png"
+import hwFour from "../assets/hwImage/image4.png"
+
+
 
 function Projects() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,6 +61,14 @@ function Projects() {
         description:
             "Women of Power is a website created for Women’s Month that celebrates the achievements, and contributions of women. It features inspiring stories and highlights women who have made an impact in different fields. The website aims to recognize and empower women through a informative, and engaging design.",
         images: [wpOne, wpTwo, wpThree, wpFour],
+        tools: ["HTML", "CSS", "Bootstrap", "Elementor", "Wordpress", "Figma"],
+    };
+
+    const projectHW = {
+        name: "Holy Week",
+        description:
+            "Holy Week is a digital blog that features stories and important moments related to Semana Santa in the Philippines. It provides readers with information about the meaning of Holy Week and how Filipino communities observe this important religious tradition through faith, reflection, and cultural practices.",
+        images: [hwOne, hwTwo, hwThree, hwFour],
         tools: ["HTML", "CSS", "Bootstrap", "Elementor", "Wordpress", "Figma"],
     };
 
@@ -140,7 +157,7 @@ function Projects() {
                                 </button>
 
                                 <a
-                                href="https://github.com/raizenraneses-git/Raizen-portfolio.git"
+                                href="https://github.com/raizenraneses-git/SALON.git"
                                 target="_blank"
                                 rel="noopener norefferer"
                                 className="group flex flex-wrap items-center bg-black font-poppins text-white text-xs rounded-2xl
@@ -319,7 +336,7 @@ function Projects() {
                                 </button>
 
                                 <a
-                                href="https://github.com/raizenraneses-git/Raizen-portfolio.git"
+                                href="https://github.com/raizenraneses-git/Women-Power"
                                 target="_blank"
                                 rel="noopener norefferer"
                                 className="group flex flex-wrap items-center bg-black font-poppins text-white text-xs rounded-2xl
@@ -335,11 +352,101 @@ function Projects() {
 
                     </div>
 
+                </div>
+
+                <div
+                className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 mx-auto max-w-7xl mt-20">
+
+                    <img
+                    src={HW}
+                    alt="Logo 3"
+                    className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
+                    />
+
+                    <div className="lg:mt-0 sm:mt-10">
+
+                        <div
+                        className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
+                            Holy Week
+                        </div>
+
+                        <div
+                        className="font-poppins text-text text-base mt-5 text-justify">
+                            Holy Week, or Semana Santa, is one of the most important religious observances in the Philippines, especially among Filipino Catholics. It commemorates the Passion, death, and resurrection of Jesus Christ, beginning with Palm Sunday and ending with Easter Sunday. For many Filipinos, it is a period of prayer, sacrifice, and family or community traditions.
+                        </div>
+
+                        <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
+
+                            <div
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                                HTML
+                            </div>
+
+                            <div
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                                CSS
+                            </div>
+
+                            <div
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                                Bootstrap
+                            </div>
+
+                            <div
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                                Elementor
+                            </div>
+
+                            <div
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                                Wordpress
+                            </div>
+
+                            <div
+                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                                Figma
+                            </div>
+
+                        </div>
+
+                        <div
+                            className="group flex flex-wrap gap-2 mt-5">
+
+                                <button
+                                onClick={() => {
+                                    setSelectedProject("hw");
+                                    setIsModalOpen(true);
+                                }}
+                                className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
+
+                                    <span
+                                    className="">Information</span>
+
+                                    <FiInfo className="text-sm"/>
+                                    
+                                </button>
+
+                                <a
+                                href="https://github.com/raizenraneses-git/Holy-Week-Project    "
+                                target="_blank"
+                                rel="noopener norefferer"
+                                className="group flex flex-wrap items-center bg-black font-poppins text-white text-xs rounded-2xl
+                                gap-2 border-black py-2 px-6    ">
+                                    
+                                    <FaGithub className="text-sm"/>
+
+                                    <span className="">
+                                        View
+                                    </span>
+                                </a>
+                        </div>
+
+                    </div>
 
                 </div>
 
-
             </div>
+
 
             {selectedProject === "sandreaLee" && (
                 <ProjectSDL
@@ -362,6 +469,14 @@ function Projects() {
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                     project={projectWP}
+                />
+            )}
+
+            {selectedProject === "hw" && (
+                <ProjectHW
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    project={projectHW}
                 />
             )}
             

@@ -6,8 +6,17 @@
 
 @plugin "tailwindcss-motion";
 
-html {
-  scrollbar-width: none;
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 html::-webkit-scrollbar {
@@ -19,9 +28,10 @@ html::-webkit-scrollbar {
   --color-primary: #1269cc;
   --color-secondary: #051f3d;
   --color-alternative: #1269cc;
-  --color-dark: #010a14;
-  --color-text: #303030;
-  --color-background: #e7f5fc;
+  --color-dbg: #010012;
+  --color-wbg: #ffff;
+  --color-Ldescription: #303030;
+  --color-Ddescription: #eaeaea;
 }
 
 {/* Fonts */}

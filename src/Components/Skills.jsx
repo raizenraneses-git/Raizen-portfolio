@@ -4,10 +4,16 @@ import webdeploymentLogo from "../assets/skills/webdeploymentLogo.png";
 import uiLogo from "../assets/skills/uiLogo.png";
 import freelancerLogo from "../assets/skills/freelancerLogo.png";
 
+import {
+  FiCode,
+  FiMonitor,
+  FiBriefcase,
+} from "react-icons/fi";
+
 function Skills() {
     return (
 
-        <section className="w-full px-4 sm:px-6 lg:px-8 py-10">
+        <section className="w-full px-4 sm:px-6 lg:px-8 py-10 bg-wbg dark:bg-dbg">
 
             {/* Sizes of every Section */}
             <div className="
@@ -28,7 +34,7 @@ function Skills() {
             ">
 
                 <div className="
-                    flex font-poppins text-secondary font-bold
+                    flex font-poppins text-secondary dark:text-white font-bold
                     text-[40px] sm:text-[52px] lg:text-[64px]
                 ">
                     Services &
@@ -70,15 +76,13 @@ function Skills() {
                 ">
 
                     {/* Logo */}
-                    <img 
-                        src={webdeploymentLogo} 
-                        alt="uiLogo" 
+                    <FiCode
                         className="
                             h-15 w-15 
-                            p-3.5 
-                            object-cover 
-                            bg-amber-100/80 
-                            rounded-2xl 
+                            rounded-2xl  
+                            bg-amber-100/80
+                            p-3.5
+                            text-amber-700 
                             ml-5 mt-5
                         "
                     />
@@ -87,11 +91,12 @@ function Skills() {
                     <div 
                         className="
                             font-poppins text-text 
-                            text-[20px] sm:text-[22px] lg:text-[24px]
+                            text-xl sm:text-xl lg:text-2xl
                             text-left font-bold 
                             pl-5 pr-5 sm:pr-8 lg:pr-10 
                             pt-5 
                             break-words
+                            dark:text-white
                         "
                     >
                         Web Development & Web Design
@@ -101,10 +106,11 @@ function Skills() {
                     <div 
                         className="
                             font-poppins text-text 
-                            text-[12px] 
+                            text-xs 
                             text-justify 
                             pl-5 pr-5 sm:pr-8 lg:pr-10 
                             pt-5
+                            dark:text-Ddescription
                         "
                     >
                         Develops and Creating clean and user-friendly 
@@ -116,18 +122,18 @@ function Skills() {
                         className="
                             list-disc 
                             font-poppins text-text 
-                            text-[12px] 
+                            text-xs 
                             pl-8 pr-5 
                             pt-5 pb-5
                         "
                     >
-                        <li className="marker:text-blue-500">
+                        <li className="marker:text-blue-500 dark:text-Ddescription">
                             Landing Page
                         </li>
-                        <li className="marker:text-blue-500">
+                        <li className="marker:text-blue-500 dark:text-Ddescription">
                             Events Page
                         </li>
-                        <li className="marker:text-blue-500">
+                        <li className="marker:text-blue-500 dark:text-Ddescription">
                             E-commerce Stores
                         </li>
                     </ul>
@@ -153,13 +159,10 @@ function Skills() {
                     min-w-0
                 ">
 
-                    <img 
-                        src={uiLogo} 
-                        alt="uiLogo" 
+                    <FiMonitor 
                         className="
                             h-15 w-15 
-                            p-3.5 
-                            object-cover 
+                            p-3.5
                             bg-cyan-100/80 
                             rounded-2xl 
                             ml-5 mt-5
@@ -175,6 +178,7 @@ function Skills() {
                             pl-5 pr-5 sm:pr-8 lg:pr-10 
                             pt-5
                             break-words
+                            dark:text-white
                         "
                     >
                         UI/UX Design
@@ -188,6 +192,7 @@ function Skills() {
                             text-justify 
                             pl-5 pr-5 sm:pr-8 lg:pr-10 
                             pt-5
+                            dark:text-Ddescription
                         "
                     >
                         Designs clean and functional interfaces that are 
@@ -205,13 +210,13 @@ function Skills() {
                             pt-5 pb-5
                         "
                     >
-                        <li className="marker:text-blue-500">
+                        <li className="marker:text-blue-500 dark:text-Ddescription">
                             User Interface
                         </li>
-                        <li className="marker:text-blue-500">
+                        <li className="marker:text-blue-500 dark:text-Ddescription">
                             Mobile App Interface
                         </li>
-                        <li className="marker:text-blue-500">
+                        <li className="marker:text-blue-500 dark:text-Ddescription">
                             Web Interface
                         </li>
                     </ul>
@@ -237,14 +242,12 @@ function Skills() {
                     min-w-0
                 ">
 
-                    <img 
-                        src={freelancerLogo} 
-                        alt="freelancerLogo" 
+                    <FiBriefcase 
                         className="
                             h-15 w-15 
                             p-3.5 
-                            object-cover 
-                            bg-blue-900/40 
+                            text-secondary
+                            bg-blue-200 
                             rounded-2xl 
                             ml-5 mt-5
                         "
@@ -259,6 +262,7 @@ function Skills() {
                             pl-5 pr-5 sm:pr-8 lg:pr-10 
                             pt-5
                             break-words
+                            dark:text-white
                         "
                     >
                         Freelancer
@@ -272,6 +276,7 @@ function Skills() {
                             text-justify 
                             pl-5 pr-5 sm:pr-8 lg:pr-10 
                             pt-5
+                            dark:text-Ddescription
                         "
                     >
                         Labels, reviews, and evaluates data to improve 
@@ -290,13 +295,13 @@ function Skills() {
                             pt-5 pb-5
                         "
                     >
-                        <li className="marker:text-blue-500">
+                        <li className="marker:text-blue-500 dark:text-Ddescription">
                             AI Content Moderator
                         </li>
-                        <li className="marker:text-blue-500">
+                        <li className="marker:text-blue-500 dark:text-Ddescription">
                             Data Quality Specialist
                         </li>
-                        <li className="marker:text-blue-500">
+                        <li className="marker:text-blue-500 dark:text-Ddescription">
                             Data Annotator
                         </li>
                     </ul>

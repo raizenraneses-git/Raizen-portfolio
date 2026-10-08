@@ -5,9 +5,9 @@ function Navbar({ darkMode, setDarkMode }) {
 
   return (
 
-    <nav className="sticky top-0 z-50 w-full p-5 bg-white/80 dark:bg-dark backdrop-blur-md">
+    <nav className="sticky top-0 z-50 w-full p-5 bg-wbg dark:bg-dbg backdrop-blur-md">
 
-      <div className="mx-auto flex h-full max-w-7xl items-center justify-between ">
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between">
 
         {/* Logo */}
         <div className="flex items-center gap-2">
@@ -18,7 +18,7 @@ function Navbar({ darkMode, setDarkMode }) {
             <div className="relative h-full w-full transition-transform duration-800 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
 
               {/* Front */}
-              <div className="absolute inset-0 flex items-center justify-center rounded-card bg-primary text-white text-[36px] font-play font-bold [backface-visibility:hidden]">
+              <div className="absolute inset-0 flex items-center justify-center rounded-card bg-primary text-white  text-[36px] font-play font-bold [backface-visibility:hidden]">
                 R 
               </div>
 
@@ -47,7 +47,7 @@ function Navbar({ darkMode, setDarkMode }) {
         </div>
 
         {/* Navigation */}
-        <ul className="hidden gap-12 font-poppins text-[16px] text-text dark:text-white md:flex">
+        <ul className="hidden gap-12 font-poppins text-[16px] text-text dark:text-Ddescription md:flex">
           <li className="cursor-pointer hover:text-primary transition-colors motion-rotate-in-45">
             Home
           </li>

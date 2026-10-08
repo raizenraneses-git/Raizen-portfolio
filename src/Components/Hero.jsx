@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
 
+import { FiDownload } from "react-icons/fi";
+import { FiArrowUpRight } from "react-icons/fi";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaXTwitter,
+  FaLinkedinIn,
+} from "react-icons/fa6";
 
 import cv from "../assets/documents/cv.pdf";
 import facebook from "../assets/smIcons/facebook.png";
@@ -85,7 +93,7 @@ function PhotoCard({ src, alt, className = "", objectPosition = "center" }) {
           bg-black/0
           transition-all
           duration-500
-          group-hover:bg-black/5
+          group-hover:bg-secondary/5
         "
       />
     </div>
@@ -94,7 +102,7 @@ function PhotoCard({ src, alt, className = "", objectPosition = "center" }) {
 
 function Hero({ darkMode, setDarkMode }) {
   return (
-    <section className="w-full px-8 py-10 dark:bg-dark">
+    <section className="w-full px-8 py-10 dark:bg-dbg">
 
       <div
         className="
@@ -145,7 +153,6 @@ function Hero({ darkMode, setDarkMode }) {
               font-bold
               leading-tight
               text-primary
-              dark:text-alternative
             "
           >
             <RotatingText
@@ -168,7 +175,7 @@ function Hero({ darkMode, setDarkMode }) {
               text-[20px]
               leading-relaxed
               text-text
-              dark:text-white
+              dark:text-Ddescription
             "
           >
             I am a passionate front-end developer who enjoys
@@ -178,7 +185,7 @@ function Hero({ darkMode, setDarkMode }) {
 
 
           {/* Buttons */}
-          <div className="mt-5 flex flex-wrap gap-6">
+          <div className="mt-5 flex flex-wrap gap-4">
 
             {/* CV */}
             <a
@@ -192,39 +199,32 @@ function Hero({ darkMode, setDarkMode }) {
                 justify-center
                 gap-2
                 rounded-card
-                bg-alternative
-                dark:bg-alternative
-                px-5
-                py-2
+                px-6
+                py-2.5
                 font-poppins
-                text-[12px]
-                font-bold
+                text-sm
                 text-white
-                dark:text-white
                 transition-all
                 duration-300
                 ease-in-out
-                hover:scale-105
+                hover:scale-[1.03]
+                bg-alternative
                 hover:bg-alternative
                 dark:hover:bg-alternative
               "
             >
-              <img
-                src={download}
-                alt="download"
+              <FiDownload
                 className="
-                  h-5
-                  w-5
-                  object-contain
+                  h-4
+                  w-4
+                  text-white
                   transition-transform
                   duration-300
                   group-hover:rotate-6
                 "
               />
 
-              <span>
-                Curriculum Vitae
-              </span>
+              Download CV
             </a>
 
 
@@ -242,28 +242,25 @@ function Hero({ darkMode, setDarkMode }) {
                 border-primary
                 bg-white
                 px-6
-                py-3
+                py-2.5
                 font-poppins
-                text-[12px]
-                font-bold
+                text-sm
                 text-primary
                 transition-all
                 duration-300
                 ease-in-out
-                hover:scale-105
+                hover:scale-[1.03]
               "
             >
               <span>
                 View My Works
               </span>
 
-              <img
-                src={arrow}
-                alt="arrow"
+              <FiArrowUpRight
                 className="
                   h-4
-                  w-5
-                  object-contain
+                  w-4
+                  text-primary
                   transition-transform
                   duration-300
                   group-hover:translate-x-1
@@ -275,67 +272,83 @@ function Hero({ darkMode, setDarkMode }) {
 
 
           {/* Social Media */}
-          <div className="mt-7 font-poppins text-[12px] text-text">
+          <div className="mt-7 font-poppins text-sm text-Ldescription dark:text-Ddescription">
             Social Media's / Contact
           </div>
 
 
           {/* Social Icons */}
-          <div className="mt-3 flex items-center gap-10">
+          <div className="mt-5 flex items-center gap-5">
 
+            {/* Facebook */}
             <a
               href="https://www.facebook.com/RaizenRaneses.K/"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-transform duration-300 hover:-translate-y-1"
+              aria-label="Facebook"
+              className="
+                text-secondary
+                dark:text-Ddescription
+                transition-all
+                hover:-translate-y-0.5
+                hover:text-primary
+              "
             >
-              <img
-                src={facebook}
-                alt="facebook"
-                className="h-8 w-8 object-contain"
-              />
+              <FaFacebookF className="h-5 w-5" />
             </a>
 
-
+            {/* Instagram */}
             <a
               href="https://www.instagram.com/raizenraneses/"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-transform duration-300 hover:-translate-y-1"
+              aria-label="Instagram"
+              className="
+                text-secondary
+                dark:text-Ddescription
+                transition-all
+                duration-300
+                hover:-translate-y-1
+                hover:text-primary
+              "
             >
-              <img
-                src={instagram}
-                alt="instagram"
-                className="h-8 w-8 object-contain"
-              />
+              <FaInstagram className="h-5 w-5" />
             </a>
 
-
+            {/* X / Twitter */}
             <a
               href="https://x.com/raizenraneses"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-transform duration-300 hover:-translate-y-1"
+              aria-label="X / Twitter"
+              className="
+                text-secondary
+                dark:text-Ddescription
+                transition-all
+                duration-300
+                hover:-translate-y-1
+                hover:text-primary
+              "
             >
-              <img
-                src={twitter}
-                alt="twitter"
-                className="h-8 w-8 object-contain"
-              />
+              <FaXTwitter className="h-5 w-5" />
             </a>
 
-
+            {/* LinkedIn */}
             <a
               href="https://www.linkedin.com/in/raizenra%C3%B1eses/"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-transform duration-300 hover:-translate-y-1"
+              aria-label="LinkedIn"
+              className="
+                text-secondary
+                dark:text-Ddescription
+                transition-all
+                duration-300
+                hover:-translate-y-1
+                hover:text-primary
+              "
             >
-              <img
-                src={linkedin}
-                alt="linkedin"
-                className="h-8 w-8 object-contain"
-              />
+              <FaLinkedinIn className="h-5 w-5" />
             </a>
 
           </div>
@@ -354,6 +367,7 @@ function Hero({ darkMode, setDarkMode }) {
             grid-cols-2
             grid-rows-3
             gap-3
+            mb-5
           "
         >
 

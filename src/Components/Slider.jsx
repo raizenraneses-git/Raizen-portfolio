@@ -8,7 +8,7 @@ const items = [
 
 function Slider() {
   return (
-    <div className="w-full overflow-hidden bg-[#1668D6] py-4 mt-10">
+    <div className="w-full max-w-full overflow-hidden py-4 bg-primary">
       <div className="slider-track flex w-max items-center">
         {[0, 1, 2, 3, 4, 5].map((groupIndex) => (
           <div

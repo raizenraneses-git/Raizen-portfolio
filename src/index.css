@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+ID:wght@100..400&display=swap');
 
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 @plugin "tailwindcss-motion";
 
 html {
@@ -15,6 +18,8 @@ html::-webkit-scrollbar {
 @theme {
   --color-primary: #1269CC;
   --color-secondary: #00183E;
+  --color-alternative: #90CAF9;
+  --color-dark: #001736;
   --color-text: #303030;
   --color-background: #ffff;
 }

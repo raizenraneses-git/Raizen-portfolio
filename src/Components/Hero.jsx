@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+
 import cv from "../assets/documents/cv.pdf";
 import facebook from "../assets/smIcons/facebook.png";
 import instagram from "../assets/smIcons/instagram.png";
@@ -91,9 +92,9 @@ function PhotoCard({ src, alt, className = "", objectPosition = "center" }) {
   );
 }
 
-function Hero() {
+function Hero({ darkMode, setDarkMode }) {
   return (
-    <section className="w-full px-8 py-10">
+    <section className="w-full px-8 py-10 dark:bg-dark">
 
       <div
         className="
@@ -114,7 +115,7 @@ function Hero() {
         <div className="flex flex-col">
 
           {/* Greeting */}
-          <div className="font-poppins text-[24px] text-primary">
+          <div className="font-poppins text-[24px] text-primary dark:text-alternative">
             ─── Hello Everyone! I am
           </div>
 
@@ -128,6 +129,7 @@ function Hero() {
               font-bold
               leading-tight
               text-secondary
+              dark:text-white
             "
           >
             RAIZEN RAÑESES
@@ -143,6 +145,7 @@ function Hero() {
               font-bold
               leading-tight
               text-primary
+              dark:text-alternative
             "
           >
             <RotatingText
@@ -165,6 +168,7 @@ function Hero() {
               text-[20px]
               leading-relaxed
               text-text
+              dark:text-white
             "
           >
             I am a passionate front-end developer who enjoys

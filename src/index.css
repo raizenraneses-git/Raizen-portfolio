@@ -16,12 +16,12 @@ html::-webkit-scrollbar {
 
 {/* Color */}
 @theme {
-  --color-primary: #1269CC;
-  --color-secondary: #00183E;
-  --color-alternative: #90CAF9;
-  --color-dark: #001736;
+  --color-primary: #1269cc;
+  --color-secondary: #051f3d;
+  --color-alternative: #1269cc;
+  --color-dark: #010a14;
   --color-text: #303030;
-  --color-background: #ffff;
+  --color-background: #e7f5fc;
 }
 
 {/* Fonts */}

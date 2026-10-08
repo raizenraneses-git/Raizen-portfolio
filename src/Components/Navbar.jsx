@@ -18,7 +18,7 @@ function Navbar({ darkMode, setDarkMode }) {
             <div className="relative h-full w-full transition-transform duration-800 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
 
               {/* Front */}
-              <div className="absolute inset-0 flex items-center justify-center rounded-card bg-primary text-white text-[36px] dark:text-secondary font-play font-bold [backface-visibility:hidden] dark:bg-alternative">
+              <div className="absolute inset-0 flex items-center justify-center rounded-card bg-primary text-white text-[36px] font-play font-bold [backface-visibility:hidden]">
                 R 
               </div>
 
@@ -36,7 +36,7 @@ function Navbar({ darkMode, setDarkMode }) {
           </div>
 
           {/* Name */}
-          <div className="text-[24px] font-poppins font-bold dark: dark:text-white">
+          <div className="text-[24px] font-poppins font-bold dark:text-white">
             Raizen Raneses
           </div>
 
@@ -65,7 +65,7 @@ function Navbar({ darkMode, setDarkMode }) {
         {/* Right Side */}
         <button
           onClick={() => setDarkMode(!darkMode)}
-          className="rounded-card bg-secondary p-2 font-poppins text-[16px] text-white transition hover:bg-white hover:text-secondary font-bold duration-500"
+          className="rounded-card text-secondary hover:bg-secondary hover:text-white dark:text-white dark:hover:bg-white dark:hover:text-secondary p-2 font-poppins text-[16px] transition font-bold duration-500"
           aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
         >
           {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}

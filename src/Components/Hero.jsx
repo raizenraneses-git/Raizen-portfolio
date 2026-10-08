@@ -105,7 +105,7 @@ function Hero({ darkMode, setDarkMode }) {
           items-center
           gap-12
           lg:grid-cols-[1fr_0.9fr]
-          lg:gap-16 
+          lg:gap-16
         "
       >
 
@@ -192,18 +192,21 @@ function Hero({ darkMode, setDarkMode }) {
                 justify-center
                 gap-2
                 rounded-card
-                bg-blue-500
+                bg-alternative
+                dark:bg-alternative
                 px-5
                 py-2
                 font-poppins
                 text-[12px]
                 font-bold
                 text-white
+                dark:text-white
                 transition-all
                 duration-300
                 ease-in-out
                 hover:scale-105
-                hover:bg-blue-600
+                hover:bg-alternative
+                dark:hover:bg-alternative
               "
             >
               <img

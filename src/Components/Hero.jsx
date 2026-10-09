@@ -10,12 +10,6 @@ import {
 } from "react-icons/fa6";
 
 import cv from "../assets/documents/cv.pdf";
-import facebook from "../assets/smIcons/facebook.png";
-import instagram from "../assets/smIcons/instagram.png";
-import twitter from "../assets/smIcons/twitter.png";
-import linkedin from "../assets/smIcons/linkedin.png";
-import download from "../assets/download.png";
-import arrow from "../assets/arrowResume.png";
 
 import heroOne from "../assets/heroImage/image1.jpg";
 import heroTwo from "../assets/heroImage/image2.jpg";
@@ -23,35 +17,51 @@ import heroThree from "../assets/heroImage/image3.jpg";
 import heroFour from "../assets/heroImage/image4.jpg";
 
 function RotatingText({ words, interval = 2000 }) {
-  const [index, setIndex] = useState(0);
-  const [animate, setAnimate] = useState(true);
+  const [wordIndex, setWordIndex] = useState(0);
+  const [text, setText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [fade, setFade] = useState(true);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      // trigger exit animation first
-      setAnimate(false);
+    const currentWord = words[wordIndex];
 
-      setTimeout(() => {
-        setIndex((prev) => (prev + 1) % words.length);
-        setAnimate(true); // trigger enter animation
-      }, 700); // must match your transition duration
-    }, interval);
+    // Type or delete one letter
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        // Add one letter
+        setText(currentWord.substring(0, text.length + 1));
 
-    return () => clearInterval(timer);
-  }, [words, interval]);
+        // Start deleting when the word is complete
+        if (text.length + 1 === currentWord.length) {
+          setTimeout(() => {
+            setFade(false);
+            setIsDeleting(true);
+          }, interval);
+        }
+      } else {
+        // Remove one letter
+        setText(currentWord.substring(0, text.length - 1));
+
+        // Move to the next word when empty
+        if (text.length === 1) {
+          setIsDeleting(false);
+          setWordIndex((prev) => (prev + 1) % words.length);
+          setFade(true);
+        }
+      }
+    }, isDeleting ? 60 : 120);
+
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, wordIndex, words, interval]);
 
   return (
-    <span className="overflow-hidden">
-      <span
-        key={index}
-        className={`inline-block transition-all duration-500 ease-in-out ${
-          animate
-            ? "translate-y-0 opacity-100"
-            : "translate-y-6 opacity-0"
-        }`}
-      >
-        {words[index]}
-      </span>
+    <span
+      className={`inline-block transition-opacity duration-700 ${
+        fade ? "opacity-900" : "opacity-100"
+      }`}
+    >
+      {text}
+      <span className="animate-pulse"></span>
     </span>
   );
 }
@@ -169,7 +179,7 @@ function Hero({ darkMode, setDarkMode }) {
           {/* Description */}
           <div
             className="
-              mt-10
+              mt-8
               max-w-xl
               font-poppins
               text-[20px]
@@ -185,7 +195,7 @@ function Hero({ darkMode, setDarkMode }) {
 
 
           {/* Buttons */}
-          <div className="mt-5 flex flex-wrap gap-4">
+          <div className="mt-6 flex flex-wrap gap-4">
 
             {/* CV */}
             <a
@@ -308,7 +318,7 @@ function Hero({ darkMode, setDarkMode }) {
                 dark:text-Ddescription
                 transition-all
                 duration-300
-                hover:-translate-y-1
+                hover:-translate-y-0.5
                 hover:text-primary
               "
             >
@@ -326,7 +336,7 @@ function Hero({ darkMode, setDarkMode }) {
                 dark:text-Ddescription
                 transition-all
                 duration-300
-                hover:-translate-y-1
+                hover:-translate-y-0.5
                 hover:text-primary
               "
             >
@@ -344,7 +354,7 @@ function Hero({ darkMode, setDarkMode }) {
                 dark:text-Ddescription
                 transition-all
                 duration-300
-                hover:-translate-y-1
+                hover:-translate-y-0.5
                 hover:text-primary
               "
             >

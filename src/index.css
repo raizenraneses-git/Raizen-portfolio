@@ -6,17 +6,22 @@
 
 @plugin "tailwindcss-motion";
 
-html,
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 body {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  margin: 0;
 }
 
 #root {
   width: 100%;
   max-width: 100%;
-  overflow-x: clip;
+  min-height: 100vh;
 }
 
 html::-webkit-scrollbar {

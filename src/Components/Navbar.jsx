@@ -5,7 +5,7 @@ function Navbar({ darkMode, setDarkMode }) {
 
   return (
 
-    <nav className="sticky top-0 z-50 w-full p-5 bg-wbg dark:bg-dbg backdrop-blur-md">
+    <nav className="sticky top-0 z-50 w-full p-5 bg-wbg/80 dark:bg-dbg backdrop-blur-md">
 
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between">
 
@@ -48,7 +48,7 @@ function Navbar({ darkMode, setDarkMode }) {
 
         {/* Navigation */}
         <ul className="hidden gap-12 font-poppins text-[16px] text-text dark:text-Ddescription md:flex">
-          <li className="cursor-pointer hover:text-primary transition-colors motion-rotate-in-45">
+          <li className="cursor-pointer hover:text-primary transition-colors">
             Home
           </li>
           <li className="cursor-pointer hover:text-primary transition-colors duration-300">

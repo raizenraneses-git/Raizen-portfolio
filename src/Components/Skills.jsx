@@ -1,9 +1,3 @@
-import { useState, useEffect } from "react";
-import profile from "../assets/personaCard.png";
-import webdeploymentLogo from "../assets/skills/webdeploymentLogo.png";
-import uiLogo from "../assets/skills/uiLogo.png";
-import freelancerLogo from "../assets/skills/freelancerLogo.png";
-
 import {
   FiCode,
   FiMonitor,
@@ -17,12 +11,12 @@ function Skills() {
 
             {/* Sizes of every Section */}
             <div className="
-                mx-auto max-w-7xl items-center mt-10
+                mx-auto max-w-7xl items-center mt-8
             ">
 
                 <div className="
                     flex font-poppins text-primary 
-                    text-[24px] sm:text-[28px] lg:text-[32px]
+                    text-2xl sm:text-3xl lg:text-3xl
                 ">
                     What I Do
                 </div>
@@ -96,6 +90,7 @@ function Skills() {
                             pl-5 pr-5 sm:pr-8 lg:pr-10 
                             pt-5 
                             break-words
+                            text-secondary
                             dark:text-white
                         "
                     >
@@ -110,6 +105,7 @@ function Skills() {
                             text-justify 
                             pl-5 pr-5 sm:pr-8 lg:pr-10 
                             pt-5
+                            text-Ldescription
                             dark:text-Ddescription
                         "
                     >
@@ -127,13 +123,13 @@ function Skills() {
                             pt-5 pb-5
                         "
                     >
-                        <li className="marker:text-blue-500 dark:text-Ddescription">
+                        <li className="marker:text-blue-500 text-Ldescription dark:text-Ddescription">
                             Landing Page
                         </li>
-                        <li className="marker:text-blue-500 dark:text-Ddescription">
+                        <li className="marker:text-blue-500 text-Ldescription dark:text-Ddescription">
                             Events Page
                         </li>
-                        <li className="marker:text-blue-500 dark:text-Ddescription">
+                        <li className="marker:text-blue-500 text-Ldescription dark:text-Ddescription">
                             E-commerce Stores
                         </li>
                     </ul>

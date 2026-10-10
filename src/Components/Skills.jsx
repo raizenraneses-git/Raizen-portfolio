@@ -59,7 +59,7 @@ function Skills() {
                 gap-5 
                 mx-auto 
                 max-w-7xl 
-                mt-8 sm:mt-10
+                mt-8 sm:mt-8
             ">
 
                 {/* First Card */}
@@ -74,9 +74,9 @@ function Skills() {
                         className="
                             h-15 w-15 
                             rounded-2xl  
-                            bg-amber-100/80
+                            bg-teal-100
                             p-3.5
-                            text-amber-700 
+                            text-teal-700 
                             ml-5 mt-5
                         "
                     />
@@ -85,7 +85,7 @@ function Skills() {
                     <div 
                         className="
                             font-poppins text-text 
-                            text-xl sm:text-xl lg:text-2xl
+                            text-2xl
                             text-left font-bold 
                             pl-5 pr-5 sm:pr-8 lg:pr-10 
                             pt-5 
@@ -134,17 +134,6 @@ function Skills() {
                         </li>
                     </ul>
 
-                    {/* See More */}
-                    <div
-                        className="
-                            font-poppins text-primary 
-                            text-[16px] sm:text-[18px] 
-                            pl-5 pr-5 pb-5
-                        "
-                    >
-                        See More
-                    </div>
-
                 </div>
 
 
@@ -159,7 +148,8 @@ function Skills() {
                         className="
                             h-15 w-15 
                             p-3.5
-                            bg-cyan-100/80 
+                            bg-cyan-100
+                            text-cyan-700 
                             rounded-2xl 
                             ml-5 mt-5
                         "
@@ -169,11 +159,12 @@ function Skills() {
                     <div 
                         className="
                             font-poppins text-text 
-                            text-[20px] sm:text-[22px] lg:text-[24px]
+                            text-2xl
                             text-left font-bold 
                             pl-5 pr-5 sm:pr-8 lg:pr-10 
                             pt-5
                             break-words
+                            text-secondary
                             dark:text-white
                         "
                     >
@@ -217,17 +208,6 @@ function Skills() {
                         </li>
                     </ul>
 
-                    {/* See More */}
-                    <div
-                        className="
-                            font-poppins text-primary 
-                            text-[16px] sm:text-[18px] 
-                            pl-5 pr-5 pb-5
-                        "
-                    >
-                        See More
-                    </div>
-
                 </div>
 
 
@@ -242,8 +222,8 @@ function Skills() {
                         className="
                             h-15 w-15 
                             p-3.5 
-                            text-secondary
-                            bg-blue-200 
+                            text-blue-700
+                            bg-blue-100 
                             rounded-2xl 
                             ml-5 mt-5
                         "
@@ -253,11 +233,12 @@ function Skills() {
                     <div 
                         className="
                             font-poppins text-text 
-                            text-[20px] sm:text-[22px] lg:text-[24px]
+                            text-2xl
                             text-left font-bold 
                             pl-5 pr-5 sm:pr-8 lg:pr-10 
                             pt-5
                             break-words
+                            text-secondary
                             dark:text-white
                         "
                     >
@@ -301,17 +282,6 @@ function Skills() {
                             Data Annotator
                         </li>
                     </ul>
-
-                    {/* See More */}
-                    <div
-                        className="
-                            font-poppins text-primary 
-                            text-[16px] sm:text-[18px] 
-                            pl-5 pr-5 pb-5
-                        "
-                    >
-                        See More
-                    </div>
 
                 </div>
 

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"; 
 import aboutMe from "../assets/aboutMe/aboutMe.png"; 
-import arrowButton from "../assets/aboutMe/arrowButton.png";
 import { LuArrowUpRight } from "react-icons/lu";
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -8,7 +7,7 @@ import { LuArrowUpRight } from "react-icons/lu";
 function AboutMe() { 
     return (
         
-        <section className="w-full px-4 sm:px-6 lg:px-8 py-10"> 
+        <section className="w-full px-4 sm:px-6 lg:px-8 py-10 bg-wbg dark:bg-dbg"> 
  
             {/*Sizes of every Section*/} 
             <div  

@@ -1,3 +1,5 @@
+import { CloudShader } from "../components/ui/cloud-shader";
+
 import profile from "../assets/personaCard.png";
 import { FiSun, FiMoon } from "react-icons/fi";
 

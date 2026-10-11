@@ -1,3 +1,5 @@
+import TiltCard from "./Motion/TiltCard";
+
 import gnCert from "../assets/documents/gnCert.pdf";
 import reactCert from "../assets/documents/reactCert.pdf";
 import webCert from "../assets/documents/webCert.pdf";

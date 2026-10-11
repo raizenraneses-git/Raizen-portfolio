@@ -75,3 +75,15 @@ html::-webkit-scrollbar {
     animation: none;
   }
 }
+
+/*Tilt Card Colored*/
+
+/* Light Mode */
+:root {
+  --tilt-glare: #051f3d;
+}
+
+/* Dark Mode */
+.dark {
+  --tilt-glare: #1269cc;
+}

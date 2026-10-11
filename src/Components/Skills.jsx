@@ -1,3 +1,5 @@
+import TiltCard from "./Motion/TiltCard";
+
 import {
   FiCode,
   FiMonitor,
@@ -63,7 +65,7 @@ function Skills() {
             ">
 
                 {/* First Card */}
-                <div className="
+                <TiltCard className="
                     border border-primary 
                     rounded-2xl 
                     min-w-0
@@ -134,11 +136,11 @@ function Skills() {
                         </li>
                     </ul>
 
-                </div>
+                </TiltCard>
 
 
                 {/* Second Card */}
-                <div className="
+                <TiltCard className="
                     border border-primary 
                     rounded-2xl 
                     min-w-0
@@ -208,11 +210,11 @@ function Skills() {
                         </li>
                     </ul>
 
-                </div>
+                </TiltCard>
 
 
                 {/* Third Card */}
-                <div className="
+                <TiltCard className="
                     border border-primary 
                     rounded-2xl 
                     min-w-0
@@ -283,7 +285,7 @@ function Skills() {
                         </li>
                     </ul>
 
-                </div>
+                </TiltCard>
 
             </div>
 

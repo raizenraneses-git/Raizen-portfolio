@@ -12,10 +12,13 @@
   "dependencies": {
     "@fontsource/play": "^5.2.8",
     "@fontsource/poppins": "^5.2.7",
-    "motion": "^13.4.6",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.55.0",
+    "motion": "^13.5.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-icons": "^5.7.0"
+    "react-icons": "^5.7.0",
+    "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",

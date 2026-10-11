@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 
 import Navbar from "./Components/Navbar";
 import Hero from "./Components/Hero";
@@ -11,8 +12,13 @@ import Projects from "./Components/Projects";
 function App() {
   const [darkMode, setDarkMode] = useState(false);
 
+  // Update the dark mode class
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+  }, [darkMode]);
+
   return (
-    <div className={darkMode ? "dark" : ""}>
+    <div>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
       <Hero />

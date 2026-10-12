@@ -1,9 +1,6 @@
-import TiltCard from "./Motion/TiltCard";
-
 import gnCert from "../assets/documents/gnCert.pdf";
 import reactCert from "../assets/documents/reactCert.pdf";
 import webCert from "../assets/documents/webCert.pdf";
-
 
 
 function Credentials() { 
@@ -99,7 +96,9 @@ function Credentials() {
  
                         <a href={reactCert} target="_blank" rel="noopener noreferrer" className="inline-block font-poppins text-white dark:text-white bg-secondary dark:bg-primary hover:bg-primary hover:text-white dark:hover:bg-white dark:hover:text-primary hover:scale-105 hover:shadow-lg text-[12px] rounded-2xl p-2 px-5 py-1 ml-5 mt-3 mb-3 border transition-all duration-300" > View </a> 
                     </div> 
-                </div> 
+                </div>
+                
+                 
  
             </div> 
         </section> 

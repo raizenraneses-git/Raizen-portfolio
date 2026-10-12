@@ -1,5 +1,3 @@
-import { CloudShader } from "../components/ui/cloud-shader";
-
 import profile from "../assets/personaCard.png";
 import { FiSun, FiMoon } from "react-icons/fi";
 
@@ -26,10 +24,14 @@ function Navbar({ darkMode, setDarkMode }) {
 
               {/* Back */}
               <div className="absolute inset-0 overflow-hidden rounded-card [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                <img
+                <div
                   src={profile}
-                  alt="Profile"
-                  className="h-full w-full object-cover"
+                  resolution={100}
+                  color="var(--color-primary)"
+                  animationStyle="fade"
+                  animationDuration={1.5}
+                  animateOnView={false}
+                  className="h-full w-full bg-white dark:bg-dbg"
                 />
               </div>
 

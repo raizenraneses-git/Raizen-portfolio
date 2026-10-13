@@ -30,18 +30,18 @@ function AboutMe() {
                             ABOUT ME 
                         </div> 
  
-                        <div  
-                        className="font-poppins text-secondary text-3xl sm:text-5xl lg:text-5xl text-left font-bold mt-5 sm:mt-5"> 
+                        <div 
+                        className="font-poppins text-secondary dark:text-white text-3xl sm:text-5xl lg:text-5xl text-left font-bold mt-5 sm:mt-5"> 
                             I like clean designs and functional code. 
                         </div> 
  
                         <div  
-                        className="font-poppins text-text text-justify text-base sm:text-base sm:text-justify sm:mt-5 mt-5 leading-relaxed"> 
+                        className="font-poppins text-Ldescription dark:text-Ddescription text-justify text-base sm:text-base sm:text-justify sm:mt-5 mt-5 leading-relaxed"> 
                             I focus on proper clean designs that emphasize simplicity, and performance transforming ideas into responsive and engaging digital experiences. 
                         </div> 
  
                         <div  
-                        className="font-poppins text-text text-justify text-base sm:text-base sm:text-justify sm:mt-5 mt-5 leading-relaxed"> 
+                        className="font-poppins text-Ldescription dark:text-Ddescription text-justify text-base sm:text-base sm:text-justify sm:mt-5 mt-5 leading-relaxed"> 
                             I’m a Fresh Graduate Student in Information Technology from National Teachers College.   
                         </div> 
  

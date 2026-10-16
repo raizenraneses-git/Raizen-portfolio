@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react"; 
+import { SquigglyText } from "./Motion/SquigglyText";
 import aboutMe from "../assets/aboutMe/aboutMe.png"; 
 import { LuArrowUpRight } from "react-icons/lu";
+import HalftoneReveal from "../ReactBitss/HalftoneReveal";
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -32,7 +33,15 @@ function AboutMe() {
  
                         <div 
                         className="font-poppins text-secondary dark:text-white text-3xl sm:text-5xl lg:text-5xl text-left font-bold mt-5 sm:mt-5"> 
-                            I like clean designs and functional code. 
+                            I like {" "}   
+                            <SquigglyText
+                                stepDuration={60}
+                                scale={4}
+                                className="text-primary mr-3"
+                            >
+                                clean
+                            </SquigglyText>
+                              designs and functional code. 
                         </div> 
  
                         <div  

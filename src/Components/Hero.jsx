@@ -9,6 +9,8 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa6";
 
+import HalftoneReveal from "../ReactBitss/HalftoneReveal";
+
 import cv from "../assets/documents/cv.pdf";
 
 import heroOne from "../assets/heroImage/image1.jpg";

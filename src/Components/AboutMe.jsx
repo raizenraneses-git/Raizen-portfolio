@@ -1,7 +1,7 @@
 import { SquigglyText } from "./Motion/SquigglyText";
 import aboutMe from "../assets/aboutMe/aboutMe.png"; 
 import { LuArrowUpRight } from "react-icons/lu";
-import HalftoneReveal from "../ReactBitss/HalftoneReveal";
+
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -36,7 +36,7 @@ function AboutMe() {
                             I like {" "}   
                             <SquigglyText
                                 stepDuration={60}
-                                scale={4}
+                                scale={4}   
                                 className="text-primary mr-3"
                             >
                                 clean

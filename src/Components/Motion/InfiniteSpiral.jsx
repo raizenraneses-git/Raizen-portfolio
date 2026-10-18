@@ -1,4 +1,3 @@
-
 import { useEffect, useMemo, useRef } from 'react';
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -13,11 +12,11 @@ const InfiniteSpiral = ({
   speed = 0.55,
   direction = 'up',
   animationMode = 'auto',
-  radius = 170,
+  radius = 270,
   cardWidth = 100,
   cardHeight = 100,
   verticalSpacing = 60,
-  perspective = 1000,
+  perspective = 100,
   cardsPerTurn = 7,
   rotation = 0,
   cardTilt = 0,
@@ -28,8 +27,10 @@ const InfiniteSpiral = ({
   pauseOnHover = true,
   imageFit = 'cover',
   grayscale = 0,
+  iconSize = 67,
   className = ''
 }) => {
+
   const rootRef = useRef(null);
   const cardRefs = useRef([]);
   const progressRef = useRef(0);
@@ -218,13 +219,14 @@ const InfiniteSpiral = ({
       <div className="absolute inset-0 [transform-style:preserve-3d]" role="list" aria-label="Infinite spiral gallery">
         {normalizedItems.map((item, index) => {
           const Card = item.href ? 'a' : 'div';
+          const Icon = item.icon;
           return (
             <Card
               key={item.id ?? `${item.src}-${index}`}
               ref={node => {
                 cardRefs.current[index] = node;
               }}
-              className="absolute left-1/2 top-1/2 block h-[var(--spiral-height)] w-[var(--spiral-width)] overflow-hidden rounded-[var(--spiral-radius)] border border-white/25 bg-white/10 shadow-[0_14px_38px_rgba(8,6,18,0.2)] [backface-visibility:hidden] [transform-style:preserve-3d] [will-change:transform,opacity,filter] motion-reduce:transition-none"
+              className="absolute left-1/2 top-1/2 block h-[var(--spiral-height)] w-[var(--spiral-width)] overflow-hidden [0_14px_38px_rgba(8,6,18,0.2)] [backface-visibility:hidden] [transform-style:preserve-3d] [will-change:transform,opacity,filter] motion-reduce:transition-none"
               style={{ width: cardWidth, height: cardHeight, borderRadius: cardRadius }}
               href={item.href}
               target={item.target}
@@ -232,21 +234,30 @@ const InfiniteSpiral = ({
               role="listitem"
               aria-label={item.label ?? item.alt}
             >
-              <img
-                className="absolute inset-0 block h-full w-full select-none object-center"
-                src={item.src}
-                alt={item.alt}
-                loading={index < 6 ? 'eager' : 'lazy'}
-                draggable={false}
-                style={{
-                  width: cardWidth,
-                  height: cardHeight,
-                  maxWidth: 'none',
-                  maxHeight: 'none',
-                  objectFit: imageFit,
-                  filter: `grayscale(${Math.min(1, Math.max(0, grayscale))})`
-                }}
-              />
+              {Icon ? (
+                <div
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ color: item.color }}
+                >
+                  <Icon size={iconSize} />
+                </div>
+              ) : (
+                <img
+                  className="absolute inset-0 block h-full w-full select-none object-center"
+                  src={item.src}
+                  alt={item.alt}
+                  loading={index < 6 ? 'eager' : 'lazy'}
+                  draggable={false}
+                  style={{
+                    width: cardWidth,
+                    height: cardHeight,
+                    maxWidth: 'none',
+                    maxHeight: 'none',
+                    objectFit: imageFit,
+                    filter: `grayscale(${Math.min(1, Math.max(0, grayscale))})`
+                  }}
+                />
+              )}
             </Card>
           );
         })}

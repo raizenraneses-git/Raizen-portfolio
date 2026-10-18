@@ -1,4 +1,8 @@
 import TiltCard from "./Motion/TiltCard";
+import InfiniteSpiral from "./Motion/InfiniteSpiral";
+
+import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaWordpress } from "react-icons/fa";
+import { SiFigma, SiTailwindcss, SiElementor, SiMysql } from "react-icons/si";
 
 import {
   FiCode,
@@ -7,6 +11,19 @@ import {
 } from "react-icons/fi";
 
 function Skills() {
+
+    const icons = [
+        { id: "html",      icon: FaHtml5,       color: "#E34F26", alt: "HTML" },
+        { id: "figma",     icon: SiFigma,       color: "#F24E1E", alt: "Figma" },
+        { id: "css",       icon: FaCss3Alt,     color: "#1572B6", alt: "CSS" },
+        { id: "js",        icon: FaJs,          color: "#F7DF1E", alt: "JavaScript" },
+        { id: "react",     icon: FaReact,       color: "#61DAFB", alt: "React.js" },
+        { id: "tailwind",  icon: SiTailwindcss, color: "#06B6D4", alt: "Tailwind CSS" },
+        { id: "wordpress", icon: FaWordpress,   color: "#21759B", alt: "WordPress" },
+        { id: "elementor", icon: SiElementor,   color: "#92003B", alt: "Elementor" },
+        { id: "mysql",     icon: SiMysql,       color: "#4479A1", alt: "MySQL" },
+    ];
+
     return (
 
         <section className="w-full px-4 sm:px-6 lg:px-8 py-10 bg-wbg dark:bg-dbg">
@@ -51,6 +68,8 @@ function Skills() {
 
             </div>
 
+            
+
 
             {/* Service and Expertise Cards */}
             <div className="
@@ -59,9 +78,9 @@ function Skills() {
                 sm:grid-cols-2 
                 lg:grid-cols-3 
                 gap-5 
-                mx-auto 
-                max-w-7xl 
-                mt-8 sm:mt-8
+                mx-auto
+                max-w-7xl
+                mt-10
             ">
 
                 {/* First Card */}
@@ -218,6 +237,7 @@ function Skills() {
                     border border-primary 
                     rounded-2xl 
                     min-w-0
+                    sm:col-span-2
                 ">
 
                     <FiBriefcase 
@@ -287,7 +307,34 @@ function Skills() {
 
                 </TiltCard>
 
+                {/* RIGHT SIDE - Infinite Spiral */}
+            <div className="flex max-w-7xl h-[400px] lg:h-auto lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:row-span-2 sm:col-span-2">
+
+                <InfiniteSpiral
+                items={icons}
+                animationMode="all"
+                speed={0.55}
+                radius={100}
+                iconSize={75}
+                verticalSpacing={60}
+                perspective={1}
+                cardRadius={10}
+                centerScale={1}
+                edgeBlur={10}
+                cardsPerTurn={8}
+                pauseOnHover
+                direction="up"
+                rotation={0}
+                cardTilt={0}
+                edgeFade={2.3}
+                imageFit="cover"
+                grayscale={10}
+                />
+                
             </div>
+
+            </div>
+
 
         </section>
     );

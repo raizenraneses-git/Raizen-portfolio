@@ -1,76 +1,70 @@
-import profile from "../assets/personaCard.png";
 import { FiSun, FiMoon } from "react-icons/fi";
+import CircularText from "./Motion/CircularText";
 
 function Navbar({ darkMode, setDarkMode }) {
-
   return (
-
     <nav className="sticky top-0 z-50 w-full p-5 bg-wbg/80 dark:bg-dbg backdrop-blur-md">
-
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between">
 
-        {/* Logo */}
-        <div className="flex items-center gap-2">
+        {/* Left Side: Logo and Name */}
+        <div className="flex items-center gap-3">
+          <CircularText
+            text="Raneses*Raizen"
+            onHover="speedUp"
+            direction="clockwise"
+            spinDuration={20}
+            size={80}
+            fontSize={12}
+            draggable
+            hoverTilt={20}
+            className="custom-class"
+            tilt={0}
+            fontWeight={900}
+            letterSpacing={0}
+            startAngle={0}
+            repeat={1}
+            fill
+            ring={false}
+            color="#1269cc"
+          />
 
-          {/* Flip Card */}
-          <div className="group h-12 w-12 cursor-pointer [perspective:1000px]">
-
-            <div className="relative h-full w-full transition-transform duration-800 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-
-              {/* Front */}
-              <div className="absolute inset-0 flex items-center justify-center rounded-card bg-primary text-white  text-[36px] font-play font-bold [backface-visibility:hidden]">
-                R 
-              </div>
-
-              {/* Back */}
-              <div className="absolute inset-0 overflow-hidden rounded-card [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                <div
-                  src={profile}
-                  resolution={100}
-                  color="var(--color-primary)"
-                  animationStyle="fade"
-                  animationDuration={1.5}
-                  animateOnView={false}
-                  className="h-full w-full bg-white dark:bg-dbg"
-                />
-              </div>
-
+          <div className="flex items-center">
+            <div className="text-[24px] font-poppins font-bold dark:text-white">
+              Raizen Raneses
             </div>
 
+            <div className="text-[24px] font-poppins font-bold text-primary">
+              .
+            </div>
           </div>
-
-          {/* Name */}
-          <div className="text-[24px] font-poppins font-bold dark:text-white">
-            Raizen Raneses
-          </div>
-
-          <div className="text-[24px] font-poppins font-bold text-primary dark:text-primary">
-            .
-          </div>
-
         </div>
 
         {/* Navigation */}
         <ul className="hidden gap-12 font-poppins text-[16px] text-text dark:text-Ddescription md:flex">
-          <li className="cursor-pointer hover:text-primary transition-colors">
+          <li className="cursor-pointer transition-colors hover:text-primary">
             Home
           </li>
-          <li className="cursor-pointer hover:text-primary transition-colors duration-300">
+
+          <li className="cursor-pointer transition-colors duration-300 hover:text-primary">
             About
           </li>
-          <li className="cursor-pointer hover:text-primary transition-colors">
+
+          <li className="cursor-pointer transition-colors hover:text-primary">
             Projects
           </li>
-          <li className="cursor-pointer hover:text-primary transition-colors">
+
+          <li className="cursor-pointer transition-colors hover:text-primary">
             Contact
           </li>
         </ul>
 
-        {/* Right Side */}
+        {/* Right Side: Dark Mode Toggle */}
         <button
           onClick={() => setDarkMode(!darkMode)}
-          className="rounded-card text-secondary hover:bg-secondary hover:text-white dark:text-white dark:hover:bg-white dark:hover:text-secondary p-2 font-poppins text-[16px] transition font-bold duration-500"
-          aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+          className="rounded-card p-2 font-poppins text-[16px] font-bold text-secondary transition duration-500 hover:bg-secondary hover:text-white dark:text-white dark:hover:bg-white dark:hover:text-secondary"
+          aria-label={
+            darkMode ? "Switch to light mode" : "Switch to dark mode"
+          }
         >
           {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
         </button>

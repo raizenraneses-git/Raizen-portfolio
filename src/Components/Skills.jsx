@@ -313,28 +313,26 @@ function Skills() {
                 <InfiniteSpiral
                 items={icons}
                 animationMode="all"
-                speed={0.55}
+                speed={0.35}
                 radius={100}
                 iconSize={75}
                 verticalSpacing={60}
                 perspective={1}
-                cardRadius={10}
                 centerScale={1}
-                edgeBlur={10}
-                cardsPerTurn={8}
+                edgeBlur={5}
+                cardsPerTurn={7}
                 pauseOnHover
                 direction="up"
                 rotation={0}
                 cardTilt={0}
-                edgeFade={2.3}
+                edgeFade={1}
                 imageFit="cover"
                 grayscale={10}
                 />
                 
             </div>
 
-            </div>
-
+        </div>
 
         </section>
     );

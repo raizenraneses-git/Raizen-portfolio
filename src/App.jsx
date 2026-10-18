@@ -8,7 +8,6 @@ import Skills from "./Components/Skills";
 import Credentials from "./Components/Credentials";
 import AboutMe from "./Components/AboutMe";
 import Projects from "./Components/Projects";
-import InfiniteSpiralMain from "./Components/InfiniteSpiralMain";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -24,7 +23,6 @@ function App() {
 
       <Hero />
       <Slider />
-      <InfiniteSpiralMain />
       <Skills />
       <Credentials />
       <AboutMe />

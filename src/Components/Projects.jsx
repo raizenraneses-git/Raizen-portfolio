@@ -1,4 +1,5 @@
-import { useState } from "react";
+// Dinagdagan ng useEffect at useRef para sa scroll detection
+import { useState, useEffect, useRef } from "react";
 
 import SandreaLee from "../assets/projects/project1.png";
 import Pop from "../assets/projects/project2.png";
@@ -6,6 +7,7 @@ import WP from "../assets/projects/project3.png";
 import HW from "../assets/projects/project4.png";
 
 
+// Tinanggal na ang FiChevronDown at FiChevronUp dahil wala nang button
 import { FiInfo } from "react-icons/fi";
 import { FaGithub } from "react-icons/fa";
 
@@ -33,12 +35,59 @@ import hwTwo from "../assets/hwImage/image2.png"
 import hwThree from "../assets/hwImage/image3.png"
 import hwFour from "../assets/hwImage/image4.png"
 
+// ===== REVEAL COMPONENT =====
+// Pambalot ito. Ang laman niya ay lalabas na may animation kapag nakita na sa screen.
+function Reveal({ children }) {
 
+    // false = hindi pa nakikita (nakatago), true = nakita na (lalabas na)
+    const [isVisible, setIsVisible] = useState(false);
+
+    // Ito ang "pangturo" natin kung aling box ang babantayan
+    const boxRef = useRef(null);
+
+    useEffect(() => {
+        // Ang observer ay nagbabantay kung pumasok na ang box sa screen
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                // Kapag nakita na sa screen
+                if (entry.isIntersecting) {
+                    setIsVisible(true);   // ipakita na
+                    observer.disconnect(); // tigil na ang pagbabantay (isang beses lang lalabas)
+                }
+            },
+            { threshold: 0.2 } // lalabas kapag 20% ng box ay nakikita na
+        );
+
+        // Simulan ang pagbabantay sa box
+        if (boxRef.current) {
+            observer.observe(boxRef.current);
+        }
+
+        // Linisin ang observer kapag nawala ang component
+        return () => observer.disconnect();
+    }, []);
+
+    return (
+        <div
+            ref={boxRef}
+            // Kapag hindi pa visible: transparent at nasa ibaba ng kaunti
+            // Kapag visible na: kita na at nasa tamang pwesto (gumagalaw paakyat)
+            className={`transition-all duration-700 ease-out ${
+                isVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-16"
+            }`}
+        >
+            {children}
+        </div>
+    );
+}
 
 function Projects() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState("");
-    
+
+    // Tinanggal na ang showAll dahil scroll animation na ang gamit, hindi na button
 
     const projectSDL = {
         name: "Smart Automated Link & Operations Network",
@@ -74,7 +123,7 @@ function Projects() {
 
     return (
 
-        <section className="w-full px-4 sm:px-6 lg:px-8 py-10">
+        <section className="w-full px-4 sm:px-6 lg:px-8 py-10 bg-wbg dark:bg-dbg">
 
             <div
             className="w-full mx-auto max-w-7xl items-center mt-10 sm:px-0 lg:px-0">
@@ -85,10 +134,12 @@ function Projects() {
                 </div>
 
                 <div 
-                className="font-poppins text-secondary font-bold text-6xl mt-10">
+                className="font-poppins text-secondary dark:text-white font-bold text-6xl mt-10">
                     Selected Project
                 </div>
 
+                {/* ===== FIRST PROJECT - SDL =====
+                    Walang <Reveal> dito, kaya laging kita agad */}
                 <div
                 className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 mx-auto max-w-7xl mt-20">
 
@@ -106,34 +157,34 @@ function Projects() {
                         </div>
 
                         <div
-                        className="font-poppins text-text text-base mt-5 text-justify">
+                        className="font-poppins text-Ldescription dark:text-Ddescription text-base mt-5 text-justify">
                             A salon management system designed to streamline appointment booking, online shopping, and administrative tasks through an intuitive user experience.
                         </div>
 
                         <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                 React.Js
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                 Tailwind CSS
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                 Node.Js
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                 Typescript
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                 Canva
                             </div>
 
@@ -159,13 +210,13 @@ function Projects() {
                                 <a
                                 href="https://github.com/raizenraneses-git/SALON.git"
                                 target="_blank"
-                                rel="noopener norefferer"
-                                className="group flex flex-wrap items-center bg-black font-poppins text-white text-xs rounded-2xl
+                                rel="noopener noreferrer"
+                                className="group flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
                                 gap-2 border-black py-2 px-6    ">
                                     
-                                    <FaGithub className="text-sm"/>
+                                    <FaGithub className="text-sm dark:text-black"/>
 
-                                    <span className="">
+                                    <span className="dark:text-black">
                                         View
                                     </span>
                                 </a>
@@ -176,274 +227,283 @@ function Projects() {
 
                 </div>
 
-                <div
-                className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 mx-auto max-w-7xl mt-20">
+                {/* ===== SECOND PROJECT - Pop! =====
+                    Nakabalot sa <Reveal>, lalabas kapag na-scroll na */}
+                <Reveal>
+                    <div
+                    className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 mx-auto max-w-7xl mt-20">
 
-                    <img
-                    src={Pop}
-                    alt="Logo 2"
-                    className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
-                    />
+                        <img
+                        src={Pop}
+                        alt="Logo 2"
+                        className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
+                        />
 
-                    <div className="lg:mt-0 sm:mt-10">
-
-                        <div
-                        className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
-                            POP!
-                        </div>
-
-                        <div
-                        className="font-poppins text-text text-base mt-5 text-justify">
-                            POP! by Inquirer is an online media platform that delivers fresh, entertaining, and trend-focused stories. Its content is presented in a more casual and creative style compared with traditional news, making it accessible to readers who are interested in current pop culture and internet trends.
-                        </div>
-
-                        <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
+                        <div className="lg:mt-0 sm:mt-10">
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                HTML
+                            className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
+                                POP!
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                CSS
+                            className="font-poppins text-Ldescription dark:text-Ddescription text-base mt-5 text-justify">
+                                POP! by Inquirer is an online media platform that delivers fresh, entertaining, and trend-focused stories. Its content is presented in a more casual and creative style compared with traditional news, making it accessible to readers who are interested in current pop culture and internet trends.
+                            </div>
+
+                            <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    HTML
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    CSS
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Bootstrap
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Wordpress
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Elementor
+                                </div>
+
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                Bootstrap
+                                className="group flex flex-wrap gap-2 mt-5">
+
+                                    <button
+                                    onClick={() => {
+                                        setSelectedProject("pop");
+                                        setIsModalOpen(true);
+                                    }}
+                                    className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
+
+                                        <span
+                                        className="">Information</span>
+
+                                        <FiInfo className="text-sm"/>
+                                        
+                                    </button>
+
+                                    <a
+                                    href="https://github.com/raizenraneses-git/Pop-.git"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group flex flex-wrap items-center bg-black dark:bg-white  font-poppins text-white text-xs rounded-2xl
+                                    gap-2 border-black py-2 px-6    ">
+                                        
+                                        <FaGithub className="text-sm dark:text-black"/>
+
+                                        <span className="dark:text-black">
+                                            View
+                                        </span>
+                                    </a>
                             </div>
 
-                            <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                Wordpress
-                            </div>
-
-                            <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                Elementor
-                            </div>
-
-                        </div>
-
-                        <div
-                            className="group flex flex-wrap gap-2 mt-5">
-
-                                <button
-                                onClick={() => {
-                                    setSelectedProject("pop");
-                                    setIsModalOpen(true);
-                                }}
-                                className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
-
-                                    <span
-                                    className="">Information</span>
-
-                                    <FiInfo className="text-sm"/>
-                                    
-                                </button>
-
-                                <a
-                                href="https://github.com/raizenraneses-git/Pop-.git"
-                                target="_blank"
-                                rel="noopener norefferer"
-                                className="group flex flex-wrap items-center bg-black font-poppins text-white text-xs rounded-2xl
-                                gap-2 border-black py-2 px-6    ">
-                                    
-                                    <FaGithub className="text-sm"/>
-
-                                    <span className="">
-                                        View
-                                    </span>
-                                </a>
                         </div>
 
                     </div>
+                </Reveal>
 
+                {/* ===== THIRD PROJECT - Women Of Power ===== */}
+                <Reveal>
+                    <div
+                    className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 mx-auto max-w-7xl mt-20">
 
-                </div>
+                        <img
+                        src={WP}
+                        alt="Logo 3"
+                        className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
+                        />
 
-                <div
-                className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 mx-auto max-w-7xl mt-20">
-
-                    <img
-                    src={WP}
-                    alt="Logo 3"
-                    className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
-                    />
-
-                    <div className="lg:mt-0 sm:mt-10">
-
-                        <div
-                        className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
-                            Women Of Power
-                        </div>
-
-                        <div
-                        className="font-poppins text-text text-base mt-5 text-justify">
-                            Women of Power is a website created for Women’s Month that celebrates the achievements, and contributions of women. It features inspiring stories and highlights women who have made an impact in different fields. The website aims to recognize and empower women through a informative, and engaging design.
-                        </div>
-
-                        <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
+                        <div className="lg:mt-0 sm:mt-10">
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                HTML
+                            className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
+                                Women Of Power
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                CSS
+                            className="font-poppins text-Ldescription dark:text-Ddescription text-base mt-5 text-justify">
+                                Women of Power is a website created for Women’s Month that celebrates the achievements, and contributions of women. It features inspiring stories and highlights women who have made an impact in different fields. The website aims to recognize and empower women through a informative, and engaging design.
+                            </div>
+
+                            <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    HTML
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    CSS
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Bootstrap
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Elementor
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Wordpress
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Figma
+                                </div>
+
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                Bootstrap
+                                className="group flex flex-wrap gap-2 mt-5">
+
+                                    <button
+                                    onClick={() => {
+                                        setSelectedProject("wp");
+                                        setIsModalOpen(true);
+                                    }}
+                                    className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
+
+                                        <span
+                                        className="">Information</span>
+
+                                        <FiInfo className="text-sm"/>
+                                        
+                                    </button>
+
+                                    <a
+                                    href="https://github.com/raizenraneses-git/Women-Power"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
+                                    gap-2 border-black py-2 px-6    ">
+                                        
+                                        <FaGithub className="text-sm dark:text-black"/>
+
+                                        <span className="dark:text-black">
+                                            View
+                                        </span>
+                                    </a>
                             </div>
 
-                            <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                Elementor
-                            </div>
-
-                            <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                Wordpress
-                            </div>
-
-                            <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                Figma
-                            </div>
-
-                        </div>
-
-                        <div
-                            className="group flex flex-wrap gap-2 mt-5">
-
-                                <button
-                                onClick={() => {
-                                    setSelectedProject("wp");
-                                    setIsModalOpen(true);
-                                }}
-                                className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
-
-                                    <span
-                                    className="">Information</span>
-
-                                    <FiInfo className="text-sm"/>
-                                    
-                                </button>
-
-                                <a
-                                href="https://github.com/raizenraneses-git/Women-Power"
-                                target="_blank"
-                                rel="noopener norefferer"
-                                className="group flex flex-wrap items-center bg-black font-poppins text-white text-xs rounded-2xl
-                                gap-2 border-black py-2 px-6    ">
-                                    
-                                    <FaGithub className="text-sm"/>
-
-                                    <span className="">
-                                        View
-                                    </span>
-                                </a>
                         </div>
 
                     </div>
+                </Reveal>
 
-                </div>
+                {/* ===== FOURTH PROJECT - Holy Week ===== */}
+                <Reveal>
+                    <div
+                    className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 mx-auto max-w-7xl mt-20">
 
-                <div
-                className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 mx-auto max-w-7xl mt-20">
+                        <img
+                        src={HW}
+                        alt="Logo 4"
+                        className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
+                        />
 
-                    <img
-                    src={HW}
-                    alt="Logo 3"
-                    className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
-                    />
-
-                    <div className="lg:mt-0 sm:mt-10">
-
-                        <div
-                        className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
-                            Holy Week
-                        </div>
-
-                        <div
-                        className="font-poppins text-text text-base mt-5 text-justify">
-                            Holy Week, or Semana Santa, is one of the most important religious observances in the Philippines, especially among Filipino Catholics. It commemorates the Passion, death, and resurrection of Jesus Christ, beginning with Palm Sunday and ending with Easter Sunday. For many Filipinos, it is a period of prayer, sacrifice, and family or community traditions.
-                        </div>
-
-                        <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
+                        <div className="lg:mt-0 sm:mt-10">
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                HTML
+                            className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
+                                Holy Week
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                CSS
+                            className="font-poppins text-Ldescription dark:text-Ddescription text-base mt-5 text-justify">
+                                Holy Week, or Semana Santa, is one of the most important religious observances in the Philippines, especially among Filipino Catholics. It commemorates the Passion, death, and resurrection of Jesus Christ, beginning with Palm Sunday and ending with Easter Sunday. For many Filipinos, it is a period of prayer, sacrifice, and family or community traditions.
+                            </div>
+
+                            <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    HTML
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    CSS
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Bootstrap
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Elementor
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Wordpress
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Figma
+                                </div>
+
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                Bootstrap
+                                className="group flex flex-wrap gap-2 mt-5">
+
+                                    <button
+                                    onClick={() => {
+                                        setSelectedProject("hw");
+                                        setIsModalOpen(true);
+                                    }}
+                                    className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
+
+                                        <span
+                                        className="">Information</span>
+
+                                        <FiInfo className="text-sm"/>
+                                        
+                                    </button>
+
+                                    <a
+                                    href="https://github.com/raizenraneses-git/Holy-Week-Project"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
+                                    gap-2 border-black py-2 px-6    ">
+                                        
+                                        <FaGithub className="text-sm dark:text-black"/>
+
+                                        <span className="dark:text-black">
+                                            View
+                                        </span>
+                                    </a>
                             </div>
 
-                            <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                Elementor
-                            </div>
-
-                            <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                Wordpress
-                            </div>
-
-                            <div
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/10 text-center p-2 hover-scale-105 hover:shadow-lg transition-all duration-300">
-                                Figma
-                            </div>
-
-                        </div>
-
-                        <div
-                            className="group flex flex-wrap gap-2 mt-5">
-
-                                <button
-                                onClick={() => {
-                                    setSelectedProject("hw");
-                                    setIsModalOpen(true);
-                                }}
-                                className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
-
-                                    <span
-                                    className="">Information</span>
-
-                                    <FiInfo className="text-sm"/>
-                                    
-                                </button>
-
-                                <a
-                                href="https://github.com/raizenraneses-git/Holy-Week-Project    "
-                                target="_blank"
-                                rel="noopener norefferer"
-                                className="group flex flex-wrap items-center bg-black font-poppins text-white text-xs rounded-2xl
-                                gap-2 border-black py-2 px-6    ">
-                                    
-                                    <FaGithub className="text-sm"/>
-
-                                    <span className="">
-                                        View
-                                    </span>
-                                </a>
                         </div>
 
                     </div>
-
-                </div>
+                </Reveal>
 
             </div>
 

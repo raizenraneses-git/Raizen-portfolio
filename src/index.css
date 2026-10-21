@@ -140,3 +140,8 @@ html::-webkit-scrollbar {
   60%  { transform: translateX(0); }
   100% { transform: translateX(110%); }
 }
+
+@theme inline {
+  --btn-liquid-fill: var(--foreground);
+}
+

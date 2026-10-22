@@ -42,18 +42,18 @@ function AboutMe() {
                     <div className="mx-auto w-full h-[400px] sm:h-[400px] lg:h-[520px] lg:mr-2">
                         <GridMotion
                             items={gridItems}   // mga picture
-                            rows={2}            // 2 rows (top at bottom)
+                            rows={3}            // 2 rows (top at bottom)
                             direction="alternate" // top = pa-left, bottom = pa-right
-                            aspectRatio={0.8}   // hugis ng bawat picture (mas mababa = mas patayo)
+                            aspectRatio={0.7}   // hugis ng bawat picture (mas mababa = mas patayo)
                             gap={12}            // espasyo sa pagitan ng pictures
                             radius={8}          // bilog ng corners ng pictures
-                            angle={0}           // 0 = diretso, walang tabingi
+                            angle={-20}           // 0 = diretso, walang tabingi
                             tilt={0}            // 0 = walang 3D effect
                             speed={30}          // bilis ng galaw
                             parallax={0.5}
                             spotlight={0.5}
-                            dim={0}
-                            fade={0.1}          // ito yung nagda-dim sa corners/gilid (0 = walang fade, 1 = malakas)
+                            dim={0.1}
+                            fade={0.4}          // ito yung nagda-dim sa corners/gilid (0 = walang fade, 1 = malakas)
                             grayscale={false}
                             // theme="light"    // tanggalin ang // kung gusto mo ng light na tiles
                         />

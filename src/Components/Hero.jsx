@@ -135,7 +135,7 @@ function Hero({ darkMode, setDarkMode }) {
         <div className="flex flex-col">
 
           {/* Greeting */}
-          <div className="font-poppins text-[24px] text-primary dark:text-alternative">
+          <div className="font-poppins text-[24px] text-primary">
             ─── Hello Everyone! I am
           </div>
 
@@ -220,9 +220,8 @@ function Hero({ darkMode, setDarkMode }) {
                 duration-300
                 ease-in-out
                 hover:scale-[1.03]
-                bg-alternative
+                bg-primary
                 hover:bg-alternative
-                dark:hover:bg-alternative
               "
             >
               <FiDownload

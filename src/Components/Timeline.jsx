@@ -26,20 +26,20 @@ export default function Timeline() {
   const { containerRef, iconRefs, line, activeCount } = useTimelineScroll();
 
   return (
-    <section className="w-full bg-wbg dark:bg-dbg px-4 py-10 sm:px-6 lg:px-8 text-white">
+    <section className="w-full bg-wbg dark:bg-dbg px-4 py-10 sm:px-8 lg:px-8 text-white">
 
       {/* ================= MAIN DESCRIPTION (taas) ================= */}
-      <header className=" w-full mx-auto max-w-7xl mb-24 text-center">
+      <header className=" w-full mx-auto max-w-7xl text-center lg:mb-16 sm:mb-16 mb-16">
 
-        <p className="mb-7 text-sm font-bold font-poppins tracking-[0.5em] text-secondary dark:text-white   ">
+        <p className="mb-3 text-xs sm:text-sm font-bold font-poppins tracking-[0.5em] text-secondary dark:text-white">
           {timelineIntro.label}
         </p>
 
-        <h2 className="mb-4 text-4xl font-black font-poppins uppercase tracking-wide text-primary">
+        <h2 className="mb-4 text-3xl sm:text-4xl lg:text-5xl font-black font-poppins uppercase tracking-wide text-primary">
           {timelineIntro.title}
         </h2>
 
-        <p className="text-lg text-slate-600 dark:text-slate-300">{timelineIntro.text}</p>
+        <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300">{timelineIntro.text}</p>
       </header>
 
       {/* ================= TIMELINE ================= */}

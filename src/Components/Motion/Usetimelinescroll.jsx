@@ -24,35 +24,35 @@ export const timelineIntro = {
 // tagValue = yung kasunod na detail
 export const timelineSteps = [
   {
-    icon: "S",
+    icon: "",
     title: "Understand",
     text: "I take time to understand the task, its purpose, and what needs to be accomplished.",
     tagLabel: "FOCUS",
     tagValue: "Clarity and Preparation",
   },
   {
-    icon: "✏️",
+    icon: "",
     title: "Prepare",
     text: "I organize my tasks, set priorities, and make sure I have a clear direction before getting started.",
     tagLabel: "FOCUS",
     tagValue: "Organization and Planning",
   },
   {
-    icon: "🧩",
+    icon: "",
     title: "Work with Purpose",
     text: "I approach each task carefully, paying attention to the details and keeping the goal in mind.",
     tagLabel: "FOCUS",
     tagValue: "Care and Consistency",
   },
   {
-    icon: "💻",
+    icon: "",
     title: "Review",
     text: "I check my work, identify mistakes, and make the necessary adjustments before considering it complete.",
     tagLabel: "FOCUS",
     tagValue: "Accuracy and Responsibility",
   },
   {
-    icon: "🧪",
+    icon: "",
     title: "Improve",
     text: "I learn from the process, build on what I know, and work on becoming more consistent over time.",
     tagLabel: "FOCUS",

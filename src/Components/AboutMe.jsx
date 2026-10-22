@@ -1,6 +1,25 @@
 import { SquigglyText } from "./Motion/SquigglyText";
-import aboutMe from "../assets/aboutMe/aboutMe.png"; 
 import { LuArrowUpRight } from "react-icons/lu";
+
+{/* NEW: Import ng GridMotion (ayusin lang ang path kung iba ang location ng file mo) */}
+import GridMotion from "./Motion/GridMotion";
+
+import heroImage from "../assets/aboutMe/aboutMe.png";
+import heroImage2 from "../assets/aboutMe/aboutMe2.png";
+import heroImage3 from "../assets/aboutMe/aboutMe2.png";
+
+
+{/* NEW: Listahan ng mga picture na lalabas sa Grid Motion
+    - Pwede kang magdagdag pa ng pictures dito (import mo muna sa taas)
+    - Kung konti lang ang pictures, mauulit-ulit lang sila sa grid, okay lang yun */}
+const gridItems = [
+    heroImage,
+    heroImage2,
+    heroImage3,
+    // Dagdagan mo dito ng sarili mong pictures, example:
+    // project1,
+    // project2,
+];
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -16,14 +35,31 @@ function AboutMe() {
  
                 {/*About Me Colums Structure*/} 
                 <div  
-                className="grid sm:grid-cols-1 lg:grid-cols-2 mx-auto max-w-7xl mt-10"> 
+                className="grid sm:grid-cols-1 lg:grid-cols-2 mx-auto max-w-7xl mt-10 gap-10"> 
  
-                    <img  
-                    src={aboutMe} 
-                    alt= "about me" 
-                    className="rounded-2xl h-auto w-80 mx-auto shadow-2xl"  
-                    /> 
- 
+                    {/* ================= LEFT SIDE: GRID MOTION ================= */}
+                    {/* Kailangan ng fixed height ang container, kasi 100% ng container ang kukunin ng GridMotion */}
+                    <div className="mx-auto w-full h-[400px] sm:h-[400px] lg:h-[520px] lg:mr-2">
+                        <GridMotion
+                            items={gridItems}   // mga picture
+                            rows={2}            // 2 rows (top at bottom)
+                            direction="alternate" // top = pa-left, bottom = pa-right
+                            aspectRatio={0.8}   // hugis ng bawat picture (mas mababa = mas patayo)
+                            gap={12}            // espasyo sa pagitan ng pictures
+                            radius={8}          // bilog ng corners ng pictures
+                            angle={0}           // 0 = diretso, walang tabingi
+                            tilt={0}            // 0 = walang 3D effect
+                            speed={30}          // bilis ng galaw
+                            parallax={0.5}
+                            spotlight={0.5}
+                            dim={0}
+                            fade={0.1}          // ito yung nagda-dim sa corners/gilid (0 = walang fade, 1 = malakas)
+                            grayscale={false}
+                            // theme="light"    // tanggalin ang // kung gusto mo ng light na tiles
+                        />
+                    </div>
+
+                    {/* ================= RIGHT SIDE: ORIGINAL CONTENT (walang binago) ================= */}
                     <div className="lg:mt-0 sm:mt-10 mt-10 lg:mr-10"> 
  
                         <div 

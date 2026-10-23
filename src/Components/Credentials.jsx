@@ -6,7 +6,7 @@ import webCert from "../assets/documents/webCert.pdf";
 function Credentials() { 
     return ( 
  
-        <section className="w-full px-4 sm:px-6 lg:px-8 py-10 bg-wbg dark:bg-dbg"> 
+        <section className="w-full px-4 sm:px-6 lg:px-8 py-10 bg-secondary/2 dark:bg-dbg/98"> 
  
             {/*Structure of the Components*/} 
             <div  

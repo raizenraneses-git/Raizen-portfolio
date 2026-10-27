@@ -164,27 +164,27 @@ function Projects() {
                         <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
 
                             <div
-                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                 React.Js
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                 Tailwind CSS
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                 Node.Js
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                 Typescript
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                 Canva
                             </div>
 
@@ -198,7 +198,7 @@ function Projects() {
                                     setSelectedProject("sandreaLee");
                                     setIsModalOpen(true);
                                 }}
-                                className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
+                                className="group flex flex-wrap items-center text-white hover:text-secondary bg-primary hover:bg-alternative  font-poppins text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:scale-105 hover:shadow-lg py-2 px-5">
 
                                     <span
                                     className="">Information</span>
@@ -211,8 +211,15 @@ function Projects() {
                                 href="https://github.com/raizenraneses-git/SALON.git"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
-                                gap-2 border-black py-2 px-6    ">
+                                className="group relative isolate overflow-hidden flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
+                                    gap-2 border-black py-2 px-6
+                                    transition-all duration-300 ease-out hover:scale-105 active:scale-95
+                                    before:content-[''] before:absolute before:inset-y-0 before:-left-6 before:-z-10 before:w-[150%]
+                                    before:bg-black dark:before:bg-white before:-skew-x-[20deg] before:-translate-x-full hover:before:translate-x-0
+                                    before:transition-transform before:duration-300 before:delay-100 before:ease-out
+                                    after:content-[''] after:absolute after:inset-y-0 after:-left-6 after:-z-20 after:w-[150%]
+                                    after:bg-alternative after:-skew-x-[20deg] after:-translate-x-full hover:after:translate-x-0
+                                    after:transition-transform after:duration-300 after:ease-out">
                                     
                                     <FaGithub className="text-sm dark:text-black"/>
 
@@ -254,7 +261,7 @@ function Projects() {
                             <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     HTML
                                 </div>
 
@@ -264,17 +271,17 @@ function Projects() {
                                 </div>
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     Bootstrap
                                 </div>
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     Wordpress
                                 </div>
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     Elementor
                                 </div>
 
@@ -288,7 +295,8 @@ function Projects() {
                                         setSelectedProject("pop");
                                         setIsModalOpen(true);
                                     }}
-                                    className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
+                                    className="group flex flex-wrap items-center text-white hover:text-secondary bg-primary hover:bg-alternative
+                                    font-poppins text-xs rounded-2xl gap-2 border-secondary transition-all duration-300  hover:scale-105 hover:shadow-lg py-2 px-5">
 
                                         <span
                                         className="">Information</span>
@@ -301,8 +309,15 @@ function Projects() {
                                     href="https://github.com/raizenraneses-git/Pop-.git"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group flex flex-wrap items-center bg-black dark:bg-white  font-poppins text-white text-xs rounded-2xl
-                                    gap-2 border-black py-2 px-6    ">
+                                    className="group relative isolate overflow-hidden flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
+                                    gap-2 border-black py-2 px-6
+                                    transition-all duration-300 ease-out hover:scale-105 active:scale-95
+                                    before:content-[''] before:absolute before:inset-y-0 before:-left-6 before:-z-10 before:w-[150%]
+                                    before:bg-black dark:before:bg-white before:-skew-x-[20deg] before:-translate-x-full hover:before:translate-x-0
+                                    before:transition-transform before:duration-300 before:delay-100 before:ease-out
+                                    after:content-[''] after:absolute after:inset-y-0 after:-left-6 after:-z-20 after:w-[150%]
+                                    after:bg-alternative after:-skew-x-[20deg] after:-translate-x-full hover:after:translate-x-0
+                                    after:transition-transform after:duration-300 after:ease-out">
                                         
                                         <FaGithub className="text-sm dark:text-black"/>
 
@@ -343,32 +358,32 @@ function Projects() {
                             <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     HTML
                                 </div>
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     CSS
                                 </div>
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     Bootstrap
                                 </div>
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     Elementor
                                 </div>
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     Wordpress
                                 </div>
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     Figma
                                 </div>
 
@@ -382,7 +397,7 @@ function Projects() {
                                         setSelectedProject("wp");
                                         setIsModalOpen(true);
                                     }}
-                                    className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
+                                    className="group flex flex-wrap items-center text-white hover:text-secondary bg-primary hover:bg-alternative font-poppins text-xs rounded-2xl gap-2 border-secondary transition-all duration-300  hover:scale-105 hover:shadow-lg py-2 px-5">
 
                                         <span
                                         className="">Information</span>
@@ -395,8 +410,15 @@ function Projects() {
                                     href="https://github.com/raizenraneses-git/Women-Power"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
-                                    gap-2 border-black py-2 px-6    ">
+                                    className="group relative isolate overflow-hidden flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
+                                    gap-2 border-black py-2 px-6
+                                    transition-all duration-300 ease-out hover:scale-105 active:scale-95
+                                    before:content-[''] before:absolute before:inset-y-0 before:-left-6 before:-z-10 before:w-[150%]
+                                    before:bg-black dark:before:bg-white before:-skew-x-[20deg] before:-translate-x-full hover:before:translate-x-0
+                                    before:transition-transform before:duration-300 before:delay-100 before:ease-out
+                                    after:content-[''] after:absolute after:inset-y-0 after:-left-6 after:-z-20 after:w-[150%]
+                                    after:bg-alternative after:-skew-x-[20deg] after:-translate-x-full hover:after:translate-x-0
+                                    after:transition-transform after:duration-300 after:ease-out">
                                         
                                         <FaGithub className="text-sm dark:text-black"/>
 
@@ -437,32 +459,32 @@ function Projects() {
                             <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     HTML
                                 </div>
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     CSS
                                 </div>
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     Bootstrap
                                 </div>
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     Elementor
                                 </div>
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     Wordpress
                                 </div>
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     Figma
                                 </div>
 
@@ -476,7 +498,7 @@ function Projects() {
                                         setSelectedProject("hw");
                                         setIsModalOpen(true);
                                     }}
-                                    className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg py-2 px-5">
+                                    className="group flex flex-wrap items-center text-white hover:text-secondary bg-primary hover:bg-alternative font-poppins text-xs rounded-2xl gap-2 border-secondary transition-all duration-300  hover:scale-105 hover:shadow-lg py-2 px-5">
 
                                         <span
                                         className="">Information</span>
@@ -489,8 +511,15 @@ function Projects() {
                                     href="https://github.com/raizenraneses-git/Holy-Week-Project"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
-                                    gap-2 border-black py-2 px-6    ">
+                                    className="group relative isolate overflow-hidden flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
+                                    gap-2 border-black py-2 px-6
+                                    transition-all duration-300 ease-out hover:scale-105 active:scale-95
+                                    before:content-[''] before:absolute before:inset-y-0 before:-left-6 before:-z-10 before:w-[150%]
+                                    before:bg-black dark:before:bg-white before:-skew-x-[20deg] before:-translate-x-full hover:before:translate-x-0
+                                    before:transition-transform before:duration-300 before:delay-100 before:ease-out
+                                    after:content-[''] after:absolute after:inset-y-0 after:-left-6 after:-z-20 after:w-[150%]
+                                    after:bg-alternative after:-skew-x-[20deg] after:-translate-x-full hover:after:translate-x-0
+                                    after:transition-transform after:duration-300 after:ease-out">
                                         
                                         <FaGithub className="text-sm dark:text-black"/>
 

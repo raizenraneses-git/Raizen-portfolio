@@ -93,64 +93,71 @@ function AboutMe() {
                         <div className="flex flex-wrap gap-1 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300"> 
  
                             <div  
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
                                 HTML 
                             </div> 
  
                             <div  
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
                                 Figma 
                             </div> 
  
                             <div  
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
                                 CSS 
                             </div> 
  
                             <div  
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
                                 Javascript 
                             </div>   
  
                             <div  
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
                                 React.js 
                             </div> 
  
                             <div  
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
                                 Tailwind CSS 
                             </div> 
  
                             <div  
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
                                 Wordpress 
                             </div> 
  
                             <div  
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
                                 Elementor 
                             </div> 
  
                             <div  
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
                                 MySQL 
                             </div> 
  
                             <div  
-                            className="font-poppins text-xs text-primary rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300"> 
                                 Canva 
                             </div> 
  
                         </div>
 
                         <button 
-                        className="group flex flex-wrap bg-secondary font-poppins text-white text-xs font-bold rounded-2xl gap-1.5 p-2 mt-5 border-secondary transition-all duration-300 hover:bg-primary hover:text-white  hover:scale-105 hover:shadow-lg"> 
+                        className="group relative isolate overflow-hidden flex flex-wrap text-white hover:text-secondary bg-primary font-poppins text-xs font-bold rounded-2xl gap-1.5 p-2 mt-5 border-secondary
+                        transition-all duration-300 ease-out
+                        hover:-translate-y-0.5 hover:-rotate-2 hover:scale-105 active:scale-95
+                        hover:shadow-[4px_4px_0_0_#1e6bff]
+                        before:content-[''] before:absolute before:inset-y-0 before:-left-6 before:-z-10 before:w-[150%]
+                        before:bg-[#3de0ff] before:-skew-x-[20deg]
+                        before:-translate-x-full hover:before:translate-x-0
+                        before:transition-transform before:duration-300 before:ease-out"> 
 
                             <span className="ml-2 lg:ml-2 sm:ml-2">More About Me</span>
 
                             <LuArrowUpRight     
-                            className="text-base text-white transition-all duration-300 group-hover:text-white"/>
+                            className="text-base transition-all duration-300"/>
                             
                         </button>
  

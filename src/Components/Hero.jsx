@@ -216,6 +216,7 @@ function Hero({ darkMode, setDarkMode }) {
                 font-poppins
                 text-sm
                 text-white
+                hover:text-secondary
                 transition-all
                 duration-300
                 ease-in-out
@@ -228,7 +229,7 @@ function Hero({ darkMode, setDarkMode }) {
                 className="
                   h-4
                   w-4
-                  text-white
+                  hover:text-secondary
                   transition-transform
                   duration-300
                   group-hover:rotate-6

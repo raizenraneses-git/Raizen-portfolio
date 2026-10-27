@@ -7,6 +7,8 @@ import Skills from "./Components/Skills";
 import Credentials from "./Components/Credentials";
 import AboutMe from "./Components/AboutMe";
 import Projects from "./Components/Projects";
+import Footer from "./Components/Footer";
+
 // CHANGE 1: i-import ang bagong transition component
 import  Timeline  from "./Components/Timeline";
 import DarkMode from "./Components/DarkMode/DarkMode";
@@ -54,6 +56,7 @@ function App() {
       <Credentials />
       <Projects />
       <AboutMe />
+      <Footer />
     </div>
   );
 }

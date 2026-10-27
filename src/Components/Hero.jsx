@@ -206,6 +206,9 @@ function Hero({ darkMode, setDarkMode }) {
               rel="noopener noreferrer"
               className="
                 group
+                relative
+                isolate
+                overflow-hidden
                 flex
                 items-center
                 justify-center
@@ -216,13 +219,29 @@ function Hero({ darkMode, setDarkMode }) {
                 font-poppins
                 text-sm
                 text-white
-                hover:text-secondary
+                hover:text-[#04122e]
                 transition-all
                 duration-300
                 ease-in-out
                 hover:scale-[1.03]
+                hover:-translate-y-0.5
+                hover:-rotate-2
+                active:scale-95
+                hover:shadow-[4px_4px_0_0_#1e6bff]
                 bg-primary
-                hover:bg-alternative
+                before:content-['']
+                before:absolute
+                before:inset-y-0
+                before:-left-6
+                before:-z-10
+                before:w-[150%]
+                before:bg-[#3de0ff]
+                before:-skew-x-[20deg]
+                before:-translate-x-full
+                hover:before:translate-x-0
+                before:transition-transform
+                before:duration-300
+                before:ease-out
               "
             >
               <FiDownload
@@ -244,24 +263,46 @@ function Hero({ darkMode, setDarkMode }) {
             <a
               href="/my-works"
               className="
-                group
-                flex
-                items-center
-                justify-center
-                gap-2
-                rounded-card
-                border
-                border-primary
-                bg-white
-                px-6
-                py-2.5
-                font-poppins
-                text-sm
-                text-primary
-                transition-all
-                duration-300
-                ease-in-out
-                hover:scale-[1.03]
+                 group
+                  relative
+                  isolate
+                  overflow-hidden
+                  flex
+                  items-center
+                  justify-center
+                  gap-2
+                  rounded-card
+                  border
+                  border-primary
+                  bg-white
+                  px-6
+                  py-2.5
+                  font-poppins
+                  text-sm
+                  text-primary
+                  transition-all
+                  duration-300
+                  ease-in-out
+                  hover:scale-[1.03]
+                  hover:-translate-y-0.5
+                  hover:-rotate-2
+                  hover:text-[#3de0ff]
+                  hover:border-[#04122e]
+                  hover:shadow-[4px_4px_0_0_#1e6bff]
+                  active:scale-95
+                  before:content-['']
+                  before:absolute
+                  before:inset-y-0
+                  before:-left-6
+                  before:-z-10
+                  before:w-[150%]
+                  before:bg-[#04122e]
+                  before:-skew-x-[20deg]
+                  before:-translate-x-full
+                  hover:before:translate-x-0
+                  before:transition-transform
+                  before:duration-300
+                  before:ease-out
               "
             >
               <span>

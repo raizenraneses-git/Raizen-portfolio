@@ -6,7 +6,14 @@ import GridMotion from "./Motion/GridMotion";
 
 import heroImage from "../assets/aboutMe/aboutMe.png";
 import heroImage2 from "../assets/aboutMe/aboutMe2.png";
-import heroImage3 from "../assets/aboutMe/aboutMe2.png";
+import heroImage3 from "../assets/aboutMe/aboutMe3.png";
+import heroImage4 from "../assets/aboutMe/aboutMe4.png";
+import heroImage5 from "../assets/aboutMe/aboutMe5.png";
+import heroImage6 from "../assets/aboutMe/aboutMe6.png";
+import heroImage7 from "../assets/aboutMe/aboutMe7.png";
+import heroImage8 from "../assets/aboutMe/aboutMe8.png";
+import heroImage9 from "../assets/aboutMe/aboutMe9.png";
+import heroImage10 from "../assets/aboutMe/aboutMe10.png";
 
 
 {/* NEW: Listahan ng mga picture na lalabas sa Grid Motion
@@ -16,6 +23,13 @@ const gridItems = [
     heroImage,
     heroImage2,
     heroImage3,
+    heroImage4,
+    heroImage5,
+    heroImage6,
+    heroImage7,
+    heroImage8,
+    heroImage9,
+    heroImage10,
     // Dagdagan mo dito ng sarili mong pictures, example:
     // project1,
     // project2,
@@ -49,7 +63,7 @@ function AboutMe() {
                             radius={8}          // bilog ng corners ng pictures
                             angle={-20}           // 0 = diretso, walang tabingi
                             tilt={0}            // 0 = walang 3D effect
-                            speed={30}          // bilis ng galaw
+                            speed={50}          // bilis ng galaw
                             parallax={0.5}
                             spotlight={0.5}
                             dim={0.1}

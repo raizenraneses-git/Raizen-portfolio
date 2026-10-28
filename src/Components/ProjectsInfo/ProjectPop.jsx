@@ -144,14 +144,14 @@ export default function ProjectPop({ isOpen, onClose, project }) {
           <div>
             <h1 className="text-4xl lg:text-3xl font-bold mt-3">{name}</h1>
 
-            <p className="text-text text-justify mt-4 leading-relaxed text-xs">
+            <p className="text-Ldescription text-justify mt-4 leading-relaxed text-xs">
               {description}
             </p>
           </div>
 
           {tools.length > 0 && (
             <div className="mt-6 lg:mt-4">
-              <p className="text-sm mb-3 font-semibold">Softwared Tools</p>
+              <p className="text-sm text-secondary mb-3 font-semibold">Softwared Tools</p>
 
               <div className="flex flex-wrap gap-2">
                 {tools.map((tool, idx) => (
@@ -170,7 +170,7 @@ export default function ProjectPop({ isOpen, onClose, project }) {
             href="https://pop.inquirer.net/"
             target="_blank"
             rel="noopener"
-            className="group flex flex-wrap items-center bg-secondary font-poppins text-white text-xs transition-all duration-300 hover:bg-primary hover:scale-105 rounded-2xl gap-3 w-50 h-8 mt-5 lg:mt-0"
+            className="group flex flex-wrap items-center bg-primary font-poppins text-white hover:text-secondary text-xs transition-all duration-300 hover:bg-alternative hover:scale-105 rounded-2xl gap-3 w-50 h-8 mt-5 lg:mt-5"
           >
             <span className="ml-9">
               View on Website

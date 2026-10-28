@@ -18,7 +18,7 @@ const pageLinks = [
 const socialLinks = [
   { label: "GitHub", href: "https://github.com/yourname" },
   { label: "LinkedIn", href: "https://linkedin.com/in/yourname" },
-  { label: "Email", href: "mailto:you@email.com" },
+  { label: "Email", href: "raizenraneses:raizenraneses@email.com" },
 ];
 
 // ------------------------------------------------------------
@@ -31,9 +31,9 @@ function MenuLink({ label, href }) {
     <a
       href={href}
       className="group block -skew-x-12 px-4 py-2
-                 text-sm font-semibold uppercase tracking-widest text-sky-100
+                 text-sm font-semibold font-poppins uppercase tracking-widest text-Ddescription
                  transition-all duration-200
-                 hover:translate-x-2 hover:bg-alternative hover:text-blue-950"
+                 hover:translate-x-2 hover:bg-alternative hover:text-secondary rounded-2xl"
     >
       {/* skew-x-12 para tuwid pa rin ang text kahit naka-slant ang box */}
       <span className="flex skew-x-12 items-center gap-2">
@@ -51,8 +51,8 @@ function MenuLink({ label, href }) {
 // ------------------------------------------------------------
 function ColumnTitle({ children }) {
   return (
-    <h3 className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.3em] text-cyan-300">
-      <span className="h-px w-8 bg-cyan-300" />
+    <h3 className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.3em] text-alternative">
+      <span className="h-px w-8 bg-alternative" />
       {children}
     </h3>
   );
@@ -77,7 +77,7 @@ export default function Footer() {
       <p
         aria-hidden="true"
         className="pointer-events-none absolute -bottom-6 right-4 select-none
-                   text-[8rem] font-black uppercase leading-none text-blue-900/40
+                   text-[7rem] font-black uppercase leading-none text-blue-900/40
                    md:text-[12rem]"
       >
         RAIZEN
@@ -87,10 +87,10 @@ export default function Footer() {
       <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-3">
         {/* Column 1: Pangalan */}
         <div>
-          <h2 className="text-3xl font-black uppercase tracking-wider text-white">
+          <h2 className="text-3xl font-poppins font-black uppercase tracking-wider text-white">
             {NAME}
           </h2>
-          <p className="mt-2 text-sm uppercase tracking-widest text-cyan-300">
+          <p className="mt-2 text-sm uppercase tracking-widest text-alternative">
             {ROLE}
           </p>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-sky-200/70">
@@ -133,9 +133,9 @@ export default function Footer() {
 
           <a
             href="#home"
-            className="-skew-x-12 border border-cyan-300 px-4 py-2 font-semibold
-                       text-cyan-300 transition-colors
-                       hover:bg-cyan-300 hover:text-blue-950"
+            className="-skew-x-12 border border-alternative px-4 py-2 font-semibold rounded-2xl
+                       text-alternative transition-colors
+                       hover:bg-alternative hover:text-blue-950"
           >
             <span className="inline-block skew-x-12">↑ Back to top</span>
           </a>

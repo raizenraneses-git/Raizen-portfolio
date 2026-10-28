@@ -144,14 +144,14 @@ export default function ProjectSDL({ isOpen, onClose, project }) {
           <div>
             <h1 className="text-3xl font-bold mt-3">{name}</h1>
 
-            <p className="text-text mt-4 leading-relaxed text-xs text-justify">
+            <p className="text-Ldescription mt-4 leading-relaxed text-xs text-justify">
               {description}
             </p>
           </div>
 
           {tools.length > 0 && (
             <div className="mt-6 lg:mt-3">
-              <p className="text-sm mb-3 font-semibold">Softwared Tools</p>
+              <p className="text-sm text-secondary mb-3 font-semibold">Softwared Tools</p>
 
               <div className="flex flex-wrap gap-3 lg:gap-2">
                 {tools.map((tool, idx) => (

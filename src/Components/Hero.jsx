@@ -9,14 +9,37 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa6";
 
-
-
 import cv from "../assets/documents/cv.pdf";
 
 import heroOne from "../assets/heroImage/image1.jpg";
 import heroTwo from "../assets/heroImage/image2.jpg";
 import heroThree from "../assets/heroImage/image3.jpg";
 import heroFour from "../assets/heroImage/image4.jpg";
+
+/* =====================================================
+   PERSONA 3 RELOAD COLORS (para madaling palitan)
+   - Dark navy : #04122e
+   - Royal blue: #1e6bff
+   - Cyan glow : #3de0ff
+===================================================== */
+
+// Isang style lang para sa lahat ng social icons (para hindi paulit-ulit)
+// WALA nang border. Naka-skew pa rin ang box at nagiging cyan kapag nag-hover.
+const socialStyle = `
+  flex
+  h-11
+  w-11
+  items-center
+  justify-center
+  -skew-x-12
+  text-secondary
+  dark:text-Ddescription
+  transition-all
+  duration-300
+  hover:-translate-y-1
+  hover:bg-[#3de0ff]
+  hover:text-[#04122e]
+`;
 
 function RotatingText({ words, interval = 2000 }) {
   const [wordIndex, setWordIndex] = useState(0);
@@ -69,6 +92,8 @@ function RotatingText({ words, interval = 2000 }) {
 }
 
 // Reusable image card
+// Ibinalik sa dati ang itsura (walang border, walang kulay na tint).
+// Ang natira lang na P3R: yung putol na sulok sa baba (clip-path).
 function PhotoCard({ src, alt, className = "", objectPosition = "center" }) {
   return (
     <div
@@ -77,6 +102,7 @@ function PhotoCard({ src, alt, className = "", objectPosition = "center" }) {
         relative
         overflow-hidden
         rounded-2xl
+        [clip-path:polygon(0_0,100%_0,100%_88%,90%_100%,0_100%)]
         ${className}
       `}
     >
@@ -114,7 +140,36 @@ function PhotoCard({ src, alt, className = "", objectPosition = "center" }) {
 
 function Hero({ darkMode, setDarkMode }) {
   return (
-    <section className="w-full px-8 py-10 dark:bg-dbg">
+    <section className="relative w-full overflow-hidden bg-wbg px-8 py-10 dark:bg-dbg">
+
+      {/* =====================================
+          BACKGROUND DECORATION (P3R style)
+          Naka-skew na cyan/blue na mga strip sa likod
+      ====================================== */}
+      <div
+        className="
+          pointer-events-none
+          absolute
+          -right-20
+          top-0
+          h-full
+          w-48
+          -skew-x-[20deg]
+          bg-alternative/20
+        "
+      />
+      <div
+        className="
+          pointer-events-none
+          absolute
+          right-40
+          top-0
+          h-full
+          w-6
+          -skew-x-[20deg]
+          bg-[#1e6bff]/30
+        "
+      />
 
       <div
         className="
@@ -134,13 +189,13 @@ function Hero({ darkMode, setDarkMode }) {
         ====================================== */}
         <div className="flex flex-col">
 
-          {/* Greeting */}
+          {/* Greeting (dati na ulit, walang background) */}
           <div className="font-poppins text-[24px] text-primary">
             ─── Hello Everyone! I am
           </div>
 
 
-          {/* Name */}
+          {/* Name (dati na ulit) */}
           <div
             className="
               mt-10
@@ -156,7 +211,7 @@ function Hero({ darkMode, setDarkMode }) {
           </div>
 
 
-          {/* Rotating Text */}
+          {/* Rotating Text (dati na ulit) */}
           <div
             className="
               mt-5
@@ -178,15 +233,18 @@ function Hero({ darkMode, setDarkMode }) {
           </div>
 
 
-          {/* Description */}
+          {/* Description - may cyan na linya sa kaliwa */}
           <div
             className="
               mt-8
               max-w-xl
+              border-l-4
+              border-alternative
+              pl-4
               font-poppins
               text-[20px]
               leading-relaxed
-              text-text
+              text-Ldescription
               dark:text-Ddescription
             "
           >
@@ -235,7 +293,7 @@ function Hero({ darkMode, setDarkMode }) {
                 before:-left-6
                 before:-z-10
                 before:w-[150%]
-                before:bg-[#3de0ff]
+                before:bg-alternative
                 before:-skew-x-[20deg]
                 before:-translate-x-full
                 hover:before:translate-x-0
@@ -286,8 +344,8 @@ function Hero({ darkMode, setDarkMode }) {
                   hover:scale-[1.03]
                   hover:-translate-y-0.5
                   hover:-rotate-2
-                  hover:text-[#3de0ff]
-                  hover:border-[#04122e]
+                  hover:text-alternative
+                  hover:border-alternative
                   hover:shadow-[4px_4px_0_0_#1e6bff]
                   active:scale-95
                   before:content-['']
@@ -296,7 +354,7 @@ function Hero({ darkMode, setDarkMode }) {
                   before:-left-6
                   before:-z-10
                   before:w-[150%]
-                  before:bg-[#04122e]
+                  before:bg-secondary
                   before:-skew-x-[20deg]
                   before:-translate-x-full
                   hover:before:translate-x-0
@@ -313,7 +371,7 @@ function Hero({ darkMode, setDarkMode }) {
                 className="
                   h-4
                   w-4
-                  text-primary
+                  hover:text-alternative
                   transition-transform
                   duration-300
                   group-hover:translate-x-1
@@ -324,13 +382,14 @@ function Hero({ darkMode, setDarkMode }) {
           </div>
 
 
-          {/* Social Media */}
-          <div className="mt-7 font-poppins text-sm text-Ldescription dark:text-Ddescription">
+          {/* Social Media label - may maliit na cyan na linya */}
+          <div className="mt-7 flex items-center gap-3 font-poppins text-sm text-Ldescription dark:text-Ddescription">
+            <span className="h-[2px] w-8 bg-alternative"></span>
             Social Media's / Contact
           </div>
 
 
-          {/* Social Icons */}
+          {/* Social Icons - gamit ang socialStyle sa taas (walang border) */}
           <div className="mt-5 flex items-center gap-5">
 
             {/* Facebook */}
@@ -339,15 +398,10 @@ function Hero({ darkMode, setDarkMode }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              className="
-                text-secondary
-                dark:text-Ddescription
-                transition-all
-                hover:-translate-y-0.5
-                hover:text-primary
-              "
+              className={socialStyle}
             >
-              <FaFacebookF className="h-5 w-5" />
+              {/* skew-x-12 para hindi baluktot ang icon */}
+              <FaFacebookF className="h-5 w-5 skew-x-12" />
             </a>
 
             {/* Instagram */}
@@ -356,16 +410,9 @@ function Hero({ darkMode, setDarkMode }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="
-                text-secondary
-                dark:text-Ddescription
-                transition-all
-                duration-300
-                hover:-translate-y-0.5
-                hover:text-primary
-              "
+              className={socialStyle}
             >
-              <FaInstagram className="h-5 w-5" />
+              <FaInstagram className="h-5 w-5 skew-x-12" />
             </a>
 
             {/* X / Twitter */}
@@ -374,16 +421,9 @@ function Hero({ darkMode, setDarkMode }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="X / Twitter"
-              className="
-                text-secondary
-                dark:text-Ddescription
-                transition-all
-                duration-300
-                hover:-translate-y-0.5
-                hover:text-primary
-              "
+              className={socialStyle}
             >
-              <FaXTwitter className="h-5 w-5" />
+              <FaXTwitter className="h-5 w-5 skew-x-12" />
             </a>
 
             {/* LinkedIn */}
@@ -392,16 +432,9 @@ function Hero({ darkMode, setDarkMode }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="
-                text-secondary
-                dark:text-Ddescription
-                transition-all
-                duration-300
-                hover:-translate-y-0.5
-                hover:text-primary
-              "
+              className={socialStyle}
             >
-              <FaLinkedinIn className="h-5 w-5" />
+              <FaLinkedinIn className="h-5 w-5 skew-x-12" />
             </a>
 
           </div>

@@ -7,11 +7,18 @@ import { FiX, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 // Ilagay mo yung mga image files sa: src/assets/documents/
 // Pwede kang magdagdag ng maraming image per certificate (see below).
 // ------------------------------------------------------------
-import gnCert from "../assets/documents/gnCert.png";
-import gnCert2 from "../assets/documents/gnCert2.png";
-import gnCert3 from "../assets/documents/gnCert3.png";
+import gnCert from "../assets/documents/gnImages/gnCert.png";
+import gnCert2 from "../assets/documents/gnImages/gnCert2.png";
+import gnCert3 from "../assets/documents/gnImages/gnCert3.png";
+import gnCert4 from "../assets/documents/gnImages/gnCert4.png";
+
+import inquirerCert from "../assets/documents/inquirerImages/inquirerCert.png"
+
 import reactCert from "../assets/documents/reactCert.png";
-import webCert from "../assets/documents/webCert.pdf";
+import seCert from "../assets/documents/seCert.png";
+import dsCert from "../assets/documents/dsCert.png";
+import ethicalCert from "../assets/documents/ethicalCert.png";
+
 
 // ------------------------------------------------------------
 // CERTIFICATE DATA
@@ -19,23 +26,26 @@ import webCert from "../assets/documents/webCert.pdf";
 // - title       : pangalan ng certificate
 // - description : paliwanag tungkol sa certificate
 // - date        : kailan mo nakuha
+// - link        : link ng certificate (kung walang link, "" lang)
 // - images      : listahan ng pictures. Kung more than 1, may arrows
 //                 at thumbnails na lalabas. Halimbawa: [gnCert, gnCert2]
 // ------------------------------------------------------------
 const gnData = {
     title: "Certificate of Recognition - Gawad Ningas Award",
     description:
-        "Awarded by National Teachers College in recognition of outstanding achievement and dedication.",
+        "Awarded by National Teachers College in recognition of outstanding achievement and dedication in best capstone.",
     date: "MAY 2026",
-    images: [gnCert, gnCert2, gnCert3],
+    link: "",
+    images: [gnCert, gnCert2, gnCert3, gnCert4],
 };
 
 const webData = {
     title: "Certificate of Completion - Web Developer",
     description:
-        "Awarded by Inquirer Interactive upon completing the Web Developer training program.",
+        "Awarded by Inquirer Interactive upon completing the Web Developer as an Intern program.",
     date: "MAY 2026",
-    images: [webCert],
+    link: "",
+    images: [inquirerCert],
 };
 
 const reactData = {
@@ -43,13 +53,43 @@ const reactData = {
     description:
         "Awarded by IBM upon completing the course on building front-end applications using React.",
     date: "MAY 2026",
+    link: "https://coursera.org/share/b57073bf53d3d6a40ee0eb25d6e43b7a",
     images: [reactCert],
 };
+
+const softwareData = {
+    title: "Certificate of Completion - Software Engineer",
+    description:
+        "Awarded by IBM upon completing the course on understanding the fundamentals of Software Engineer.",
+    date: "MAY 2025",
+    link: "https://coursera.org/share/b73a44c6f9b442f5e739370d3572dedf",
+    images: [seCert],
+};
+
+const dsData = {
+    title: "Certificate of Completion - Data Science Ethics",
+    description:
+        "Awarded by the University of Michigan upon completing a course on ethical principles and responsible practices in data science.",
+    date: "SEP 2025",
+    link: "https://coursera.org/share/cc304008087cd492a7c65f60e9aaf317",
+    images: [dsCert],
+};
+
+const ethicalData = {
+    title: "Certificate of Completion - Ethical Issues in AI and Professional Ethics",
+    description:
+        "Awarded by the University of Colorado Boulder upon completing a course exploring ethical issues in artificial intelligence and professional responsibility.",
+    date: "SEP 2025",
+    link: "https://coursera.org/share/afcc3047b6e19730bbd5e320131cc45b",
+    images: [ethicalCert],
+};
+
+
 
 // ------------------------------------------------------------
 // CERTIFICATE MODAL (yung popup na lalabas pag clinick ang "View")
 // Left side  : Image(s) ng certificate
-// Right side : Title, Description, Date
+// Right side : Title, Description, Date, View button (kung may link)
 // ------------------------------------------------------------
 function CertificateModal({ isOpen, onClose, certificate }) {
     // Para malaman kung anong image ang kasalukuyang pinapakita
@@ -81,7 +121,8 @@ function CertificateModal({ isOpen, onClose, certificate }) {
     // Kung hindi open o walang certificate, wala tayong ipapakita
     if (!isOpen || !certificate) return null;
 
-    const { title, description, date, images = [] } = certificate;
+    // FIXED: dinagdag ang "link" dito
+    const { title, description, date, link, images = [] } = certificate;
 
     // Previous image (kung nasa first, pupunta sa last)
     const goPrev = () =>
@@ -99,7 +140,7 @@ function CertificateModal({ isOpen, onClose, certificate }) {
         >
             {/* White box ng modal. stopPropagation = hindi magca-close pag sa loob nag-click */}
             <div
-                className="relative w-full md:max-w-2xl max-h-[calc(100vh-2rem)] bg-white rounded-3xl overflow-y-auto grid grid-cols-1 md:grid-cols-2 shadow-2xl my-4 md:my-0 scroll-smooth scrollbar-none"
+                className="relative w-full md:max-w-3xl max-h-[calc(100vh-2rem)] bg-white rounded-3xl overflow-y-auto grid grid-cols-1 md:grid-cols-2 shadow-2xl my-4 md:my-0 scroll-smooth scrollbar-none"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Close button (X) */}
@@ -169,14 +210,14 @@ function CertificateModal({ isOpen, onClose, certificate }) {
                     )}
                 </div>
 
-                {/* RIGHT SIDE — Title, Description, Date */}
+                {/* RIGHT SIDE — Title, Description, Date, View button */}
                 <div className="flex flex-col justify-between p-5 md:p-12 lg:p-9 font-poppins text-primary">
                     <div>
                         {/* Certificate Title */}
                         <h1 className="text-3xl lg:text-2xl font-bold mt-3">{title}</h1>
 
                         {/* Description about the Certificate */}
-                        <p className="text-Ldescription text-justify mt-4 leading-relaxed text-xs">
+                        <p className="text-Ldescription text-justify mt-4 mb-10 leading-relaxed text-xs">
                             {description}
                         </p>
                     </div>
@@ -190,6 +231,18 @@ function CertificateModal({ isOpen, onClose, certificate }) {
                         <span className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">
                             {date}
                         </span>
+
+                        {/* View button: lalabas lang kung may link */}
+                        {link && (
+                            <a
+                                href={link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block w-fit mt-5 bg-primary text-white text-xs px-5 py-2 rounded-2xl hover:bg-alternative transition-colors"
+                            >
+                                View
+                            </a>
+                        )}
                     </div>
                 </div>
             </div>
@@ -247,8 +300,6 @@ function Credentials() {
                             NATIONAL TEACHERS COLLEGE
                         </div>
 
-                        {/* CHANGED: <a href> -> <button onClick>.
-                            Hindi na pupunta sa PDF, magbubukas na ng modal. */}
                         <button
                         type="button"
                         onClick={() => setSelectedCert(gnData)}
@@ -316,7 +367,6 @@ function Credentials() {
                             Inquirer Interactive
                         </div>
 
-                        {/* CHANGED: <a href> -> <button onClick> */}
                         <button
                             type="button"
                             onClick={() => setSelectedCert(webData)}
@@ -386,7 +436,6 @@ function Credentials() {
                             IBM
                         </div>
 
-                        {/* CHANGED: <a href> -> <button onClick> */}
                         <button
                         type="button"
                         onClick={() => setSelectedCert(reactData)}
@@ -433,6 +482,215 @@ function Credentials() {
                             before:ease-out
                         " > View </button>
                     </div>
+
+
+                    {/*Fourth Card*/}
+                    <div className="border border-primary rounded-2xl min-w-0">
+
+                        <div
+                        className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
+                            SEP 2025
+                        </div>
+
+                        <div
+                        className="font-poppins text-secondary dark:text-white text-[20px] sm:text-[22px] lg:text-[24px] font-bold pl-5 pt-3 pr-5 sm:pr-8 lg:pr-10 break-words">
+                            Certificate of Completion - Software Engineer
+                        </div>
+
+                        <div
+                        className="font-poppins text-Ldescription dark:text-Ddescription text-[14px] sm:text-[15px] lg:text-[16px] italic pl-5 pr-5 sm:pr-8 lg:pr-10 pt-3 break-words">
+                            International Business Machines Co.
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={() => setSelectedCert(softwareData)}
+                            className="
+                            group
+                            relative
+                            isolate
+                            overflow-hidden
+                            inline-block
+                            font-poppins
+                            text-white
+                            dark:text-white
+                            bg-primary
+                            hover:text-secondary
+                            hover:scale-105
+                            hover:-translate-y-0.5
+                            hover:-rotate-2
+                            hover:tracking-widest
+                            active:scale-95
+                            hover:shadow-[4px_4px_0_0_#1e6bff]
+                            text-[12px]
+                            rounded-2xl
+                            p-2
+                            px-5
+                            py-1
+                            ml-5
+                            mt-3
+                            mb-3
+                            transition-all
+                            duration-300
+                            ease-out
+                            before:content-['']
+                            before:absolute
+                            before:inset-y-0
+                            before:-left-6
+                            before:-z-10
+                            before:w-[150%]
+                            before:bg-alternative
+                            before:-skew-x-[20deg]
+                            before:-translate-x-full
+                            hover:before:translate-x-0
+                            before:transition-transform
+                            before:duration-300
+                            before:ease-out
+                            "
+                        >
+                            View
+                        </button>
+
+                    </div>
+
+                    {/*Fifth Card*/}
+                    <div className="border border-primary rounded-2xl min-w-0">
+
+                        <div
+                        className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
+                            SEP 2025
+                        </div>
+
+                        <div
+                        className="font-poppins text-secondary dark:text-white text-[20px] sm:text-[22px] lg:text-[24px] font-bold pl-5 pt-3 pr-5 sm:pr-8 lg:pr-10 break-words">
+                            Certificate of Completion - Data Science Ethics
+                        </div>
+
+                        <div
+                        className="font-poppins text-Ldescription dark:text-Ddescription text-[14px] sm:text-[15px] lg:text-[16px] italic pl-5 pr-5 sm:pr-8 lg:pr-10 pt-3 break-words">
+                            University of Michigan
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={() => setSelectedCert(dsData)}
+                            className="
+                            group
+                            relative
+                            isolate
+                            overflow-hidden
+                            inline-block
+                            font-poppins
+                            text-white
+                            dark:text-white
+                            bg-primary
+                            hover:text-secondary
+                            hover:scale-105
+                            hover:-translate-y-0.5
+                            hover:-rotate-2
+                            hover:tracking-widest
+                            active:scale-95
+                            hover:shadow-[4px_4px_0_0_#1e6bff]
+                            text-[12px]
+                            rounded-2xl
+                            p-2
+                            px-5
+                            py-1
+                            ml-5
+                            mt-3
+                            mb-3
+                            transition-all
+                            duration-300
+                            ease-out
+                            before:content-['']
+                            before:absolute
+                            before:inset-y-0
+                            before:-left-6
+                            before:-z-10
+                            before:w-[150%]
+                            before:bg-alternative
+                            before:-skew-x-[20deg]
+                            before:-translate-x-full
+                            hover:before:translate-x-0
+                            before:transition-transform
+                            before:duration-300
+                            before:ease-out
+                            "
+                        >
+                            View
+                        </button>
+
+                    </div>
+
+                    {/*Sixth Card*/}
+                    <div className="border border-primary rounded-2xl min-w-0">
+
+                        <div
+                        className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
+                            SEP 2024
+                        </div>
+
+                        <div
+                        className="font-poppins text-secondary dark:text-white text-[20px] sm:text-[22px] lg:text-[24px] font-bold pl-5 pt-3 pr-5 sm:pr-8 lg:pr-10 break-words">
+                            Certificate of Completion - Ethical Issues in AI and Professional Ethics
+                        </div>
+
+                        <div
+                        className="font-poppins text-Ldescription dark:text-Ddescription text-[14px] sm:text-[15px] lg:text-[16px] italic pl-5 pr-5 sm:pr-8 lg:pr-10 pt-3 break-words">
+                            University of Colorado Boulder
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={() => setSelectedCert(ethicalData)}
+                            className="
+                            group
+                            relative
+                            isolate
+                            overflow-hidden
+                            inline-block
+                            font-poppins
+                            text-white
+                            dark:text-white
+                            bg-primary
+                            hover:text-secondary
+                            hover:scale-105
+                            hover:-translate-y-0.5
+                            hover:-rotate-2
+                            hover:tracking-widest
+                            active:scale-95
+                            hover:shadow-[4px_4px_0_0_#1e6bff]
+                            text-[12px]
+                            rounded-2xl
+                            p-2
+                            px-5
+                            py-1
+                            ml-5
+                            mt-3
+                            mb-3
+                            transition-all
+                            duration-300
+                            ease-out
+                            before:content-['']
+                            before:absolute
+                            before:inset-y-0
+                            before:-left-6
+                            before:-z-10
+                            before:w-[150%]
+                            before:bg-alternative
+                            before:-skew-x-[20deg]
+                            before:-translate-x-full
+                            hover:before:translate-x-0
+                            before:transition-transform
+                            before:duration-300
+                            before:ease-out
+                            "
+                        >
+                            View
+                        </button>
+
+                    </div>
+
                 </div>
 
             </div>

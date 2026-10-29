@@ -14,8 +14,7 @@ import { useEffect, useRef, useState } from "react";
 // Main Description (nasa taas)
 export const timelineIntro = {
   label: "MY WORKFLOW",
-  title: "A simple process, done with care.",
-  text: "My approach to designing and developing websites, from planning to the final result.",
+  title: "A simple process, done with Care.",
 };
 
 // Yung 6 steps. Pwede kang magdagdag o magbawas, kusa siyang aayon.

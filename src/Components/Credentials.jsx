@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { FiX, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FaExternalLinkAlt } from "react-icons/fa";
+
+import { FiX, FiEye, FiChevronLeft, FiChevronRight, } from "react-icons/fi";
 
 // ------------------------------------------------------------
 // CERTIFICATE IMAGES
@@ -18,6 +20,7 @@ import reactCert from "../assets/documents/reactCert.png";
 import seCert from "../assets/documents/seCert.png";
 import dsCert from "../assets/documents/dsCert.png";
 import ethicalCert from "../assets/documents/ethicalCert.png";
+import { FaEye } from "react-icons/fa6";
 
 
 // ------------------------------------------------------------
@@ -140,7 +143,7 @@ function CertificateModal({ isOpen, onClose, certificate }) {
         >
             {/* White box ng modal. stopPropagation = hindi magca-close pag sa loob nag-click */}
             <div
-                className="relative w-full md:max-w-3xl max-h-[calc(100vh-2rem)] bg-white rounded-3xl overflow-y-auto grid grid-cols-1 md:grid-cols-2 shadow-2xl my-4 md:my-0 scroll-smooth scrollbar-none"
+                className="relative w-full md:max-w-2xl max-h-[calc(100vh-2rem)] bg-white rounded-3xl overflow-y-auto grid grid-cols-1 md:grid-cols-2 shadow-2xl my-4 md:my-0  scroll-smooth scrollbar-none"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Close button (X) */}
@@ -211,19 +214,19 @@ function CertificateModal({ isOpen, onClose, certificate }) {
                 </div>
 
                 {/* RIGHT SIDE — Title, Description, Date, View button */}
-                <div className="flex flex-col justify-between p-5 md:p-12 lg:p-9 font-poppins text-primary">
+                <div className="flex flex-col justify-between p-5 md:p-5 lg:p-5 font-poppins text-primary">
                     <div>
                         {/* Certificate Title */}
-                        <h1 className="text-3xl lg:text-2xl font-bold mt-3">{title}</h1>
+                        <h1 className="text-2xl lg:text-2xl font-bold mt-3">{title}</h1>
 
                         {/* Description about the Certificate */}
-                        <p className="text-Ldescription text-justify mt-4 mb-10 leading-relaxed text-xs">
+                        <p className="text-Ldescription text-justify mt-4 mb-3 leading-relaxed text-xs">
                             {description}
                         </p>
                     </div>
 
                     {/* Date of Accomplished */}
-                    <div className="mt-6 lg:mt-0">
+                    <div className="mt-2 lg:mt-5">
                         <p className="text-sm text-secondary mb-3 font-semibold">
                             Date of Accomplished
                         </p>
@@ -238,9 +241,15 @@ function CertificateModal({ isOpen, onClose, certificate }) {
                                 href={link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="block w-fit mt-5 bg-primary text-white text-xs px-5 py-2 rounded-2xl hover:bg-alternative transition-colors"
+                                className="group flex flex-wrap items-center bg-primary font-poppins text-white hover:text-secondary text-xs transition-all duration-300 hover:bg-alternative hover:scale-105 rounded-2xl gap-3 w-59 h-8 mt-5 lg:mt-5 font-bold"
                             >
-                                View
+                               <span className="ml-9"> 
+                               View Online Certificate
+                               </span>
+
+                               <FaExternalLinkAlt className="text-xs"
+                               />
+
                             </a>
                         )}
                     </div>
@@ -308,10 +317,12 @@ function Credentials() {
                         relative
                         isolate
                         overflow-hidden
-                        inline-block
+                        inline-flex
+                        items-center
+                        justify-center
+                        gap-2
                         font-poppins
                         text-white
-                        dark:text-white
                         bg-primary
                         hover:text-secondary
                         hover:scale-105
@@ -345,7 +356,9 @@ function Credentials() {
                         before:duration-300
                         before:ease-out
                         " >
-                        View </button>
+                            <FiEye size={15} />
+                        View Credential 
+                        </button>
 
                     </div>
 
@@ -375,7 +388,10 @@ function Credentials() {
                             relative
                             isolate
                             overflow-hidden
-                            inline-block
+                            inline-flex
+                            items-center 
+                            justify-center
+                            gap-2
                             font-poppins
                             text-white
                             dark:text-white
@@ -413,7 +429,9 @@ function Credentials() {
                             before:ease-out
                             "
                         >
-                            View
+                                <FiEye size={15} />
+
+                            View Credential
                         </button>
 
                     </div>
@@ -433,7 +451,7 @@ function Credentials() {
 
                         <div
                         className="font-poppins text-Ldescription dark:text-Ddescription text-[14px] sm:text-[15px] lg:text-[16px] italic pl-5 pr-5 sm:pr-8 lg:pr-10 pt-3 break-words">
-                            IBM
+                            International Business Machines Co.
                         </div>
 
                         <button
@@ -444,7 +462,10 @@ function Credentials() {
                             relative
                             isolate
                             overflow-hidden
-                            inline-block
+                            inline-flex
+                            items-center
+                            justify-center
+                            gap-2
                             font-poppins
                             text-white
                             dark:text-white
@@ -480,7 +501,10 @@ function Credentials() {
                             before:transition-transform
                             before:duration-300
                             before:ease-out
-                        " > View </button>
+                        " >
+                            <FiEye size={15} />
+
+                             View Credential  </button>
                     </div>
 
 
@@ -510,7 +534,10 @@ function Credentials() {
                             relative
                             isolate
                             overflow-hidden
-                            inline-block
+                            inline-flex
+                            items-center 
+                            justify-center
+                            gap-2
                             font-poppins
                             text-white
                             dark:text-white
@@ -548,7 +575,9 @@ function Credentials() {
                             before:ease-out
                             "
                         >
-                            View
+                            <FiEye size={15} />
+
+                            View Credential
                         </button>
 
                     </div>
@@ -579,7 +608,10 @@ function Credentials() {
                             relative
                             isolate
                             overflow-hidden
-                            inline-block
+                            inline-flex
+                            items-center
+                            justify-center
+                            gap-2 
                             font-poppins
                             text-white
                             dark:text-white
@@ -617,7 +649,9 @@ function Credentials() {
                             before:ease-out
                             "
                         >
-                            View
+                            <FiEye size={15} />
+
+                            View Credential
                         </button>
 
                     </div>
@@ -648,7 +682,10 @@ function Credentials() {
                             relative
                             isolate
                             overflow-hidden
-                            inline-block
+                            inline-flex
+                            items-center
+                            justify-center 
+                            gap-2
                             font-poppins
                             text-white
                             dark:text-white
@@ -686,7 +723,9 @@ function Credentials() {
                             before:ease-out
                             "
                         >
-                            View
+                            <FiEye size={15} />
+
+                            View Credential
                         </button>
 
                     </div>

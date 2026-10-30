@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+// Dinagdagan ng useRef para sa scroll detection (useState at useEffect, meron na dati)
+import { useState, useEffect, useRef } from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 
 import { FiX, FiEye, FiChevronLeft, FiChevronRight, } from "react-icons/fi";
@@ -20,7 +21,60 @@ import reactCert from "../assets/documents/reactCert.png";
 import seCert from "../assets/documents/seCert.png";
 import dsCert from "../assets/documents/dsCert.png";
 import ethicalCert from "../assets/documents/ethicalCert.png";
-import { FaEye } from "react-icons/fa6";
+// Tinanggal ang "FaEye" from react-icons/fa6 dahil hindi naman ginagamit
+
+
+// ------------------------------------------------------------
+// REVEAL COMPONENT
+// Ang laman niya ay lalabas na may animation kapag nakita na sa screen.
+// Dito, ang Reveal mismo ang magiging card, kaya may "className" tayo.
+// Ang className na ibibigay mo ay mapupunta sa mismong card (border, rounded, etc.)
+// ------------------------------------------------------------
+function Reveal({ children, className = "" }) {
+
+    // false = hindi pa nakikita (nakatago), true = nakita na (lalabas na)
+    const [isVisible, setIsVisible] = useState(false);
+
+    // Ito ang "pangturo" natin kung aling box ang babantayan
+    const boxRef = useRef(null);
+
+    useEffect(() => {
+        // Ang observer ay nagbabantay kung pumasok na ang box sa screen
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                // Kapag nakita na sa screen
+                if (entry.isIntersecting) {
+                    setIsVisible(true);    // ipakita na
+                    observer.disconnect(); // tigil na ang pagbabantay (isang beses lang lalabas)
+                }
+            },
+            { threshold: 0.2 } // lalabas kapag 20% ng box ay nakikita na
+        );
+
+        // Simulan ang pagbabantay sa box
+        if (boxRef.current) {
+            observer.observe(boxRef.current);
+        }
+
+        // Linisin ang observer kapag nawala ang component
+        return () => observer.disconnect();
+    }, []);
+
+    return (
+        <div
+            ref={boxRef}
+            // Kapag hindi pa visible: transparent at nasa ibaba ng kaunti
+            // Kapag visible na: kita na at nasa tamang pwesto (gumagalaw paakyat)
+            className={`${className} transition-all duration-700 ease-out ${
+                isVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-16"
+            }`}
+        >
+            {children}
+        </div>
+    );
+}
 
 
 // ------------------------------------------------------------
@@ -266,7 +320,7 @@ function Credentials() {
 
     return (
 
-        <section className="w-full px-4 sm:px-6 lg:px-8 py-10 bg-secondary/2 dark:bg-dbg/98">
+        <section className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-secondary/2 dark:bg-dbg/98">
 
             {/*Structure of the Components*/}
             <div
@@ -291,8 +345,10 @@ function Credentials() {
                 {/*Main Contents*/}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto max-w-7xl mt-8 sm:mt-10">
 
-                    {/*First Card*/}
-                    <div className="border border-primary rounded-2xl min-w-0">
+                    {/*First Card
+                        Dati <div className="border ...">, ngayon <Reveal className="border ...">
+                        Walang ibang binago, pareho lang ang className */}
+                    <Reveal className="border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
 
                         <div
                         className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
@@ -360,10 +416,10 @@ function Credentials() {
                         View Credential 
                         </button>
 
-                    </div>
+                    </Reveal>
 
                     {/*Second Card*/}
-                    <div className="border border-primary rounded-2xl min-w-0">
+                    <Reveal className="border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
 
                         <div
                         className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
@@ -434,10 +490,10 @@ function Credentials() {
                             View Credential
                         </button>
 
-                    </div>
+                    </Reveal>
 
                     {/*Third Card*/}
-                    <div className="border border-primary rounded-2xl min-w-0">
+                    <Reveal className="border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
 
                         <div
                         className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
@@ -505,11 +561,11 @@ function Credentials() {
                             <FiEye size={15} />
 
                              View Credential  </button>
-                    </div>
+                    </Reveal>
 
 
                     {/*Fourth Card*/}
-                    <div className="border border-primary rounded-2xl min-w-0">
+                    <Reveal className="border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
 
                         <div
                         className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
@@ -580,10 +636,10 @@ function Credentials() {
                             View Credential
                         </button>
 
-                    </div>
+                    </Reveal>
 
                     {/*Fifth Card*/}
-                    <div className="border border-primary rounded-2xl min-w-0">
+                    <Reveal className="border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
 
                         <div
                         className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
@@ -654,10 +710,10 @@ function Credentials() {
                             View Credential
                         </button>
 
-                    </div>
+                    </Reveal>
 
                     {/*Sixth Card*/}
-                    <div className="border border-primary rounded-2xl min-w-0">
+                    <Reveal className="border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
 
                         <div
                         className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
@@ -728,7 +784,7 @@ function Credentials() {
                             View Credential
                         </button>
 
-                    </div>
+                    </Reveal>
 
                 </div>
 

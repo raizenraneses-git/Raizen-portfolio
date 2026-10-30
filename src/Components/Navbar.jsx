@@ -98,7 +98,7 @@ function Navbar({ darkMode, setDarkMode }) {
     //                             kaya aligned ang logo sa "Credentials" title
     // - -translate-y-full       : umaakyat palabas ng screen (hindi itatago kapag bukas ang mobile menu)
     <nav
-      className={`sticky top-0 z-50 w-full bg-wbg/80 px-4 py-5 backdrop-blur-md transition-transform duration-300 sm:px-6 lg:px-8 dark:bg-dbg ${
+      className={`sticky top-0 z-50 w-full bg-wbg/80 px-6 sm:px-6 lg:px-8 py-6 backdrop-blur-md transition-transform duration-300 dark:bg-dbg ${
         showNav || menuOpen ? "translate-y-0" : "-translate-y-full"
       }`}
     >

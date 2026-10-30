@@ -94,7 +94,7 @@ function Projects() {
         description:
             "A salon management system designed to streamline appointment booking, online shopping, and administrative tasks through an intuitive user experience.",
         images: [sdleeOne, sdleeTwo, sdleeThree, sdleeFour, sdleeFive],
-        tools: ["React.Js", "Tailwind CSS", "Node.Js", "Typescript", "Figma"],
+        tools: ["React.Js", "Tailwind CSS", "Node.Js", "Typescript", "Figma", "Canva"],
     };
 
     const projectPop = {
@@ -102,7 +102,7 @@ function Projects() {
         description:
             "This was one of my final projects during my internship. I was assigned this task to strengthen my HTML and CSS fundamentals and learn how to build frontend pages using Elementor and WordPress with guidance from my team leader.",
         images: [popImageOne, popImageTwo, popImageThree],
-        tools: ["HTML", "CSS", "Bootstrap", "Elementor", "Wordpress"],
+        tools: ["HTML", "CSS", "Bootstrap", "Elementor", "Wordpress", "Figma", "React.Js", "Tailwind Css"],
     };
 
     const projectWP = {
@@ -110,7 +110,7 @@ function Projects() {
         description:
             "Women of Power is a website created for Women’s Month that celebrates the achievements, and contributions of women. It features inspiring stories and highlights women who have made an impact in different fields. The website aims to recognize and empower women through a informative, and engaging design.",
         images: [wpOne, wpTwo, wpThree, wpFour],
-        tools: ["HTML", "CSS", "Bootstrap", "Elementor", "Wordpress", "Figma"],
+        tools: ["HTML", "CSS", "Bootstrap", "Elementor", "Wordpress", "Figma", "React.Js", "Tailwind Css"],
     };
 
     const projectHW = {
@@ -118,12 +118,12 @@ function Projects() {
         description:
             "Holy Week is a digital blog that features stories and important moments related to Semana Santa in the Philippines. It provides readers with information about the meaning of Holy Week and how Filipino communities observe this important religious tradition through faith, reflection, and cultural practices.",
         images: [hwOne, hwTwo, hwThree, hwFour],
-        tools: ["HTML", "CSS", "Bootstrap", "Elementor", "Wordpress", "Figma"],
+        tools: ["HTML", "CSS", "Bootstrap", "Elementor", "Wordpress", "Figma", "React.Js", "Tailwind Css"   ],
     };
 
     return (
 
-        <section className="w-full px-4 sm:px-6 lg:px-8 py-10 bg-wbg dark:bg-dbg">
+        <section className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-wbg dark:bg-dbg">
 
             <div
             className="w-full mx-auto max-w-7xl items-center mt-10 sm:px-0 lg:px-0">
@@ -149,7 +149,7 @@ function Projects() {
                     className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
                     />
 
-                    <div className="lg:mt-0 sm:mt-10">
+                    <div className="lg:mt-0 sm:mt-0">
 
                         <div
                         className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
@@ -185,7 +185,12 @@ function Projects() {
 
                             <div
                             className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
-                                Canva
+                                Figma 
+                            </div>
+
+                            <div
+                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                Canva 
                             </div>
 
                         </div>
@@ -246,7 +251,7 @@ function Projects() {
                         className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
                         />
 
-                        <div className="lg:mt-0 sm:mt-10">
+                        <div className="lg:mt-0 sm:mt-0">
 
                             <div
                             className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
@@ -266,7 +271,7 @@ function Projects() {
                                 </div>
 
                                 <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/10 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     CSS
                                 </div>
 
@@ -283,6 +288,21 @@ function Projects() {
                                 <div
                                 className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     Elementor
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Figma
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    React.Js
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Tailwind CSS
                                 </div>
 
                             </div>
@@ -343,7 +363,7 @@ function Projects() {
                         className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
                         />
 
-                        <div className="lg:mt-0 sm:mt-10">
+                        <div className="lg:mt-0 sm:mt-0">
 
                             <div
                             className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
@@ -385,6 +405,16 @@ function Projects() {
                                 <div
                                 className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     Figma
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    React.Js
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Tailwind CSS
                                 </div>
 
                             </div>
@@ -486,6 +516,16 @@ function Projects() {
                                 <div
                                 className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     Figma
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    React.Js
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Tailwind CSS
                                 </div>
 
                             </div>

@@ -114,7 +114,7 @@ function PhotoCard({ src, alt, className = "", objectPosition = "center" }) {
 
 function Hero({ darkMode, setDarkMode }) {
   return (
-    <section className="w-full px-8 py-10 dark:bg-dbg">
+    <section className="w-full px-6 sm:px-6 lg:px-8 py-10 dark:bg-dbg">
 
       <div
         className="

@@ -193,7 +193,7 @@ export default function Timeline() {
   const titleFirst = titleWords.join(" ");
 
   return (
-    <section className="w-full px-4 sm:px-6 lg:px-8 py-10 bg-secondary/2 dark:bg-dbg/98">
+    <section className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-secondary/2 dark:bg-dbg/98">
 
       {/* ================= MAIN DESCRIPTION (taas) ================= */}
       {/* Label (maliit) */}

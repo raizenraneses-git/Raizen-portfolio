@@ -20,16 +20,16 @@ import heroImage10 from "../assets/aboutMe/aboutMe10.png";
     - Pwede kang magdagdag pa ng pictures dito (import mo muna sa taas)
     - Kung konti lang ang pictures, mauulit-ulit lang sila sa grid, okay lang yun */}
 const gridItems = [
-    heroImage,
-    heroImage2,
-    heroImage3,
-    heroImage4,
-    heroImage5,
-    heroImage6,
-    heroImage7,
-    heroImage8,
-    heroImage9,
     heroImage10,
+    heroImage9,
+    heroImage8,
+    heroImage7,
+    heroImage6,
+    heroImage5,
+    heroImage4,
+    heroImage3,
+    heroImage2,
+    heroImage,
     // Dagdagan mo dito ng sarili mong pictures, example:
     // project1,
     // project2,
@@ -41,7 +41,7 @@ const gridItems = [
 function AboutMe() { 
     return (
         
-        <section className="w-full px-4 sm:px-6 lg:px-8 py-10 bg-secondary/2 dark:bg-dbg/98"> 
+        <section className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-secondary/2 dark:bg-dbg/98"> 
  
             {/*Sizes of every Section*/} 
             <div  
@@ -158,23 +158,6 @@ function AboutMe() {
  
                         </div>
 
-                        <button 
-                        className="group relative isolate overflow-hidden flex flex-wrap text-white hover:text-secondary bg-primary font-poppins text-xs font-bold rounded-2xl gap-1.5 p-2 mt-5 border-secondary
-                        transition-all duration-300 ease-out
-                        hover:-translate-y-0.5 hover:-rotate-2 hover:scale-105 active:scale-95
-                        hover:shadow-[4px_4px_0_0_#1e6bff]
-                        before:content-[''] before:absolute before:inset-y-0 before:-left-6 before:-z-10 before:w-[150%]
-                        before:bg-[#3de0ff] before:-skew-x-[20deg]
-                        before:-translate-x-full hover:before:translate-x-0
-                        before:transition-transform before:duration-300 before:ease-out"> 
-
-                            <span className="ml-2 lg:ml-2 sm:ml-2">More About Me</span>
-
-                            <LuArrowUpRight     
-                            className="text-base transition-all duration-300"/>
-                            
-                        </button>
- 
                     </div> 
  
                 </div> 

@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 
+import { useSound } from "./Sound/soundControl";
+import VolumeControl from "./Sound/volumeControl";
+
 import { FiDownload } from "react-icons/fi";
 import { FiArrowUpRight } from "react-icons/fi";
 import {
@@ -113,6 +116,9 @@ function PhotoCard({ src, alt, className = "", objectPosition = "center" }) {
 }
 
 function Hero({ darkMode, setDarkMode }) {
+
+  const { playClick } = useSound();
+
   return (
     <section className="w-full px-6 sm:px-6 lg:px-8 py-10 dark:bg-dbg">
 
@@ -206,6 +212,7 @@ function Hero({ darkMode, setDarkMode }) {
               href={cv}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={playClick}
               className="
                 group
                 relative

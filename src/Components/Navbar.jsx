@@ -1,6 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { FiSun, FiMoon } from "react-icons/fi";
 import CircularText from "./Motion/CircularText";
+// >>> NEW: import ng sound hook at volume control
+import { useSound } from "./Sound/soundControl";
+import VolumeControl from "./Sound/volumeControl";
+
+// ------------------------------------------------------------
+// NOTE: Ito ay SAMPLE COPY ng Navbar mo. Walang binago sa original
+// na code. Lahat ng dinagdag ay may markang ">>> NEW".
+// ------------------------------------------------------------
 
 // ------------------------------------------------------------
 // LINKS
@@ -10,8 +18,6 @@ const links = ["Home", "About", "Projects", "Contact"];
 
 // ------------------------------------------------------------
 // REUSABLE CLASSES
-// Dating paulit-ulit na nakasulat sa bawat element. Ngayon isang beses
-// na lang, para madaling baguhin (same idea ng ginagawa mo sa Credentials).
 // ------------------------------------------------------------
 
 // Bawat link: pill shape (rounded-2xl) + same hover motion ng View Credential button.
@@ -24,15 +30,19 @@ const iconButtonClass =
 
 // ------------------------------------------------------------
 // NAV LINK ITEM (maliit na component)
-// Dati: dalawang beses nakasulat ang parehong <li> (desktop at mobile).
-// Ngayon: iisang component, pinapasa lang ang props (basic React props!).
 // ------------------------------------------------------------
 function NavLinkItem({ link, active, onSelect, className = "", style }) {
   const isActive = active === link;
+  // >>> NEW: kunin ang playClick function
+  const { playClick } = useSound();
 
   return (
     <li
-      onClick={() => onSelect(link)}
+      // >>> NEW: tumunog muna bago i-select ang link
+      onClick={() => {
+        playClick();
+        onSelect(link);
+      }}
       style={style}
       className={`${linkItemClass} ${className}`}
     >
@@ -65,6 +75,8 @@ function Navbar({ darkMode, setDarkMode }) {
   const [showNav, setShowNav] = useState(true);
   // Dito naka-save ang huling scroll position para ma-compare sa bago
   const lastScrollY = useRef(0);
+  // >>> NEW: kunin ang playClick function
+  const { playClick } = useSound();
 
   // ------------------------------------------------------------
   // SCROLL DETECTION (hide on scroll down, show on scroll up)
@@ -93,10 +105,6 @@ function Navbar({ darkMode, setDarkMode }) {
   }, []);
 
   return (
-    // - border-b border-primary : same manipis na border ng cards
-    // - px-4 sm:px-6 lg:px-8    : SAME gutter ng Credentials section,
-    //                             kaya aligned ang logo sa "Credentials" title
-    // - -translate-y-full       : umaakyat palabas ng screen (hindi itatago kapag bukas ang mobile menu)
     <nav
       className={`sticky top-0 z-50 w-full bg-wbg/80 px-6 sm:px-6 lg:px-8 py-6 backdrop-blur-md transition-transform duration-300 dark:bg-dbg ${
         showNav || menuOpen ? "translate-y-0" : "-translate-y-full"
@@ -138,18 +146,22 @@ function Navbar({ darkMode, setDarkMode }) {
             <NavLinkItem
               key={link}
               link={link}
-              active={active}
+              active={active} 
               onSelect={setActive}
             />
           ))}
         </ul>
 
-        {/* ---------- RIGHT: Dark mode + Hamburger ---------- */}
+        {/* ---------- RIGHT: Dark mode + Volume + Hamburger ---------- */}
         <div className="flex items-center gap-3">
           {/* Dark mode button: iikot ang icon pag hinover */}
           <button
             type="button"
-            onClick={() => setDarkMode(!darkMode)}
+            // >>> NEW: may tunog na rin ang dark mode button
+            onClick={() => {
+              playClick();
+              setDarkMode(!darkMode);
+            }}
             className={`group ${iconButtonClass}`}
             aria-label={
               darkMode ? "Switch to light mode" : "Switch to dark mode"
@@ -160,10 +172,17 @@ function Navbar({ darkMode, setDarkMode }) {
             </span>
           </button>
 
+          {/* >>> NEW: Volume control (slider + mute) sa tabi ng dark mode */}
+          <VolumeControl />
+
           {/* Hamburger: 3 guhit na nagiging X pag binuksan (md:hidden = mobile lang) */}
           <button
             type="button"
-            onClick={() => setMenuOpen(!menuOpen)}
+            // >>> NEW: may tunog din ang hamburger
+            onClick={() => {
+              playClick();
+              setMenuOpen(!menuOpen);
+            }}
             className={`flex-col gap-[5px] md:hidden ${iconButtonClass}`}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
           >

@@ -320,7 +320,7 @@ function Credentials() {
 
     return (
 
-        <section className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-secondary/2 dark:bg-dbg/98">
+        <section className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-wbg-soft dark:bg-dbg-soft">
 
             {/*Structure of the Components*/}
             <div
@@ -348,7 +348,7 @@ function Credentials() {
                     {/*First Card
                         Dati <div className="border ...">, ngayon <Reveal className="border ...">
                         Walang ibang binago, pareho lang ang className */}
-                    <Reveal className="border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
+                    <Reveal className="bg-wbg dark:bg-dbg border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
 
                         <div
                         className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
@@ -419,7 +419,7 @@ function Credentials() {
                     </Reveal>
 
                     {/*Second Card*/}
-                    <Reveal className="border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
+                    <Reveal className=" bg-wbg dark:bg-dbg border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
 
                         <div
                         className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
@@ -493,7 +493,7 @@ function Credentials() {
                     </Reveal>
 
                     {/*Third Card*/}
-                    <Reveal className="border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
+                    <Reveal className="bg-wbg dark:bg-dbg border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
 
                         <div
                         className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
@@ -565,7 +565,7 @@ function Credentials() {
 
 
                     {/*Fourth Card*/}
-                    <Reveal className="border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
+                    <Reveal className="bg-wbg dark:bg-dbg border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
 
                         <div
                         className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
@@ -639,7 +639,7 @@ function Credentials() {
                     </Reveal>
 
                     {/*Fifth Card*/}
-                    <Reveal className="border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
+                    <Reveal className="bg-wbg dark:bg-dbg border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
 
                         <div
                         className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
@@ -713,7 +713,7 @@ function Credentials() {
                     </Reveal>
 
                     {/*Sixth Card*/}
-                    <Reveal className="border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
+                    <Reveal className="bg-wbg dark:bg-dbg border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
 
                         <div
                         className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">

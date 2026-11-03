@@ -74,12 +74,12 @@ function StepCard({ step, index, isActive }) {
   return (
     <div
       className={`pl-4 md:pl-0 md:pt-6 md:w-full md:h-full ${SMOOTH} ${
-        isActive ? "translate-y-0 opacity-100" : "translate-y-3 opacity-40"
+        isActive ? "translate-y-0 opacity-100" : "translate-y-3 opacity-40" 
       }`}
     >
       <div
         // Parehong card style ng Skills: border-primary at rounded-2xl
-        className={`h-full rounded-2xl border p-5 md:p-8 transition-colors duration-500 ${
+        className={`h-full bg-wbg dark:bg-dbg rounded-2xl border p-5 md:p-8 transition-colors duration-500 ${
           isActive ? "border-primary" : "border-primary/30"
         }`}
       >
@@ -193,7 +193,7 @@ export default function Timeline() {
   const titleFirst = titleWords.join(" ");
 
   return (
-    <section className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-secondary/2 dark:bg-dbg/98">
+    <section className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-wbg-soft dark:bg-dbg-soft">
 
       {/* ================= MAIN DESCRIPTION (taas) ================= */}
       {/* Label (maliit) */}

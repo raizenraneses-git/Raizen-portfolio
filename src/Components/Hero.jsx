@@ -120,7 +120,7 @@ function Hero({ darkMode, setDarkMode }) {
   const { playClick } = useSound();
 
   return (
-    <section className="w-full px-6 sm:px-6 lg:px-8 py-10 dark:bg-dbg">
+    <section className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-wbg-soft dark:bg-dbg-soft">
 
       <div
         className="

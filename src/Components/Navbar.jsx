@@ -106,7 +106,7 @@ function Navbar({ darkMode, setDarkMode }) {
 
   return (
     <nav
-      className={`sticky top-0 z-50 w-full bg-wbg/80 px-6 sm:px-6 lg:px-8 py-6 backdrop-blur-md transition-transform duration-300 dark:bg-dbg ${
+      className={`sticky top-0 z-50 w-full bg-wbg-soft px-6 sm:px-6 lg:px-8 py-6 backdrop-blur-md transition-transform duration-300 dark:bg-dbg-soft ${
         showNav || menuOpen ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -114,26 +114,30 @@ function Navbar({ darkMode, setDarkMode }) {
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         {/* ---------- LEFT: Logo and Name ---------- */}
         <div className="flex items-center gap-3">
-          <CircularText
-            text="Raneses*Raizen"
-            onHover="speedUp"
-            direction="clockwise"
-            spinDuration={20}
-            size={40}
-            fontSize={6}
-            draggable
-            hoverTilt={20}
-            tilt={0}
-            fontWeight={900}
-            letterSpacing={0}
-            startAngle={0}
-            repeat={1}
-            fill
-            ring={false}
-            color="#1269cc"
-          />
+          {/* >>> NEW: wrapper na "hidden sm:block" = nakatago ang Logo sa mobile, lalabas mula sm (640px) pataas */}
+          <div className="hidden sm:block">
+            <CircularText
+              text="Raneses*Raizen"
+              onHover="speedUp"
+              direction="clockwise"
+              spinDuration={20}
+              size={40}
+              fontSize={6}
+              draggable
+              hoverTilt={20}
+              tilt={0}
+              fontWeight={900}
+              letterSpacing={0}
+              startAngle={0}
+              repeat={1}
+              fill
+              ring={false}
+              color="#1269cc"
+            />
+          </div>
 
           {/* Responsive font size, kapareho ng pattern sa card titles (sm: / lg:) */}
+          {/* >>> NEW: ibinalik sa "flex" ang Name = kita na ulit sa mobile */}
           <div className="flex items-center font-poppins text-[18px] font-bold text-secondary sm:text-[22px] lg:text-[24px] dark:text-white">
             <span>Raizen Raneses</span>
             <span className="text-primary">.</span>
@@ -209,7 +213,7 @@ function Navbar({ darkMode, setDarkMode }) {
       {/* grid-rows-[0fr] -> [1fr] ang trick para smooth na bumaba ang menu */}
       <div
         className={`mx-auto grid max-w-7xl transition-all duration-500 md:hidden ${
-          menuOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          menuOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0 "
         }`}
       >
         <ul className="flex flex-col gap-2 overflow-hidden font-poppins text-[14px] text-secondary sm:text-[16px] dark:text-Ddescription">

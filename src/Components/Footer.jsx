@@ -95,7 +95,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative w-full overflow-hidden bg-secondary">
+    <footer className="relative w-full overflow-hidden bg-dbg-soft">
 
       {/* Slanted strips sa taas (P3R vibe) */}
       <div className="flex gap-2">

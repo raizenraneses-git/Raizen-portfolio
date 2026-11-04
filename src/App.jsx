@@ -51,12 +51,13 @@ function App() {
 
       <Hero />
       <Slider />
+      <Projects />
       <Skills />
       <Timeline />
       <Credentials />
-      <Projects />
       <AboutMe />
       <Footer />
+
     </div>
   );
 }

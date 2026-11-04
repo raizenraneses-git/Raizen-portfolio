@@ -6,27 +6,83 @@ import { useSound } from "./Sound/soundControl";
 import VolumeControl from "./Sound/volumeControl";
 
 // ------------------------------------------------------------
-// NOTE: Ito ay SAMPLE COPY ng Navbar mo. Walang binago sa original
-// na code. Lahat ng dinagdag ay may markang ">>> NEW".
-// ------------------------------------------------------------
-
-// ------------------------------------------------------------
 // LINKS
 // Isang lugar lang para magdagdag/magbawas ng menu item.
 // ------------------------------------------------------------
-const links = ["Home", "About", "Projects", "Contact"];
+const links = ["Home", "Projects", "AboutMe", "Contact"];
+
+// >>> NEW: mapping ng link name -> id ng section sa page
+// Dapat match ito sa id="..." na nilagay mo sa bawat section.
+const sectionIds = {
+  Home: "home",
+  Projects: "projects",
+  AboutMe: "aboutMe",
+  Contact: "contact",
+};
 
 // ------------------------------------------------------------
 // REUSABLE CLASSES
 // ------------------------------------------------------------
 
 // Bawat link: pill shape (rounded-2xl) + same hover motion ng View Credential button.
+// >>> NEW: dagdag na "overflow-hidden" para hindi lumabas sa pill ang ripple
 const linkItemClass =
-  "group relative cursor-pointer rounded-2xl px-5 py-1 transition-all duration-300 ease-out hover:-translate-y-0.5 active:scale-95";
+  "group relative cursor-pointer overflow-hidden rounded-2xl px-5 py-1 transition-all duration-300 ease-out hover:-translate-y-0.5 active:scale-95";
 
 // Square buttons sa kanan (dark mode + hamburger): same border/rounded ng cards.
 const iconButtonClass =
   "flex h-10 w-10 items-center justify-center rounded-2xl text-secondary transition-all duration-300 ease-out hover:-rotate-2 hover:scale-105 hover:bg-primary hover:text-white active:scale-95 dark:text-white";
+
+// >>> NEW: respeto sa users na naka-"reduce motion" ang device
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// >>> NEW: RIPPLE + TEXT POP
+// Lumalaki mula sa mismong pinindot na spot ang puting bilog, tapos nawawala.
+// Ginagamit ang Web Animations API (element.animate) kaya walang CSS na kailangan.
+function playLinkClickMotion(e) {
+  if (prefersReducedMotion()) return;
+
+  const li = e.currentTarget;
+  const rect = li.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height) * 2;
+
+  const ripple = document.createElement("span");
+  ripple.style.cssText = `
+    position:absolute;
+    left:${e.clientX - rect.left - size / 2}px;
+    top:${e.clientY - rect.top - size / 2}px;
+    width:${size}px;
+    height:${size}px;
+    border-radius:9999px;
+    background:rgba(255,255,255,0.35);
+    pointer-events:none;
+  `;
+
+  // Ilalagay bago ang text span para nasa ilalim ng text ang ripple
+  const textSpan = li.lastElementChild;
+  li.insertBefore(ripple, textSpan);
+
+  const rippleAnim = ripple.animate(
+    [
+      { transform: "scale(0)", opacity: 1 },
+      { transform: "scale(1)", opacity: 0 },
+    ],
+    { duration: 650, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
+  );
+  rippleAnim.onfinish = () => ripple.remove();
+
+  // Maliit na "pop" ng text paakyat at pababa
+  textSpan?.animate(
+    [
+      { transform: "translateY(0) scale(1)" },
+      { transform: "translateY(-3px) scale(1.08)", offset: 0.4 },
+      { transform: "translateY(0) scale(1)" },
+    ],
+    { duration: 380, easing: "ease-out" }
+  );
+}
 
 // ------------------------------------------------------------
 // NAV LINK ITEM (maliit na component)
@@ -39,7 +95,9 @@ function NavLinkItem({ link, active, onSelect, className = "", style }) {
   return (
     <li
       // >>> NEW: tumunog muna bago i-select ang link
-      onClick={() => {
+      onClick={(e) => {
+        // >>> NEW: ripple + text pop
+        playLinkClickMotion(e);
         playClick();
         onSelect(link);
       }}
@@ -55,6 +113,7 @@ function NavLinkItem({ link, active, onSelect, className = "", style }) {
       />
 
       {/* Text ng link. Nagiging puti pag selected o hinover */}
+      {/* >>> NEW: dapat ito ang LAST child ng <li> (kailangan ng ripple logic) */}
       <span
         className={`relative transition-colors duration-300 ${
           isActive ? "text-white" : "group-hover:text-white"
@@ -77,6 +136,29 @@ function Navbar({ darkMode, setDarkMode }) {
   const lastScrollY = useRef(0);
   // >>> NEW: kunin ang playClick function
   const { playClickLD, playClickMenu } = useSound();
+
+  // >>> NEW: function na nag-i-scroll papunta sa section
+  const scrollToSection = (link) => {
+    const el = document.getElementById(sectionIds[link]);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      // >>> NEW: SECTION REVEAL
+      // Habang paparating ang scroll, ang section ay sumusulpot paakyat
+      // na may fade at blur (parang "lumilinaw").
+      if (!prefersReducedMotion()) {
+        setTimeout(() => {
+          el.animate(
+            [
+              { opacity: 0.35, transform: "translateY(40px)", filter: "blur(8px)" },
+              { opacity: 1, transform: "translateY(0)", filter: "blur(0px)" },
+            ],
+            { duration: 900, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }
+          );
+        }, 300);
+      }
+    }
+  };
 
   // ------------------------------------------------------------
   // SCROLL DETECTION (hide on scroll down, show on scroll up)
@@ -150,8 +232,12 @@ function Navbar({ darkMode, setDarkMode }) {
             <NavLinkItem
               key={link}
               link={link}
-              active={active} 
-              onSelect={setActive}
+              active={active}
+              // >>> NEW: i-set ang active AT mag-scroll sa section
+              onSelect={(selected) => {
+                setActive(selected);
+                scrollToSection(selected);
+              }}
             />
           ))}
         </ul>
@@ -226,6 +312,8 @@ function Navbar({ darkMode, setDarkMode }) {
               onSelect={(selected) => {
                 setActive(selected);
                 setMenuOpen(false);
+                // >>> NEW: may delay para matapos muna magsara ang menu (500ms transition)
+                setTimeout(() => scrollToSection(selected), 500);
               }}
               // Isa-isang sumusulpot ang links (delay = index x 70ms)
               style={{ transitionDelay: menuOpen ? `${index * 70}ms` : "0ms" }}

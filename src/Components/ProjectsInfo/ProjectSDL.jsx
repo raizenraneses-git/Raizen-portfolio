@@ -114,8 +114,8 @@ export default function ProjectSDL({ isOpen, onClose, project }) {
 
                 <button
                   onClick={() => {
-                    playClick();
                     goNext();
+                    playClick();
                   }}
                   aria-label="Next image"
                   className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-primary text-white rounded-full p-2 transition-colors"

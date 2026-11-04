@@ -41,7 +41,7 @@ const gridItems = [
 function AboutMe() { 
     return (
         
-        <section className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-wbg-soft dark:bg-dbg-soft"> 
+        <section id="aboutMe" className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-wbg-soft dark:bg-dbg-soft"> 
  
             {/*Sizes of every Section*/} 
             <div  
@@ -66,7 +66,7 @@ function AboutMe() {
                             speed={50}          // bilis ng galaw
                             parallax={0.5}
                             spotlight={0.5}
-                            dim={0.1}
+                            dim={0.2}
                             fade={0.4}          // ito yung nagda-dim sa corners/gilid (0 = walang fade, 1 = malakas)
                             grayscale={false}
                             // theme="light"    // tanggalin ang // kung gusto mo ng light na tiles

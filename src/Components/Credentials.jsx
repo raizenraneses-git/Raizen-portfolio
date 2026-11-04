@@ -245,7 +245,7 @@ function CertificateModal({ isOpen, onClose, certificate }) {
 
                                 <button
                                     onClick={() => {
-                                        goPrev();
+                                        goNext();
                                         playClick();
                                     }}
                                     aria-label="Next image"
@@ -263,7 +263,10 @@ function CertificateModal({ isOpen, onClose, certificate }) {
                             {images.map((img, idx) => (
                                 <button
                                     key={idx}
-                                    onClick={() => setActiveIndex(idx)}
+                                    onClick={() =>  {
+                                        setActiveIndex(idx);
+                                        playClick();
+                                    }}
                                     className={`w-12 h-12 shrink-0 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
                                         idx === activeIndex
                                             ? "border-primary scale-105"

@@ -35,9 +35,13 @@ import hwTwo from "../assets/hwImage/image2.png"
 import hwThree from "../assets/hwImage/image3.png"
 import hwFour from "../assets/hwImage/image4.png"
 
+import { useSound } from "./Sound/soundControl";
+
 // ===== REVEAL COMPONENT =====
 // Pambalot ito. Ang laman niya ay lalabas na may animation kapag nakita na sa screen.
 function Reveal({ children }) {
+
+    const { playClick, playClickLD, playBackMenu } = useSound();
 
     // false = hindi pa nakikita (nakatago), true = nakita na (lalabas na)
     const [isVisible, setIsVisible] = useState(false);
@@ -84,6 +88,7 @@ function Reveal({ children }) {
 }
 
 function Projects() {
+    const { playClick, playClickLD, playBackMenu } = useSound();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState("");
 
@@ -202,6 +207,7 @@ function Projects() {
                                 onClick={() => {
                                     setSelectedProject("sandreaLee");
                                     setIsModalOpen(true);
+                                    playClick();
                                 }}
                                 className="group flex flex-wrap items-center text-white hover:text-secondary bg-primary hover:bg-alternative  font-poppins text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:scale-105 hover:shadow-lg py-2 px-5">
 
@@ -216,6 +222,7 @@ function Projects() {
                                 href="https://github.com/raizenraneses-git/SALON.git"
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={playClickLD}
                                 className="group relative isolate overflow-hidden flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
                                     gap-2 border-black py-2 px-6
                                     transition-all duration-300 ease-out hover:scale-105 active:scale-95
@@ -314,6 +321,7 @@ function Projects() {
                                     onClick={() => {
                                         setSelectedProject("pop");
                                         setIsModalOpen(true);
+                                        playClick();
                                     }}
                                     className="group flex flex-wrap items-center text-white hover:text-secondary bg-primary hover:bg-alternative
                                     font-poppins text-xs rounded-2xl gap-2 border-secondary transition-all duration-300  hover:scale-105 hover:shadow-lg py-2 px-5">
@@ -329,6 +337,7 @@ function Projects() {
                                     href="https://github.com/raizenraneses-git/Pop-.git"
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={playClickLD}
                                     className="group relative isolate overflow-hidden flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
                                     gap-2 border-black py-2 px-6
                                     transition-all duration-300 ease-out hover:scale-105 active:scale-95
@@ -426,6 +435,7 @@ function Projects() {
                                     onClick={() => {
                                         setSelectedProject("wp");
                                         setIsModalOpen(true);
+                                        playClick();
                                     }}
                                     className="group flex flex-wrap items-center text-white hover:text-secondary bg-primary hover:bg-alternative font-poppins text-xs rounded-2xl gap-2 border-secondary transition-all duration-300  hover:scale-105 hover:shadow-lg py-2 px-5">
 
@@ -440,6 +450,7 @@ function Projects() {
                                     href="https://github.com/raizenraneses-git/Women-Power"
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={playClickLD}
                                     className="group relative isolate overflow-hidden flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
                                     gap-2 border-black py-2 px-6
                                     transition-all duration-300 ease-out hover:scale-105 active:scale-95
@@ -537,6 +548,7 @@ function Projects() {
                                     onClick={() => {
                                         setSelectedProject("hw");
                                         setIsModalOpen(true);
+                                        playClick();
                                     }}
                                     className="group flex flex-wrap items-center text-white hover:text-secondary bg-primary hover:bg-alternative font-poppins text-xs rounded-2xl gap-2 border-secondary transition-all duration-300  hover:scale-105 hover:shadow-lg py-2 px-5">
 
@@ -551,6 +563,7 @@ function Projects() {
                                     href="https://github.com/raizenraneses-git/Holy-Week-Project"
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={playClickLD}
                                     className="group relative isolate overflow-hidden flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
                                     gap-2 border-black py-2 px-6
                                     transition-all duration-300 ease-out hover:scale-105 active:scale-95

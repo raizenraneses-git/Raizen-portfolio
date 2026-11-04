@@ -4,6 +4,8 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 
 import { FiX, FiEye, FiChevronLeft, FiChevronRight, } from "react-icons/fi";
 
+import { useSound } from "./Sound/soundControl";
+
 // ------------------------------------------------------------
 // CERTIFICATE IMAGES
 // Dati PDF ang ini-import dito. Ngayon, IMAGE (png/jpg) na.
@@ -151,6 +153,7 @@ const ethicalData = {
 function CertificateModal({ isOpen, onClose, certificate }) {
     // Para malaman kung anong image ang kasalukuyang pinapakita
     const [activeIndex, setActiveIndex] = useState(0);
+    const { playClick, playClickLD, playBackMenu } = useSound();
 
     // Bumalik sa first image tuwing may bubuksan na certificate
     useEffect(() => {
@@ -189,6 +192,8 @@ function CertificateModal({ isOpen, onClose, certificate }) {
     const goNext = () =>
         setActiveIndex((i) => (i === images.length - 1 ? 0 : i + 1));
 
+    
+
     return (
         // Dark/blur na background. Pag clinick ito, magca-close ang modal.
         <div
@@ -202,7 +207,10 @@ function CertificateModal({ isOpen, onClose, certificate }) {
             >
                 {/* Close button (X) */}
                 <button
-                    onClick={onClose}
+                    onClick={() => {
+                        playBackMenu();
+                        onClose();
+                    }}
                     aria-label="Close"
                     className="absolute top-4 right-4 z-10 text-text hover:text-primary transition-colors"
                 >
@@ -225,7 +233,10 @@ function CertificateModal({ isOpen, onClose, certificate }) {
                         {images.length > 1 && (
                             <>
                                 <button
-                                    onClick={goPrev}
+                                    onClick={() => {
+                                        goPrev();
+                                        playClick();
+                                    }}
                                     aria-label="Previous image"
                                     className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-primary text-white rounded-full p-2 transition-colors"
                                 >
@@ -233,7 +244,10 @@ function CertificateModal({ isOpen, onClose, certificate }) {
                                 </button>
 
                                 <button
-                                    onClick={goNext}
+                                    onClick={() => {
+                                        goPrev();
+                                        playClick();
+                                    }}
                                     aria-label="Next image"
                                     className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-primary text-white rounded-full p-2 transition-colors"
                                 >
@@ -294,6 +308,7 @@ function CertificateModal({ isOpen, onClose, certificate }) {
                             <a
                                 href={link}
                                 target="_blank"
+                                onClick={playClickLD}
                                 rel="noopener noreferrer"
                                 className="group flex flex-wrap items-center bg-primary font-poppins text-white hover:text-secondary text-xs transition-all duration-300 hover:bg-alternative hover:scale-105 rounded-2xl gap-3 w-59 h-8 mt-5 lg:mt-5 font-bold"
                             >
@@ -316,6 +331,7 @@ function CertificateModal({ isOpen, onClose, certificate }) {
 function Credentials() {
     // Dito itatabi kung aling certificate ang bubuksan.
     // null = sarado ang modal. Kapag may laman = bukas ang modal.
+    const { playClick, playClickLD, playBackMenu } = useSound();
     const [selectedCert, setSelectedCert] = useState(null);
 
     return (
@@ -367,7 +383,10 @@ function Credentials() {
 
                         <button
                         type="button"
-                        onClick={() => setSelectedCert(gnData)}
+                        onClick={() => {
+                            playClick();
+                            setSelectedCert(gnData)
+                        }}
                         className="
                         group
                         relative
@@ -438,7 +457,10 @@ function Credentials() {
 
                         <button
                             type="button"
-                            onClick={() => setSelectedCert(webData)}
+                            onClick={() => {
+                                playClick();
+                                setSelectedCert(webData)
+                            }}
                             className="
                             group
                             relative
@@ -512,7 +534,10 @@ function Credentials() {
 
                         <button
                         type="button"
-                        onClick={() => setSelectedCert(reactData)}
+                        onClick={() => {
+                            playClick();
+                            setSelectedCert(reactData)
+                        }}
                         className="
                         group
                             relative
@@ -584,7 +609,10 @@ function Credentials() {
 
                         <button
                             type="button"
-                            onClick={() => setSelectedCert(softwareData)}
+                            onClick={() => {
+                            playClick();
+                            setSelectedCert(softwareData)
+                        }}
                             className="
                             group
                             relative
@@ -658,7 +686,10 @@ function Credentials() {
 
                         <button
                             type="button"
-                            onClick={() => setSelectedCert(dsData)}
+                            onClick={() => {
+                            playClick();
+                            setSelectedCert(dsData)
+                        }}
                             className="
                             group
                             relative
@@ -732,7 +763,10 @@ function Credentials() {
 
                         <button
                             type="button"
-                            onClick={() => setSelectedCert(ethicalData)}
+                            onClick={() => {
+                            playClick();
+                            setSelectedCert(ethicalData)
+                        }}
                             className="
                             group
                             relative
@@ -786,7 +820,7 @@ function Credentials() {
 
                     </Reveal>
 
-                </div>
+                </div>  
 
             </div>
 

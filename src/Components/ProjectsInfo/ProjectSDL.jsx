@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { FiX, FiChevronLeft, FiChevronRight } from
 "react-icons/fi";
-import { FaExternalLinkAlt } from "react-icons/fa";
-
-
+import { useSound } from "../Sound/soundControl";
 /**
  * ProjectSDL
  *
@@ -25,6 +23,7 @@ import { FaExternalLinkAlt } from "react-icons/fa";
  */
 
 export default function ProjectSDL({ isOpen, onClose, project }) {
+  const { playClick, playClickLD, playBackMenu } = useSound()
   const [activeIndex, setActiveIndex] = useState(0);
 
   // Reset to the first image every time a new project is opened
@@ -64,7 +63,10 @@ export default function ProjectSDL({ isOpen, onClose, project }) {
       // MOBILE FIX:
       // Added overflow-y-auto so the whole modal can be scrolled on phones.
       className="fixed inset-0 z-50 flex items-start md:items-center justify-center overflow-y-auto bg-white/10 backdrop-blur-xl p-4"
-      onClick={onClose}
+      onClick={() => {
+        playBackMenu();
+        onClose();
+      }}
     >
       <div
         // MOBILE FIX:
@@ -75,7 +77,10 @@ export default function ProjectSDL({ isOpen, onClose, project }) {
       >
         {/* Close button */}
         <button
-          onClick={onClose}
+          onClick={() => {
+            playBackMenu();
+            onClose();
+          }}
           aria-label="Close"
           className="absolute top-5 right-4 z-10 text-text hover:text-primary transition-colors"
         >
@@ -83,7 +88,7 @@ export default function ProjectSDL({ isOpen, onClose, project }) {
         </button>
 
         {/* LEFT SIDE — images */}
-        <div className="flex flex-col gap-2 p-5 bg-white">
+        <div className="flex flex-col gap-2 p-5 bg-wbg-soft">
           {/* Main image */}
           <div className="relative flex-1 min-h-[260px] rounded-2xl overflow-hidden bg-white/40">
             {images[activeIndex] && (
@@ -97,7 +102,10 @@ export default function ProjectSDL({ isOpen, onClose, project }) {
             {images.length > 1 && (
               <>
                 <button
-                  onClick={goPrev}
+                  onClick={() => {
+                    playClick();
+                    goPrev();
+                  }}
                   aria-label="Previous image"
                   className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-primary text-white rounded-full p-2 transition-colors"
                 >
@@ -105,7 +113,10 @@ export default function ProjectSDL({ isOpen, onClose, project }) {
                 </button>
 
                 <button
-                  onClick={goNext}
+                  onClick={() => {
+                    playClick();
+                    goNext();
+                  }}
                   aria-label="Next image"
                   className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-primary text-white rounded-full p-2 transition-colors"
                 >
@@ -121,7 +132,10 @@ export default function ProjectSDL({ isOpen, onClose, project }) {
               {images.map((img, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setActiveIndex(idx)}
+                  onClick={() =>  {
+                    setActiveIndex(idx);
+                    playClick();
+                  }}
                   className={`w-12 h-12 shrink-0 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
                     idx === activeIndex
                       ? "border-primary scale-105"
@@ -140,7 +154,7 @@ export default function ProjectSDL({ isOpen, onClose, project }) {
         </div>
 
         {/* RIGHT SIDE — details */}
-        <div className="flex flex-col justify-between p-5 md:p-12 lg:p-9 font-poppins text-primary">
+        <div className="flex flex-col justify-between p-5 md:p-12 lg:p-9 font-poppins text-primary bg-wbg-soft">
           <div>
             <h1 className="text-3xl font-bold mt-3">{name}</h1>
 

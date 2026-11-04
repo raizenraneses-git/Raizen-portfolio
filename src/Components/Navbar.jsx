@@ -76,7 +76,7 @@ function Navbar({ darkMode, setDarkMode }) {
   // Dito naka-save ang huling scroll position para ma-compare sa bago
   const lastScrollY = useRef(0);
   // >>> NEW: kunin ang playClick function
-  const { playClick } = useSound();
+  const { playClickLD, playClickMenu } = useSound();
 
   // ------------------------------------------------------------
   // SCROLL DETECTION (hide on scroll down, show on scroll up)
@@ -163,7 +163,7 @@ function Navbar({ darkMode, setDarkMode }) {
             type="button"
             // >>> NEW: may tunog na rin ang dark mode button
             onClick={() => {
-              playClick();
+              playClickLD();
               setDarkMode(!darkMode);
             }}
             className={`group ${iconButtonClass}`}
@@ -184,7 +184,7 @@ function Navbar({ darkMode, setDarkMode }) {
             type="button"
             // >>> NEW: may tunog din ang hamburger
             onClick={() => {
-              playClick();
+              playClickMenu();
               setMenuOpen(!menuOpen);
             }}
             className={`flex-col gap-[5px] md:hidden ${iconButtonClass}`}

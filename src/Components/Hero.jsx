@@ -20,6 +20,9 @@ import heroOne from "../assets/heroImage/image1.jpg";
 import heroTwo from "../assets/heroImage/image2.jpg";
 import heroThree from "../assets/heroImage/image3.jpg";
 import heroFour from "../assets/heroImage/image4.jpg";
+import ProjectSDL from "./ProjectsInfo/ProjectSDL";
+import Navbar from "./Navbar";
+import AboutMe from "./AboutMe";
 
 function RotatingText({ words, interval = 2000 }) {
   const [wordIndex, setWordIndex] = useState(0);
@@ -117,7 +120,7 @@ function PhotoCard({ src, alt, className = "", objectPosition = "center" }) {
 
 function Hero({ darkMode, setDarkMode }) {
 
-  const { playClick } = useSound();
+  const { playClick, playClickLD, playBackMenu } = useSound();
 
   return (
     <section className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-wbg-soft dark:bg-dbg-soft">
@@ -212,7 +215,7 @@ function Hero({ darkMode, setDarkMode }) {
               href={cv}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={playClick}
+              onClick={playClickLD}
               className="
                 group
                 relative
@@ -270,7 +273,10 @@ function Hero({ darkMode, setDarkMode }) {
 
             {/* My Works */}
             <a
-              href="/my-works"
+              href="/AboutMe"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={playBackMenu}
               className="
                 group
                 relative
@@ -348,6 +354,7 @@ function Hero({ darkMode, setDarkMode }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
+              onClick={playClick}
               className="
                 text-secondary
                 dark:text-Ddescription
@@ -365,6 +372,7 @@ function Hero({ darkMode, setDarkMode }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
+              onClick={playClick}
               className="
                 text-secondary
                 dark:text-Ddescription
@@ -383,6 +391,7 @@ function Hero({ darkMode, setDarkMode }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="X / Twitter"
+              onClick={playClick}
               className="
                 text-secondary
                 dark:text-Ddescription
@@ -401,6 +410,7 @@ function Hero({ darkMode, setDarkMode }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
+              onClick={playClick}
               className="
                 text-secondary
                 dark:text-Ddescription

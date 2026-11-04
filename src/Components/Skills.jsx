@@ -85,7 +85,7 @@ function Skills() {
 
                 {/* First Card */}
                 <TiltCard className="
-                    border border-primary 
+                    border border-primary bg-wbg dark:bg-dbg 
                     rounded-2xl 
                     min-w-0
                 ">
@@ -160,7 +160,7 @@ function Skills() {
 
                 {/* Second Card */}
                 <TiltCard className="
-                    border border-primary 
+                    border border-primary bg-wbg dark:bg-dbg 
                     rounded-2xl 
                     min-w-0
                 ">
@@ -234,7 +234,7 @@ function Skills() {
 
                 {/* Third Card */}
                 <TiltCard className="
-                    border border-primary 
+                    border border-primary bg-wbg dark:bg-dbg  
                     rounded-2xl 
                     min-w-0
                     sm:col-span-2

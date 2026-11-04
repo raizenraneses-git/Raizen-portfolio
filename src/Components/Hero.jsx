@@ -179,7 +179,7 @@ function Hero({ darkMode, setDarkMode }) {
               words={[
                 "Frontend",
                 "UI/UX",
-                "Web Designer",
+                "Freelancer",
               ]}
               interval={2000}
             />
@@ -284,7 +284,7 @@ function Hero({ darkMode, setDarkMode }) {
                   border
                   border-primary
                   bg-white
-                  px-6
+                  px-5
                   py-2.5
                   font-poppins
                   text-sm

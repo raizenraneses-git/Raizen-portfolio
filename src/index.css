@@ -35,8 +35,8 @@ html::-webkit-scrollbar {
   --color-alternative: #51eefc;
   --color-dbg: #000306;
   --color-wbg: #ffff;
-  --color-Ldescription: #303030;
-  --color-Ddescription: #eaeaea;
+  --color-Ldescription: #334155;
+  --color-Ddescription: #cbd5e1;
 
   /* Soft tints para sa background (light mode) */
   --color-wbg-soft: #f4f9ff;   /* halos puti, may bahid ng blue */

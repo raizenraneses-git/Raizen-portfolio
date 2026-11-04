@@ -43,7 +43,7 @@ function MenuLink({ label, href }) {
         group block w-fit -skew-x-12
         px-4 py-2.5 rounded-2xl
         font-poppins text-sm font-semibold uppercase tracking-widest
-        text-white/70
+        text-Ddescription dark:text-Ldescription
         transition-all duration-200 motion-reduce:transition-none
         hover:translate-x-2 hover:bg-primary hover:text-white
         focus-visible:translate-x-2 focus-visible:bg-primary focus-visible:text-white
@@ -95,13 +95,13 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative w-full overflow-hidden bg-dbg-soft">
+    <footer className="relative w-full overflow-hidden bg-dbg-soft dark:bg-wbg-soft ">
 
       {/* Slanted strips sa taas (P3R vibe) */}
       <div className="flex gap-2">
         <div className="h-2 w-1/3 -skew-x-12 bg-primary" />
-        <div className="h-2 w-16 -skew-x-12 bg-white/40" />
-        <div className="h-2 flex-1 -skew-x-12 bg-white/10" />
+        <div className="h-2 w-16 -skew-x-12 bg-alternative" />
+        <div className="h-2 flex-1 -skew-x-12 bg-primary" />
       </div>
 
       {/* Malaking faded na text sa likod (design lang) */}
@@ -111,7 +111,7 @@ export default function Footer() {
           pointer-events-none select-none
           absolute -bottom-6 right-4
           font-poppins font-black uppercase leading-none
-          text-white/5
+          text-white/5 dark:text-Ldescription/15
           text-[6rem] md:text-[11rem]
         "
       >
@@ -134,7 +134,7 @@ export default function Footer() {
           <h2
             className="
               font-poppins font-bold uppercase tracking-wider
-              text-white
+              text-white dark:text-secondary
               text-2xl sm:text-3xl
             "
           >
@@ -154,7 +154,7 @@ export default function Footer() {
           <p
             className="
               font-poppins text-sm leading-relaxed
-              text-white/70
+              text-Ddescription dark:text-Ldescription
               max-w-xs
               mt-6
             "
@@ -190,7 +190,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="relative border-t border-white/10">
+      <div className="relative border-t border-white/10 dark:border-secondary/15">
         <div
           className="
             mx-auto max-w-7xl
@@ -203,7 +203,7 @@ export default function Footer() {
           <p
             className="
               font-poppins text-xs uppercase tracking-widest
-              text-white/70
+              text-white/70 dark:text-secondary
               text-center sm:text-left
             "
           >

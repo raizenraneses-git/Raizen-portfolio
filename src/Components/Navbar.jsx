@@ -5,11 +5,13 @@ import CircularText from "./Motion/CircularText";
 import { useSound } from "./Sound/soundControl";
 import VolumeControl from "./Sound/volumeControl";
 
+import { motion } from "motion/react";
+
 // ------------------------------------------------------------
 // LINKS
 // Isang lugar lang para magdagdag/magbawas ng menu item.
 // ------------------------------------------------------------
-const links = ["Home", "Projects", "AboutMe", "Contact"];
+const links = ["Home", "Projects", "About", "Contact"];
 
 // >>> NEW: mapping ng link name -> id ng section sa page
 // Dapat match ito sa id="..." na nilagay mo sa bawat section.

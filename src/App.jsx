@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import Intro from "./Components/Intro";
 import Navbar from "./Components/Navbar";
 import Hero from "./Components/Hero";
 import Slider from "./Components/Slider";
@@ -43,6 +44,9 @@ function App() {
 
   return (
     <div>
+
+      <Intro />
+
       {/* Pinalitan ang setDarkMode ng handleToggle. Hindi na kailangang galawin ang Navbar */}
       <Navbar darkMode={darkMode} setDarkMode={handleToggle} />
 

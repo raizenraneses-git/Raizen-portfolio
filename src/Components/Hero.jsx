@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import { motion } from "framer-motion"; // new: pang-animate (cinematic intro)
+
 import { useSound } from "./Sound/soundControl";
 import VolumeControl from "./Sound/volumeControl";
 
@@ -23,6 +25,57 @@ import heroFour from "../assets/heroImage/image4.jpg";
 import ProjectSDL from "./ProjectsInfo/ProjectSDL";
 import Navbar from "./Navbar";
 import AboutMe from "./AboutMe";
+
+// ===== NEW (OPTION 2): "Editorial Mask Reveal" presets =====
+// Idea: yung malalaking text ay lumalabas mula sa likod ng "mask" (parang titles sa movie),
+// tapos yung mga photo ay may kulay na "takip" (primary color) na umaangat para ma-reveal sila.
+const smoothEase = [0.22, 1, 0.36, 1]; // new: smooth "cinematic" easing
+
+const heroContainer = { hidden: {}, show: {} }; // new: pang-trigger lang ng buong hero
+
+const leftStack = {                              // new: sunod-sunod na lumalabas ang left side
+  hidden: {},
+  show: { transition: { staggerChildren: 0.14, delayChildren: 0.2 } },
+};
+
+const slideLeft = {                              // new: pumapasok mula kaliwa (para sa greeting)
+  hidden: { opacity: 0, x: -40 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.8, ease: smoothEase } },
+};
+
+const slideUp = {                                // new: text umaakyat mula sa likod ng mask
+  hidden: { y: "110%" },
+  show: { y: "0%", transition: { duration: 1, ease: smoothEase } },
+};
+
+const softUp = {                                 // new: mahinang fade up (description, buttons, socials)
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: smoothEase } },
+};
+
+const collage = {                                // new: sunod-sunod ang mga photo
+  hidden: {},
+  show: { transition: { staggerChildren: 0.18, delayChildren: 0.4 } },
+};
+
+const photoSlide = {                             // new: photo pumapasok mula kanan
+  hidden: { opacity: 0, x: 60 },
+  show: { opacity: 1, x: 0, transition: { duration: 1, ease: smoothEase } },
+};
+
+const coverWipe = {                              // new: kulay na takip na lumiliit pataas para ma-reveal ang photo
+  hidden: { scaleY: 1 },
+  show: { scaleY: 0, transition: { duration: 1, ease: smoothEase, delay: 0.2 } },
+};
+
+// new: Mask wrapper (itinatago ang text hanggang umakyat ito)
+function MaskReveal({ children, className = "" }) {
+  return (
+    <div className={`overflow-hidden ${className}`}>
+      <motion.div variants={slideUp}>{children}</motion.div>
+    </div>
+  );
+}
 
 function RotatingText({ words, interval = 2000 }) {
   const [wordIndex, setWordIndex] = useState(0);
@@ -77,7 +130,8 @@ function RotatingText({ words, interval = 2000 }) {
 // Reusable image card
 function PhotoCard({ src, alt, className = "", objectPosition = "center" }) {
   return (
-    <div
+    <motion.div  // new: dating <div
+      variants={photoSlide} // new: slide in mula kanan
       className={`
         group
         relative
@@ -114,7 +168,14 @@ function PhotoCard({ src, alt, className = "", objectPosition = "center" }) {
           group-hover:bg-secondary/5
         "
       />
-    </div>
+
+      {/* new: kulay na takip na umaangat (primary color mo) */}
+      <motion.div
+        variants={coverWipe}
+        style={{ originY: 0 }}
+        className="pointer-events-none absolute inset-0 z-10 bg-primary"
+      />
+    </motion.div>
   );
 }
 
@@ -125,7 +186,10 @@ function Hero({ darkMode, setDarkMode }) {
   return (
     <section id="home" className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-wbg-soft dark:bg-dbg-soft">
 
-      <div
+      <motion.div  // new: dating <div (ito ang nagpapatakbo ng buong intro)
+        variants={heroContainer} // new
+        initial="hidden"         // new: simula (nakatago)
+        animate="show"           // new: play pagka-load
         className="
           mx-auto
           grid
@@ -143,16 +207,16 @@ function Hero({ darkMode, setDarkMode }) {
         {/* =====================================
             LEFT SIDE - CONTENT
         ====================================== */}
-        <div className="flex flex-col">
+        <motion.div variants={leftStack} className="flex flex-col"> {/* new: dating <div */}
 
           {/* Greeting */}
-          <div className="font-poppins text-[24px] text-primary">
+          <motion.div variants={slideLeft} className="font-poppins text-[24px] text-primary"> {/* new */}
             ─── Hello Everyone! I am
-          </div>
+          </motion.div>
 
 
           {/* Name */}
-          <div
+          <MaskReveal  // new: dating <div (text umaakyat mula sa mask)
             className="
               mt-10
               font-poppins
@@ -164,11 +228,11 @@ function Hero({ darkMode, setDarkMode }) {
             "
           >
             RAIZEN RAÑESES
-          </div>
+          </MaskReveal>
 
 
           {/* Rotating Text */}
-          <div
+          <MaskReveal  // new: dating <div
             className="
               mt-5
               font-poppins
@@ -186,13 +250,14 @@ function Hero({ darkMode, setDarkMode }) {
               ]}
               interval={2000}
             />
-          </div>
+          </MaskReveal>
 
 
           {/* Description */}
-          <div
+          <motion.div  // new: dating <div
+            variants={softUp} // new
             className="
-              mt-8
+              mt-10
               max-w-xl
               font-poppins
               text-[20px]
@@ -204,11 +269,12 @@ function Hero({ darkMode, setDarkMode }) {
             I am a passionate front-end developer who enjoys
             transforming ideas into clean, responsive, and
             user friendly digital experiences.
-          </div>
+          </motion.div>
 
 
           {/* Buttons */}
-          <div className="mt-6 flex flex-wrap gap-4">
+          {/* new: animation nasa wrapper lang (hindi sa <a>) para hindi mag-away sa Tailwind hover */}
+          <motion.div variants={softUp} className="mt-8 flex flex-wrap gap-4">
 
             {/* CV */}
             <a
@@ -336,17 +402,17 @@ function Hero({ darkMode, setDarkMode }) {
               />
             </a>
 
-          </div>
+          </motion.div>
 
 
           {/* Social Media */}
-          <div className="mt-7 font-poppins text-sm text-Ldescription dark:text-Ddescription">
+          <motion.div variants={softUp} className="mt-7 font-poppins text-sm text-Ldescription dark:text-Ddescription"> {/* new */}
             Social Media's / Contact
-          </div>
+          </motion.div>
 
 
           {/* Social Icons */}
-          <div className="mt-5 flex items-center gap-5">
+          <motion.div variants={softUp} className="mt-5 flex items-center gap-5"> {/* new */}
 
             {/* Facebook */}
             <a
@@ -423,15 +489,16 @@ function Hero({ darkMode, setDarkMode }) {
               <FaLinkedinIn className="h-5 w-5" />
             </a>
 
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
 
 
         {/* =====================================
             RIGHT SIDE - IMAGE COLLAGE
         ====================================== */}
-        <div
+        <motion.div  // new: dating <div
+          variants={collage} // new: sunod-sunod na reveal ng photos
           className="
             grid
             h-[560px]
@@ -492,9 +559,9 @@ function Hero({ darkMode, setDarkMode }) {
             "
           />
 
-        </div>
+        </motion.div>
 
-      </div>
+      </motion.div>
 
     </section>
   );

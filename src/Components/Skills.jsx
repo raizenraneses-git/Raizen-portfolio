@@ -1,6 +1,9 @@
 import TiltCard from "./Motion/TiltCard";
 import InfiniteSpiral from "./Motion/InfiniteSpiral";
 
+// new: scroll reveal (Framer Motion), galing sa shared file
+import { Reveal, RevealItem } from "./Motion/Reveal";
+
 import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaWordpress } from "react-icons/fa";
 import { SiFigma, SiTailwindcss, SiElementor, SiMysql } from "react-icons/si";
 
@@ -28,50 +31,63 @@ function Skills() {
 
         <section className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-wbg-soft dark:bg-dbg-soft">
 
-            {/* Sizes of every Section */}
-            <div className="
-                mx-auto max-w-7xl items-center mt-8
-            ">
+            {/* new: Header, ang tatlong title ay lalabas nang sunod-sunod */}
+            <Reveal>
 
+                {/* Sizes of every Section */}
                 <div className="
-                    flex font-poppins text-primary 
-                    text-2xl sm:text-3xl lg:text-3xl
+                    mx-auto max-w-7xl items-center mt-8
                 ">
-                    What I Do
+
+                    <RevealItem from="bottom">
+                        <div className="
+                            flex font-poppins text-primary 
+                            text-2xl sm:text-3xl lg:text-3xl
+                        ">
+                            What I Do
+                        </div>
+                    </RevealItem>
+
                 </div>
 
-            </div>
-
-            <div className="
-                mx-auto max-w-7xl items-center mt-6 sm:mt-8 lg:mt-10
-            ">
-
                 <div className="
-                    flex font-poppins text-secondary dark:text-white font-bold
-                    text-[40px] sm:text-[52px] lg:text-[64px]
+                    mx-auto max-w-7xl items-center mt-6 sm:mt-8 lg:mt-10
                 ">
-                    Services &
+
+                    <RevealItem from="bottom">
+                        <div className="
+                            flex font-poppins text-secondary dark:text-white font-bold
+                            text-[40px] sm:text-[52px] lg:text-[64px]
+                        ">
+                            Services &
+                        </div>
+                    </RevealItem>
+
                 </div>
 
-            </div>
-
-            <div className="
-                mx-auto max-w-7xl items-center
-            ">
-
                 <div className="
-                    flex font-poppins text-primary font-bold
-                    text-[40px] sm:text-[52px] lg:text-[64px]
+                    mx-auto max-w-7xl items-center
                 ">
-                    Expertise
+
+                    <RevealItem from="bottom">
+                        <div className="
+                            flex font-poppins text-primary font-bold
+                            text-[40px] sm:text-[52px] lg:text-[64px]
+                        ">
+                            Expertise
+                        </div>
+                    </RevealItem>
+
                 </div>
 
-            </div>
+            </Reveal>
 
             
 
 
             {/* Service and Expertise Cards */}
+            {/* new: <Reveal> ang pambalot ng buong grid, ang bawat card ay <RevealItem> */}
+            <Reveal>
             <div className="
                 grid 
                 grid-cols-1 
@@ -84,10 +100,13 @@ function Skills() {
             ">
 
                 {/* First Card */}
+                {/* new: RevealItem ang grid item na ngayon, h-full para pantay pa rin ang taas ng cards */}
+                <RevealItem from="bottom" className="min-w-0 h-full">
                 <TiltCard className="
                     border border-primary bg-wbg dark:bg-dbg 
                     rounded-2xl 
                     min-w-0
+                    h-full
                 ">
 
                     {/* Logo */}
@@ -156,13 +175,16 @@ function Skills() {
                     </ul>
 
                 </TiltCard>
+                </RevealItem>
 
 
                 {/* Second Card */}
+                <RevealItem from="bottom" className="min-w-0 h-full">
                 <TiltCard className="
                     border border-primary bg-wbg dark:bg-dbg 
                     rounded-2xl 
                     min-w-0
+                    h-full
                 ">
 
                     <FiMonitor 
@@ -230,14 +252,17 @@ function Skills() {
                     </ul>
 
                 </TiltCard>
+                </RevealItem>
 
 
                 {/* Third Card */}
+                {/* new: lumipat dito ang sm:col-span-2 (dating nasa TiltCard) dahil ang RevealItem na ang grid item */}
+                <RevealItem from="bottom" className="min-w-0 h-full sm:col-span-2">
                 <TiltCard className="
                     border border-primary bg-wbg dark:bg-dbg  
                     rounded-2xl 
                     min-w-0
-                    sm:col-span-2
+                    h-full
                 ">
 
                     <FiBriefcase 
@@ -306,33 +331,36 @@ function Skills() {
                     </ul>
 
                 </TiltCard>
+                </RevealItem>
 
                 {/* RIGHT SIDE - Infinite Spiral */}
-            <div className="flex max-w-7xl h-[400px] lg:h-auto lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:row-span-2 sm:col-span-2">
+                {/* new: dating <div>, RevealItem na ito (papasok mula kanan). Hindi nagbago ang mga class niya */}
+                <RevealItem from="right" className="flex max-w-7xl h-[400px] lg:h-auto lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:row-span-2 sm:col-span-2">
 
-                <InfiniteSpiral
-                items={icons}
-                animationMode="all"
-                speed={0.35}
-                radius={100}
-                iconSize={75}
-                verticalSpacing={60}
-                perspective={1}
-                centerScale={1}
-                edgeBlur={5}
-                cardsPerTurn={7}
-                pauseOnHover
-                direction="up"
-                rotation={0}
-                cardTilt={0}
-                edgeFade={1}
-                imageFit="cover"
-                grayscale={10}
-                />
-                
+                    <InfiniteSpiral
+                    items={icons}
+                    animationMode="all"
+                    speed={0.35}
+                    radius={100}
+                    iconSize={75}
+                    verticalSpacing={60}
+                    perspective={1}
+                    centerScale={1}
+                    edgeBlur={5}
+                    cardsPerTurn={7}
+                    pauseOnHover
+                    direction="up"
+                    rotation={0}
+                    cardTilt={0}
+                    edgeFade={1}
+                    imageFit="cover"
+                    grayscale={10}
+                    />
+                    
+                </RevealItem>
+
             </div>
-
-        </div>
+            </Reveal>
 
         </section>
     );

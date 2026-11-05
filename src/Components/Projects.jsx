@@ -1,5 +1,9 @@
 // Dinagdagan ng useEffect at useRef para sa scroll detection
-import { useState, useEffect, useRef } from "react";
+// new: hindi na kailangan ang useEffect at useRef, Framer Motion na ang magbabantay sa scroll
+import { useState } from "react";
+
+// new: Framer Motion para sa cinematic reveal (npm i framer-motion)
+import { motion, useReducedMotion } from "framer-motion";
 
 import SandreaLee from "../assets/projects/project1.png";
 import Pop from "../assets/projects/project2.png";
@@ -37,53 +41,63 @@ import hwFour from "../assets/hwImage/image4.png"
 
 import { useSound } from "./Sound/soundControl";
 
-// ===== REVEAL COMPONENT =====
-// Pambalot ito. Ang laman niya ay lalabas na may animation kapag nakita na sa screen.
+// ===== REVEAL COMPONENT (new: Framer Motion version) =====
+// Pambalot ito. Ang laman niya ay lalabas na may cinematic animation kapag nakita na sa screen.
+
+// new: Easing na pang-"cinema". Mabilis ang simula, malambot ang hinto
+const EASE = [0.22, 1, 0.36, 1];
+
+// new: Ito ang "pambalot" ng buong project block
+// Easy term: "hidden" = nakatago, "show" = lalabas
 function Reveal({ children }) {
-
-    const { playClick, playClickLD, playBackMenu } = useSound();
-
-    // false = hindi pa nakikita (nakatago), true = nakita na (lalabas na)
-    const [isVisible, setIsVisible] = useState(false);
-
-    // Ito ang "pangturo" natin kung aling box ang babantayan
-    const boxRef = useRef(null);
-
-    useEffect(() => {
-        // Ang observer ay nagbabantay kung pumasok na ang box sa screen
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                // Kapag nakita na sa screen
-                if (entry.isIntersecting) {
-                    setIsVisible(true);   // ipakita na
-                    observer.disconnect(); // tigil na ang pagbabantay (isang beses lang lalabas)
-                }
-            },
-            { threshold: 0.2 } // lalabas kapag 20% ng box ay nakikita na
-        );
-
-        // Simulan ang pagbabantay sa box
-        if (boxRef.current) {
-            observer.observe(boxRef.current);
-        }
-
-        // Linisin ang observer kapag nawala ang component
-        return () => observer.disconnect();
-    }, []);
+    const reduce = useReducedMotion(); // new: kung ayaw ng user ng animation, fade lang
 
     return (
-        <div
-            ref={boxRef}
-            // Kapag hindi pa visible: transparent at nasa ibaba ng kaunti
-            // Kapag visible na: kita na at nasa tamang pwesto (gumagalaw paakyat)
-            className={`transition-all duration-700 ease-out ${
-                isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-16"
-            }`}
+        <motion.div
+            initial="hidden"
+            whileInView="show"                          // new: lalabas kapag na-scroll na
+            viewport={{ once: true, amount: 0.2 }}      // new: isang beses lang, 20% kita na
+            variants={{
+                hidden: {},
+                show: {
+                    transition: {
+                        staggerChildren: reduce ? 0 : 0.18, // new: sunod-sunod ang labas ng image at text
+                    },
+                },
+            }}
         >
             {children}
-        </div>
+        </motion.div>
+    );
+}
+
+// new: Pambalot ng bawat piraso (image / text). Gagalaw ito nang sunod-sunod
+// Easy term: from="left" = papasok mula kaliwa, "right" = mula kanan, "bottom" = mula ibaba
+function RevealItem({ children, from = "bottom", className = "" }) {
+    const reduce = useReducedMotion();
+
+    // new: saan magsisimula ang galaw
+    const start = {
+        left:   { x: -70, y: 0 },
+        right:  { x: 70,  y: 0 },
+        bottom: { x: 0,   y: 60 },
+    }[from];
+
+    return (
+        <motion.div
+            className={className}
+            variants={{
+                hidden: reduce
+                    ? { opacity: 0 }
+                    : { opacity: 0, ...start, scale: 0.96, filter: "blur(8px)" }, // new: nakatago, malabo
+                show: {
+                    opacity: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)",        // new: malinaw na
+                    transition: { duration: 1, ease: EASE },
+                },
+            }}
+        >
+            {children}
+        </motion.div>
     );
 }
 
@@ -131,120 +145,134 @@ function Projects() {
         <section id="projects" className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-wbg-soft dark:bg-dbg-soft">
 
             <div
-            className="w-full mx-auto max-w-7xl items-center mt-10 sm:px-0 lg:px-0">
+            className="w-full mx-auto max-w-7xl items-center mt-5 sm:px-0 lg:px-0">
 
-                <div 
-                className="font-poppins text-primary text-3xl">
-                    Portfolio
-                </div>
+                {/* new: Header, "Portfolio" at "Selected Project" lalabas nang sunod */}
+                <Reveal>
 
-                <div 
-                className="font-poppins text-secondary dark:text-white font-bold text-6xl mt-10">
-                    Selected Project
-                </div>
+                    <RevealItem from="bottom">
+                        <div
+                        className="font-poppins text-primary text-3xl">
+                            Portfolio
+                        </div>
+                    </RevealItem>
+
+                    <RevealItem from="bottom">
+                        <div
+                        className="font-poppins text-secondary dark:text-white font-bold text-6xl mt-10">
+                            Selected Project
+                        </div>
+                    </RevealItem>
+
+                </Reveal>
 
                 {/* ===== FIRST PROJECT - SDL =====
-                    Walang <Reveal> dito, kaya laging kita agad */}
-                <div
-                className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 mx-auto max-w-7xl mt-20">
+                    new: Nakabalot na rin sa <Reveal> para may entrance pagdating sa section */}
+                <Reveal>
+                    <div
+                    className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 mx-auto max-w-7xl mt-15">
 
-                    <img
-                    src={SandreaLee}
-                    alt="Logo 1"
-                    className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
-                    />
+                        {/* new: image, papasok mula kaliwa */}
+                        <RevealItem from="left">
+                            <img
+                            src={SandreaLee}
+                            alt="Logo 1"
+                            className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
+                            />
+                        </RevealItem>
 
-                    <div className="lg:mt-0 sm:mt-0">
-
-                        <div
-                        className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
-                            Smart Automated Link & Operations Network
-                        </div>
-
-                        <div
-                        className="font-poppins text-Ldescription dark:text-Ddescription text-base mt-5 text-justify">
-                            A salon management system designed to streamline appointment booking, online shopping, and administrative tasks through an intuitive user experience.
-                        </div>
-
-                        <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
+                        {/* new: text, papasok mula kanan (dating <div className="lg:mt-0 sm:mt-0">) */}
+                        <RevealItem from="right" className="lg:mt-0 sm:mt-0">
 
                             <div
-                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
-                                React.Js
+                            className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
+                                Smart Automated Link & Operations Network
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
-                                Tailwind CSS
+                            className="font-poppins text-Ldescription dark:text-Ddescription text-base mt-5 text-justify">
+                                A salon management system designed to streamline appointment booking, online shopping, and administrative tasks through an intuitive user experience.
+                            </div>
+
+                            <div className="flex flex-wrap gap-2 sm:gap-2 mx-auto max-w-7xl mt-5 transition-all duration-300">
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    React.Js
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Tailwind CSS
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Node.Js
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Typescript
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Figma 
+                                </div>
+
+                                <div
+                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
+                                    Canva 
+                                </div>
+
                             </div>
 
                             <div
-                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
-                                Node.Js
+                                className="group flex flex-wrap gap-2 mt-5">
+
+                                    <button
+                                    onClick={() => {
+                                        setSelectedProject("sandreaLee");
+                                        setIsModalOpen(true);
+                                        playClick();
+                                    }}
+                                    className="group flex flex-wrap items-center text-white hover:text-secondary bg-primary hover:bg-alternative  font-poppins text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:scale-105 hover:shadow-lg py-2 px-5">
+
+                                        <span
+                                        className="">Information</span>
+
+                                        <FiInfo className="text-sm"/>
+                                        
+                                    </button>
+
+                                    <a
+                                    href="https://github.com/raizenraneses-git/SALON.git"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={playClickLD}
+                                    className="group relative isolate overflow-hidden flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
+                                        gap-2 border-black py-2 px-6
+                                        transition-all duration-300 ease-out hover:scale-105 active:scale-95
+                                        before:content-[''] before:absolute before:inset-y-0 before:-left-6 before:-z-10 before:w-[150%]
+                                        before:bg-black dark:before:bg-white before:-skew-x-[20deg] before:-translate-x-full hover:before:translate-x-0
+                                        before:transition-transform before:duration-300 before:delay-100 before:ease-out
+                                        after:content-[''] after:absolute after:inset-y-0 after:-left-6 after:-z-20 after:w-[150%]
+                                        after:bg-alternative after:-skew-x-[20deg] after:-translate-x-full hover:after:translate-x-0
+                                        after:transition-transform after:duration-300 after:ease-out">
+                                        
+                                        <FaGithub className="text-sm dark:text-black"/>
+
+                                        <span className="dark:text-black">
+                                            View
+                                        </span>
+                                    </a>
                             </div>
 
-                            <div
-                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
-                                Typescript
-                            </div>
-
-                            <div
-                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
-                                Figma 
-                            </div>
-
-                            <div
-                            className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
-                                Canva 
-                            </div>
-
-                        </div>
-
-                        <div
-                            className="group flex flex-wrap gap-2 mt-5">
-
-                                <button
-                                onClick={() => {
-                                    setSelectedProject("sandreaLee");
-                                    setIsModalOpen(true);
-                                    playClick();
-                                }}
-                                className="group flex flex-wrap items-center text-white hover:text-secondary bg-primary hover:bg-alternative  font-poppins text-xs rounded-2xl gap-2 border-secondary transition-all duration-300 hover:scale-105 hover:shadow-lg py-2 px-5">
-
-                                    <span
-                                    className="">Information</span>
-
-                                    <FiInfo className="text-sm"/>
-                                    
-                                </button>
-
-                                <a
-                                href="https://github.com/raizenraneses-git/SALON.git"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={playClickLD}
-                                className="group relative isolate overflow-hidden flex flex-wrap items-center bg-black dark:bg-white font-poppins text-white text-xs rounded-2xl
-                                    gap-2 border-black py-2 px-6
-                                    transition-all duration-300 ease-out hover:scale-105 active:scale-95
-                                    before:content-[''] before:absolute before:inset-y-0 before:-left-6 before:-z-10 before:w-[150%]
-                                    before:bg-black dark:before:bg-white before:-skew-x-[20deg] before:-translate-x-full hover:before:translate-x-0
-                                    before:transition-transform before:duration-300 before:delay-100 before:ease-out
-                                    after:content-[''] after:absolute after:inset-y-0 after:-left-6 after:-z-20 after:w-[150%]
-                                    after:bg-alternative after:-skew-x-[20deg] after:-translate-x-full hover:after:translate-x-0
-                                    after:transition-transform after:duration-300 after:ease-out">
-                                    
-                                    <FaGithub className="text-sm dark:text-black"/>
-
-                                    <span className="dark:text-black">
-                                        View
-                                    </span>
-                                </a>
-                        </div>
+                        </RevealItem>
 
                     </div>
-
-
-                </div>
+                </Reveal>
 
                 {/* ===== SECOND PROJECT - Pop! =====
                     Nakabalot sa <Reveal>, lalabas kapag na-scroll na */}
@@ -252,13 +280,17 @@ function Projects() {
                     <div
                     className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 mx-auto max-w-7xl mt-20">
 
-                        <img
-                        src={Pop}
-                        alt="Logo 2"
-                        className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
-                        />
+                        {/* new: image, papasok mula kaliwa */}
+                        <RevealItem from="left">
+                            <img
+                            src={Pop}
+                            alt="Logo 2"
+                            className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
+                            />
+                        </RevealItem>
 
-                        <div className="lg:mt-0 sm:mt-0">
+                        {/* new: text, papasok mula kanan (dating <div className="lg:mt-0 sm:mt-0">) */}
+                        <RevealItem from="right" className="lg:mt-0 sm:mt-0">
 
                             <div
                             className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
@@ -356,7 +388,7 @@ function Projects() {
                                     </a>
                             </div>
 
-                        </div>
+                        </RevealItem>
 
                     </div>
                 </Reveal>
@@ -366,13 +398,17 @@ function Projects() {
                     <div
                     className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 mx-auto max-w-7xl mt-20">
 
-                        <img
-                        src={WP}
-                        alt="Logo 3"
-                        className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
-                        />
+                        {/* new: image, papasok mula kanan (kabaligtaran ng Project 2 para may ritmo) */}
+                        <RevealItem from="right">
+                            <img
+                            src={WP}
+                            alt="Logo 3"
+                            className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
+                            />
+                        </RevealItem>
 
-                        <div className="lg:mt-0 sm:mt-0">
+                        {/* new: text, papasok mula kaliwa (dating <div className="lg:mt-0 sm:mt-0">) */}
+                        <RevealItem from="left" className="lg:mt-0 sm:mt-0">
 
                             <div
                             className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
@@ -469,7 +505,7 @@ function Projects() {
                                     </a>
                             </div>
 
-                        </div>
+                        </RevealItem>
 
                     </div>
                 </Reveal>
@@ -479,13 +515,17 @@ function Projects() {
                     <div
                     className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 mx-auto max-w-7xl mt-20">
 
-                        <img
-                        src={HW}
-                        alt="Logo 4"
-                        className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
-                        />
+                        {/* new: image, papasok mula kaliwa */}
+                        <RevealItem from="left">
+                            <img
+                            src={HW}
+                            alt="Logo 4"
+                            className="rounded-2xl h-auto w-full mx-auto shadow-2xl"
+                            />
+                        </RevealItem>
 
-                        <div className="lg:mt-0 sm:mt-10">
+                        {/* new: text, papasok mula kanan (dating <div className="lg:mt-0 sm:mt-10">) */}
+                        <RevealItem from="right" className="lg:mt-0 sm:mt-10">
 
                             <div
                             className="font-poppins text-primary font-bold text-3xl lg:text-4xl sm:text-4xl text-left ">
@@ -582,7 +622,7 @@ function Projects() {
                                     </a>
                             </div>
 
-                        </div>
+                        </RevealItem>
 
                     </div>
                 </Reveal>

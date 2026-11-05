@@ -40,6 +40,24 @@ const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// ===== NEW: NAVBAR INTRO (cinematic, pareho ng Hero) =====
+// Bumababa mula sa taas ang logo, links, at buttons — sunod-sunod, hindi sabay-sabay.
+const smoothEase = [0.22, 1, 0.36, 1]; // new: same easing sa Hero
+
+const navContainer = {                  // new: taga-trigger at taga-sunod-sunod
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+};
+
+const navItem = {                       // new: bawat bahagi bumababa + fade in
+  hidden: { opacity: 0, y: -20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: smoothEase },
+  },
+};
+
 // >>> NEW: RIPPLE + TEXT POP
 // Lumalaki mula sa mismong pinindot na spot ang puting bilog, tapos nawawala.
 // Ginagamit ang Web Animations API (element.animate) kaya walang CSS na kailangan.
@@ -195,9 +213,15 @@ function Navbar({ darkMode, setDarkMode }) {
       }`}
     >
       {/* max-w-7xl: kapareho ng container sa Credentials */}
-      <div className="mx-auto flex max-w-7xl items-center justify-between">
+      {/* new: dating <div — nagpapatakbo na ng intro (sa loob lang ng nav, hindi sa mismong <nav> para hindi masira ang hide-on-scroll) */}
+      <motion.div
+        variants={navContainer} // new
+        initial="hidden"        // new: simula (nakatago)
+        animate="show"          // new: play pagka-load
+        className="mx-auto flex max-w-7xl items-center justify-between"
+      >
         {/* ---------- LEFT: Logo and Name ---------- */}
-        <div className="flex items-center gap-3">
+        <motion.div variants={navItem} className="flex items-center gap-3"> {/* new: dating <div */}
           {/* >>> NEW: wrapper na "hidden sm:block" = nakatago ang Logo sa mobile, lalabas mula sm (640px) pataas */}
           <div className="hidden sm:block">
             <CircularText
@@ -226,10 +250,14 @@ function Navbar({ darkMode, setDarkMode }) {
             <span>Raizen Raneses</span>
             <span className="text-primary">.</span>
           </div>
-        </div>
+        </motion.div>
 
         {/* ---------- CENTER: Desktop links ---------- */}
-        <ul className="hidden items-center gap-2 font-poppins text-[14px] font-medium text-secondary md:flex lg:gap-4 lg:text-[16px] dark:text-Ddescription">
+        {/* new: dating <ul */}
+        <motion.ul
+          variants={navItem} // new
+          className="hidden items-center gap-2 font-poppins text-[14px] font-medium text-secondary md:flex lg:gap-4 lg:text-[16px] dark:text-Ddescription"
+        >
           {links.map((link) => (
             <NavLinkItem
               key={link}
@@ -242,10 +270,10 @@ function Navbar({ darkMode, setDarkMode }) {
               }}
             />
           ))}
-        </ul>
+        </motion.ul>
 
         {/* ---------- RIGHT: Dark mode + Volume + Hamburger ---------- */}
-        <div className="flex items-center gap-3">
+        <motion.div variants={navItem} className="flex items-center gap-3"> {/* new: dating <div */}
           {/* Dark mode button: iikot ang icon pag hinover */}
           <button
             type="button"
@@ -294,8 +322,8 @@ function Navbar({ darkMode, setDarkMode }) {
               }`}
             />
           </button>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* ---------- MOBILE MENU ---------- */}
       {/* grid-rows-[0fr] -> [1fr] ang trick para smooth na bumaba ang menu */}

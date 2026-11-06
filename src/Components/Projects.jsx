@@ -111,7 +111,7 @@ function Projects() {
     const projectSDL = {
         name: "Smart Automated Link & Operations Network",
         description:
-            "A salon management system designed to streamline appointment booking, online shopping, and administrative tasks through an intuitive user experience.",
+            "Collaborated with the development team on frontend implementation, interface prototyping, and technical documentation, contributing to the design and development of the salon management system.",
         images: [sdleeOne, sdleeTwo, sdleeThree, sdleeFour, sdleeFive],
         tools: ["React.Js", "Tailwind CSS", "Node.Js", "Typescript", "Figma", "Canva"],
     };
@@ -119,7 +119,7 @@ function Projects() {
     const projectPop = {
         name: "Pop!",
         description:
-            "This was one of my final projects during my internship. I was assigned this task to strengthen my HTML and CSS fundamentals and learn how to build frontend pages using Elementor and WordPress with guidance from my team leader.",
+            "This was one of my final projects during my internship. I was assigned this task to strengthen my HTML and CSS fundamentals and learn how to build frontend pages using Elementor and WordPress with guidance from my team leader. Also for the sake of curiosity I tried using React and Tailwind Css.",
         images: [popImageOne, popImageTwo, popImageThree],
         tools: ["HTML", "CSS", "Bootstrap", "Elementor", "Wordpress", "Figma", "React.Js", "Tailwind Css"],
     };
@@ -127,7 +127,7 @@ function Projects() {
     const projectWP = {
         name: "Women Power",
         description:
-            "Women of Power is a website created for Women’s Month that celebrates the achievements, and contributions of women. It features inspiring stories and highlights women who have made an impact in different fields. The website aims to recognize and empower women through a informative, and engaging design.",
+            "Developed as my first internship project, this website allowed me to explore UI fundamentals and gain practical experience in translating design concepts into a functional web interface.",
         images: [wpOne, wpTwo, wpThree, wpFour],
         tools: ["HTML", "CSS", "Bootstrap", "Elementor", "Wordpress", "Figma", "React.Js", "Tailwind Css"],
     };
@@ -135,7 +135,7 @@ function Projects() {
     const projectHW = {
         name: "Holy Week",
         description:
-            "Holy Week is a digital blog that features stories and important moments related to Semana Santa in the Philippines. It provides readers with information about the meaning of Holy Week and how Filipino communities observe this important religious tradition through faith, reflection, and cultural practices.",
+            "An internship project that allowed me to further explore responsive web development, particularly how to create adaptable layouts and maintain a consistent user experience across desktop and mobile devices.",
         images: [hwOne, hwTwo, hwThree, hwFour],
         tools: ["HTML", "CSS", "Bootstrap", "Elementor", "Wordpress", "Figma", "React.Js", "Tailwind Css"   ],
     };
@@ -199,11 +199,6 @@ function Projects() {
                                 <div
                                 className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
                                     React.Js
-                                </div>
-
-                                <div
-                                className="font-poppins text-xs text-primary dark:text-Ddescription rounded-2xl bg-primary/20 text-center p-2 hover:scale-105 hover:shadow-lg transition-all duration-300">
-                                    Tailwind CSS
                                 </div>
 
                                 <div

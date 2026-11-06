@@ -179,6 +179,13 @@ function PhotoCard({ src, alt, className = "", objectPosition = "center" }) {
   );
 }
 
+const scrollToSection = (id) => {
+  document.getElementById(id)?.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+};
+
 function Hero({ darkMode, setDarkMode }) {
 
   const { playClick, playClickLD, playBackMenu } = useSound();
@@ -338,11 +345,13 @@ function Hero({ darkMode, setDarkMode }) {
 
 
             {/* My Works */}
-            <a
-              href="/AboutMe"
-              target="_blank"
+            <button
+              type="button"
               rel="noopener noreferrer"
-              onClick={playBackMenu}
+              onClick={() => {
+                playClick();
+                scrollToSection("projects");
+              }}
               className="
                 group
                 relative
@@ -400,7 +409,7 @@ function Hero({ darkMode, setDarkMode }) {
                   group-hover:translate-x-1
                 "
               />
-            </a>
+            </button>
 
           </motion.div>
 

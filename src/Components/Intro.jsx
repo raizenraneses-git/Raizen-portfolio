@@ -1,164 +1,129 @@
+import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+// Same easing as your Hero para consistent ang feel
+const smoothEase = [0.22, 1, 0.36, 1];
 
-function Intro() {
-  const [showIntro, setShowIntro] = useState(
-    () => sessionStorage.getItem("portfolio-intro") !== "played"
-  );
+/**
+ * Intro (light version)
+ * Props:
+ *  - onComplete: tinatawag kapag tapos na ang loading + hold
+ *  - duration:   haba ng progress sa ms (default 2400)
+ */
+function Intro({ onComplete, duration = 2400 }) {
+  const reduce = useReducedMotion();
+  const [progress, setProgress] = useState(0);
 
+  // FIX: itago ang latest onComplete sa ref para hindi na mag-restart / makansela
+  // ang timer kapag nag re-render ang parent (kahit nasa hold na).
+  const onCompleteRef = useRef(onComplete);
   useEffect(() => {
-    if (!showIntro) return;
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      sessionStorage.setItem("portfolio-intro", "played");
-      setShowIntro(false);
-      return;
-    }
+  // Lock scroll habang naka-intro
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, []);
 
-    const timer = setTimeout(() => {
-      sessionStorage.setItem("portfolio-intro", "played");
-      setShowIntro(false);
-    }, 4300);
+  // Progress 0 -> 100, hold sandali, then onComplete (isang beses lang tatakbo)
+  useEffect(() => {
+    const total = reduce ? 600 : duration;
+    const hold = reduce ? 100 : 450;
+    let raf;
+    let holdTimer;
+    const start = performance.now();
 
-    return () => clearTimeout(timer);
-  }, [showIntro]);
+    const tick = (now) => {
+      const t = Math.min((now - start) / total, 1);
+      const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+      setProgress(Math.round(eased * 100));
+
+      if (t < 1) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        holdTimer = setTimeout(() => onCompleteRef.current?.(), hold);
+      }
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(holdTimer);
+    };
+  }, [duration, reduce]);
 
   return (
-    <AnimatePresence>
-      {showIntro && (
-        <motion.div
-          key="persona-intro"
-          initial={{ y: 0 }}
-          exit={{ y: "-100%" }}
-          transition={{
-            duration: 0.9,
-            ease: [0.76, 0, 0.24, 1],
-          }}
-          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#00183E] text-white"
-        >
-          {/* Background glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,#1269CC35,transparent_45%)]" />
+    <motion.div
+      // Curtain: umaangat paitaas pag-exit (AnimatePresence sa parent)
+      initial={{ y: 0 }}
+      exit={{ y: "-100%", transition: { duration: reduce ? 0.2 : 1, ease: smoothEase } }}
+      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-wbg"
+    >
+      {/* Soft shading: malabong glow ng primary at alternative sa light bg */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-40 -left-40 h-[480px] w-[480px] rounded-full bg-primary/15 blur-[140px]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-40 -bottom-40 h-[420px] w-[420px] rounded-full bg-alternative/25 blur-[140px]"
+      />
+      {/* Very light vignette */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(18,105,204,0.06)_100%)]"
+      />
 
-          {/* Moon / Circular reveal */}
-          <motion.div
-            initial={{ scale: 0.3, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            className="absolute right-[-100px] top-[10%] h-[300px] w-[300px] rounded-full border border-blue-400/30 bg-[#1269CC]/10 shadow-[0_0_100px_#1269CC30] sm:right-[10%] sm:h-[420px] sm:w-[420px]"
-          />
-
-          {/* Diagonal blue cinematic wipe */}
-          <motion.div
-            initial={{ x: "-150%" }}
-            animate={{ x: "180%" }}
-            transition={{
-              delay: 2.5,
-              duration: 1,
-              ease: [0.76, 0, 0.24, 1],
-            }}
-            className="absolute inset-y-[-50%] left-[-20%] w-[35%] rotate-[20deg] bg-[#1269CC]/20"
-          />
-
-          {/* Vertical label */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 1 }}
-            className="absolute left-6 top-1/2 -translate-y-1/2 rotate-180 text-[10px] tracking-[0.4em] text-blue-300 [writing-mode:vertical-rl]"
+      {/* Center content */}
+      <div className="relative flex w-full max-w-xl flex-col items-center px-6 text-center">
+        {/* Name (mask reveal, same style as Hero) */}
+        <div className="overflow-hidden">
+          <motion.h1
+            initial={{ y: "110%" }}
+            animate={{ y: "0%" }}
+            transition={{ duration: 1, ease: smoothEase, delay: 0.2 }}
+            className="font-poppins text-4xl font-bold leading-tight tracking-tight text-secondary sm:text-6xl"
           >
-            THE BEGINNING OF SOMETHING NEW
+            Raizen Rañeses
+          </motion.h1>
+        </div>
+
+        {/* Role (isang linya lang) */}
+        <div className="mt-3 overflow-hidden">
+          <motion.p
+            initial={{ y: "110%" }}
+            animate={{ y: "0%" }}
+            transition={{ duration: 0.9, ease: smoothEase, delay: 0.45 }}
+            className="font-poppins text-xs uppercase tracking-[0.35em] text-primary sm:text-sm"
+          >
+            Frontend · UI/UX
           </motion.p>
+        </div>
 
-          {/* Main content */}
-          <div className="relative z-10 flex flex-col items-center text-center">
+        {/* Progress line */}
+        <div className="mt-10 h-px w-full max-w-xs bg-secondary/10">
+          <div
+            className="h-full origin-left bg-gradient-to-r from-primary to-alternative"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+      </div>
 
-            {/* Logo */}
-            <motion.div
-              initial={{ scale: 0, rotate: -90, opacity: 0 }}
-              animate={{ scale: 1, rotate: 0, opacity: 1 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="mb-8 flex h-16 w-16 items-center justify-center rounded-full border border-blue-400/60 bg-[#1269CC]/10"
-            >
-              <span className="text-3xl font-bold text-white">
-                R.
-              </span>
-            </motion.div>
-
-            {/* Name reveal */}
-            <motion.h1
-              initial={{
-                opacity: 0,
-                y: 40,
-                filter: "blur(15px)",
-                letterSpacing: "0.6em",
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                filter: "blur(0px)",
-                letterSpacing: "0.2em",
-              }}
-              transition={{
-                delay: 0.6,
-                duration: 1.2,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="font-poppins text-2xl font-bold sm:text-5xl"
-            >
-              RAIZEN
-              <span className="text-[#1269CC]"> RANESES</span>
-            </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.3, duration: 0.8 }}
-              className="mt-4 text-[10px] tracking-[0.35em] text-blue-200 sm:text-xs"
-            >
-              INFORMATION TECHNOLOGY GRADUATE
-            </motion.p>
-
-            {/* Loading line */}
-            <div className="mt-12 h-[2px] w-48 overflow-hidden bg-white/20">
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{
-                  delay: 1.5,
-                  duration: 1.5,
-                  ease: "easeInOut",
-                }}
-                className="h-full origin-left bg-[#1269CC]"
-              />
-            </div>
-
-            {/* Bottom text */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2, duration: 0.8 }}
-              className="mt-4 text-[9px] tracking-[0.4em] text-blue-300"
-            >
-              INITIALIZING PORTFOLIO...
-            </motion.p>
-          </div>
-
-          {/* Corner details */}
-          <div className="absolute bottom-8 left-8 text-[9px] tracking-widest text-white/40">
-            RANESES / 2026
-          </div>
-
-          <div className="absolute bottom-8 right-8 text-[9px] tracking-widest text-white/40">
-            WELCOME
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+      {/* Counter sa sulok */}
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+        className="absolute bottom-6 right-6 font-poppins text-sm tabular-nums text-Ldescription/70 sm:bottom-8 sm:right-8"
+      >
+        {String(progress).padStart(3, "0")}
+      </motion.span>
+    </motion.div>
   );
 }
 

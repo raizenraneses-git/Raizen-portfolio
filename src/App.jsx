@@ -10,6 +10,8 @@ import AboutMe from "./Components/AboutMe";
 import Projects from "./Components/Projects";
 import Footer from "./Components/Footer";
 
+import { AnimatePresence } from "framer-motion"; // new
+
 // CHANGE 1: i-import ang bagong transition component
 import  Timeline  from "./Components/Timeline";
 import DarkMode from "./Components/DarkMode/DarkMode";
@@ -20,6 +22,7 @@ function App() {
   // CHANGE 2: Dito naka-save ang text ng transition.
   // null = walang transition, may text = tumatakbo ang transition
   const [transitionLabel, setTransitionLabel] = useState(null);
+  const [introDone, setIntroDone] = useState(false); // new
 
   // Update the dark mode class (same pa rin)
   useEffect(() => {
@@ -45,7 +48,12 @@ function App() {
   return (
     <div>
 
-      <Intro />
+      {/* new: AnimatePresence + key + onComplete */}
+      <AnimatePresence>
+        {!introDone && (
+          <Intro key="intro" onComplete={() => setIntroDone(true)} />
+        )}
+      </AnimatePresence>
 
       {/* Pinalitan ang setDarkMode ng handleToggle. Hindi na kailangang galawin ang Navbar */}
       <Navbar darkMode={darkMode} setDarkMode={handleToggle} />
@@ -53,7 +61,7 @@ function App() {
       {/* Lalabas lang kapag may label (habang tumatakbo ang transition) */}
       {transitionLabel && <DarkMode label={transitionLabel} />}
 
-      <Hero />
+      <Hero play={introDone} />
       <Slider />
       <Projects />
       <Skills />

@@ -18,7 +18,7 @@ const links = ["Home", "Projects", "About", "Contact"];
 const sectionIds = {
   Home: "home",
   Projects: "projects",
-  AboutMe: "aboutMe",
+  About: "aboutMe",
   Contact: "contact",
 };
 

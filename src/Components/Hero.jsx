@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
-
-import { motion } from "framer-motion"; // new: pang-animate (cinematic intro)
-
-import { useSound } from "./Sound/soundControl";
-import VolumeControl from "./Sound/volumeControl";
-
-import { FiDownload } from "react-icons/fi";
-import { FiArrowUpRight } from "react-icons/fi";
+import { motion } from "framer-motion";
+import { FiDownload, FiArrowUpRight } from "react-icons/fi";
 import {
   FaFacebookF,
   FaInstagram,
@@ -14,61 +8,169 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa6";
 
-
+import { useSound } from "./Sound/soundControl";
 
 import cv from "../assets/documents/cv.pdf";
-
 import heroOne from "../assets/heroImage/image1.jpg";
 import heroTwo from "../assets/heroImage/image2.jpg";
 import heroThree from "../assets/heroImage/image3.jpg";
 import heroFour from "../assets/heroImage/image4.jpg";
-import ProjectSDL from "./ProjectsInfo/ProjectSDL";
-import Navbar from "./Navbar";
-import AboutMe from "./AboutMe";
 
-// ===== NEW (OPTION 2): "Editorial Mask Reveal" presets =====
-// Idea: yung malalaking text ay lumalabas mula sa likod ng "mask" (parang titles sa movie),
-// tapos yung mga photo ay may kulay na "takip" (primary color) na umaangat para ma-reveal sila.
-const smoothEase = [0.22, 1, 0.36, 1]; // new: smooth "cinematic" easing
+/* ---------- Data ---------- */
 
-const heroContainer = { hidden: {}, show: {} }; // new: pang-trigger lang ng buong hero
+const roles = ["Frontend", "UI/UX", "Freelancer"];
 
-const leftStack = {                              // new: sunod-sunod na lumalabas ang left side
+const socials = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/RaizenRaneses.K/",
+    Icon: FaFacebookF,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/raizenraneses/",
+    Icon: FaInstagram,
+  },
+  {
+    label: "X / Twitter",
+    href: "https://x.com/raizenraneses",
+    Icon: FaXTwitter,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/raizenra%C3%B1eses/",
+    Icon: FaLinkedinIn,
+  },
+];
+
+const photos = [
+  {
+    src: heroTwo,
+    alt: "Hero image 1",
+    objectPosition: "center 30%",
+    className: "col-start-1 row-start-1",
+  },
+  {
+    src: heroOne,
+    alt: "Profile portrait",
+    objectPosition: "center 20%",
+    className: "col-start-2 row-start-1 row-span-2",
+  },
+  {
+    src: heroThree,
+    alt: "Hero image 3",
+    objectPosition: "center 40%",
+    className: "col-start-1 row-start-2",
+  },
+  {
+    src: heroFour,
+    alt: "Graduation",
+    objectPosition: "center 37%",
+    className: "col-span-2 col-start-1 row-start-3",
+  },
+];
+
+/* ---------- Styles ---------- */
+
+const gridClass = [
+  "mx-auto grid max-w-7xl grid-cols-1 items-center gap-12",
+  "sm:grid-cols-2 sm:gap-0",
+  "lg:grid-cols-[1fr_0.9fr] lg:gap-16",
+].join(" ");
+
+const greetingClass = "font-poppins text-[24px] text-primary";
+
+const nameClass =
+  "mt-10 font-poppins text-[64px] font-bold leading-tight text-secondary dark:text-white";
+
+const roleClass =
+  "mt-5 font-poppins text-[64px] font-bold leading-tight text-primary";
+
+const descriptionClass =
+  "mt-10 max-w-xl font-poppins text-[20px] leading-relaxed text-text dark:text-Ddescription";
+
+const socialLabelClass =
+  "mt-7 font-poppins text-sm text-Ldescription dark:text-Ddescription";
+
+const socialLinkClass =
+  "text-secondary transition-all duration-300 hover:-translate-y-0.5 hover:text-primary dark:text-Ddescription";
+
+const collageClass = "mb-5 grid h-[560px] w-full grid-cols-2 grid-rows-3 gap-3";
+
+const buttonBaseClass = [
+  "group relative isolate flex items-center justify-center gap-2 overflow-hidden",
+  "rounded-card py-2.5 font-poppins text-sm",
+  "transition-all duration-300 ease-in-out",
+  "hover:-translate-y-0.5 hover:-rotate-2 hover:scale-[1.03]",
+  "hover:shadow-[4px_4px_0_0_#1e6bff] active:scale-95",
+  "before:absolute before:inset-y-0 before:-left-6 before:-z-10 before:w-[150%]",
+  "before:content-[''] before:-skew-x-[20deg] before:-translate-x-full",
+  "before:transition-transform before:duration-300 before:ease-out",
+  "hover:before:translate-x-0",
+].join(" ");
+
+const primaryButtonClass = `${buttonBaseClass} bg-primary px-6 text-white before:bg-alternative hover:text-[#04122e]`;
+
+const outlineButtonClass = `${buttonBaseClass} border border-primary bg-white px-5 text-primary before:bg-secondary hover:border-alternative hover:text-alternative`;
+
+const downloadIconClass =
+  "h-4 w-4 transition-transform duration-300 hover:text-secondary group-hover:rotate-6";
+
+const arrowIconClass =
+  "h-4 w-4 transition-transform duration-300 hover:text-alternative group-hover:translate-x-1";
+
+/* ---------- Motion ---------- */
+
+const smoothEase = [0.22, 1, 0.36, 1];
+
+const heroContainer = { hidden: {}, show: {} };
+
+const leftStack = {
   hidden: {},
   show: { transition: { staggerChildren: 0.14, delayChildren: 0.2 } },
 };
 
-const slideLeft = {                              // new: pumapasok mula kaliwa (para sa greeting)
+const slideLeft = {
   hidden: { opacity: 0, x: -40 },
   show: { opacity: 1, x: 0, transition: { duration: 0.8, ease: smoothEase } },
 };
 
-const slideUp = {                                // new: text umaakyat mula sa likod ng mask
+const slideUp = {
   hidden: { y: "110%" },
   show: { y: "0%", transition: { duration: 1, ease: smoothEase } },
 };
 
-const softUp = {                                 // new: mahinang fade up (description, buttons, socials)
+const softUp = {
   hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: smoothEase } },
 };
 
-const collage = {                                // new: sunod-sunod ang mga photo
+const collage = {
   hidden: {},
   show: { transition: { staggerChildren: 0.18, delayChildren: 0.4 } },
 };
 
-const photoSlide = {                             // new: photo pumapasok mula kanan
+const photoSlide = {
   hidden: { opacity: 0, x: 60 },
   show: { opacity: 1, x: 0, transition: { duration: 1, ease: smoothEase } },
 };
 
-const coverWipe = {                              // new: kulay na takip na lumiliit pataas para ma-reveal ang photo
+const coverWipe = {
   hidden: { scaleY: 1 },
   show: { scaleY: 0, transition: { duration: 1, ease: smoothEase, delay: 0.2 } },
 };
 
-// new: Mask wrapper (itinatago ang text hanggang umakyat ito)
+/* ---------- Helpers ---------- */
+
+const scrollToSection = (id) => {
+  document.getElementById(id)?.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+};
+
+/* ---------- Small components ---------- */
+
 function MaskReveal({ children, className = "" }) {
   return (
     <div className={`overflow-hidden ${className}`}>
@@ -86,31 +188,29 @@ function RotatingText({ words, interval = 2000 }) {
   useEffect(() => {
     const currentWord = words[wordIndex];
 
-    // Type or delete one letter
-    const timer = setTimeout(() => {
-      if (!isDeleting) {
-        // Add one letter
-        setText(currentWord.substring(0, text.length + 1));
+    const timer = setTimeout(
+      () => {
+        if (!isDeleting) {
+          setText(currentWord.substring(0, text.length + 1));
 
-        // Start deleting when the word is complete
-        if (text.length + 1 === currentWord.length) {
-          setTimeout(() => {
-            setFade(false);
-            setIsDeleting(true);
-          }, interval);
-        }
-      } else {
-        // Remove one letter
-        setText(currentWord.substring(0, text.length - 1));
+          if (text.length + 1 === currentWord.length) {
+            setTimeout(() => {
+              setFade(false);
+              setIsDeleting(true);
+            }, interval);
+          }
+        } else {
+          setText(currentWord.substring(0, text.length - 1));
 
-        // Move to the next word when empty
-        if (text.length === 1) {
-          setIsDeleting(false);
-          setWordIndex((prev) => (prev + 1) % words.length);
-          setFade(true);
+          if (text.length === 1) {
+            setIsDeleting(false);
+            setWordIndex((prev) => (prev + 1) % words.length);
+            setFade(true);
+          }
         }
-      }
-    }, isDeleting ? 60 : 120);
+      },
+      isDeleting ? 60 : 120
+    );
 
     return () => clearTimeout(timer);
   }, [text, isDeleting, wordIndex, words, interval]);
@@ -127,49 +227,21 @@ function RotatingText({ words, interval = 2000 }) {
   );
 }
 
-// Reusable image card
 function PhotoCard({ src, alt, className = "", objectPosition = "center" }) {
   return (
-    <motion.div  // new: dating <div
-      variants={photoSlide} // new: slide in mula kanan
-      className={`
-        group
-        relative
-        overflow-hidden
-        rounded-2xl
-        ${className}
-      `}
+    <motion.div
+      variants={photoSlide}
+      className={`group relative overflow-hidden rounded-2xl ${className}`}
     >
       <img
         src={src}
         alt={alt}
         style={{ objectPosition }}
-        className="
-          h-full
-          w-full
-          object-cover
-          transition-all
-          duration-500
-          ease-out
-          group-hover:scale-[1.04]
-          group-hover:-translate-y-1
-        "
+        className="h-full w-full object-cover transition-all duration-500 ease-out group-hover:-translate-y-1 group-hover:scale-[1.04]"
       />
 
-      {/* subtle overlay */}
-      <div
-        className="
-          pointer-events-none
-          absolute
-          inset-0
-          bg-black/0
-          transition-all
-          duration-500
-          group-hover:bg-secondary/5
-        "
-      />
+      <div className="pointer-events-none absolute inset-0 bg-black/0 transition-all duration-500 group-hover:bg-secondary/5" />
 
-      {/* new: kulay na takip na umaangat (primary color mo) */}
       <motion.div
         variants={coverWipe}
         style={{ originY: 0 }}
@@ -179,399 +251,105 @@ function PhotoCard({ src, alt, className = "", objectPosition = "center" }) {
   );
 }
 
-const scrollToSection = (id) => {
-  document.getElementById(id)?.scrollIntoView({
-    behavior: "smooth",
-    block: "start",
-  });
-};
+/* ---------- Sections ---------- */
 
-function Hero({ darkMode, setDarkMode }) {
-
-  const { playClick, playClickLD, playBackMenu } = useSound();
+function HeroContent() {
+  const { playClick, playClickLD } = useSound();
 
   return (
-    <section id="home" className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-wbg-soft dark:bg-dbg-soft">
-
-      <motion.div  // new: dating <div (ito ang nagpapatakbo ng buong intro)
-        variants={heroContainer} // new
-        initial="hidden"         // new: simula (nakatago)
-        animate="show"           // new: play pagka-load
-        className="
-          mx-auto
-          grid
-          max-w-7xl
-          grid-cols-1
-          sm:grid-cols-2
-          items-center
-          gap-12
-          lg:grid-cols-[1fr_0.9fr]
-          sm:gap-0
-          lg:gap-16
-        "
-      >
-
-        {/* =====================================
-            LEFT SIDE - CONTENT
-        ====================================== */}
-        <motion.div variants={leftStack} className="flex flex-col"> {/* new: dating <div */}
-
-          {/* Greeting */}
-          <motion.div variants={slideLeft} className="font-poppins text-[24px] text-primary"> {/* new */}
-            ─── Hello Everyone! I am
-          </motion.div>
-
-
-          {/* Name */}
-          <MaskReveal  // new: dating <div (text umaakyat mula sa mask)
-            className="
-              mt-10
-              font-poppins
-              text-[64px]
-              font-bold
-              leading-tight
-              text-secondary
-              dark:text-white
-            "
-          >
-            RAIZEN RAÑESES
-          </MaskReveal>
-
-
-          {/* Rotating Text */}
-          <MaskReveal  // new: dating <div
-            className="
-              mt-5
-              font-poppins
-              text-[64px]
-              font-bold
-              leading-tight
-              text-primary
-            "
-          >
-            <RotatingText
-              words={[
-                "Frontend",
-                "UI/UX",
-                "Freelancer",
-              ]}
-              interval={2000}
-            />
-          </MaskReveal>
-
-
-          {/* Description */}
-          <motion.div  // new: dating <div
-            variants={softUp} // new
-            className="
-              mt-10
-              max-w-xl
-              font-poppins
-              text-[20px]
-              leading-relaxed
-              text-text
-              dark:text-Ddescription
-            "
-          >
-            I am a passionate front-end developer who enjoys
-            transforming ideas into clean, responsive, and
-            user friendly digital experiences.
-          </motion.div>
-
-
-          {/* Buttons */}
-          {/* new: animation nasa wrapper lang (hindi sa <a>) para hindi mag-away sa Tailwind hover */}
-          <motion.div variants={softUp} className="mt-8 flex flex-wrap gap-4">
-
-            {/* CV */}
-            <a
-              href={cv}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={playClickLD}
-              className="
-                group
-                relative
-                isolate
-                overflow-hidden
-                flex
-                items-center
-                justify-center
-                gap-2
-                rounded-card
-                px-6
-                py-2.5
-                font-poppins
-                text-sm
-                text-white
-                hover:text-[#04122e]
-                transition-all
-                duration-300
-                ease-in-out
-                hover:scale-[1.03]
-                hover:-translate-y-0.5
-                hover:-rotate-2
-                active:scale-95
-                hover:shadow-[4px_4px_0_0_#1e6bff]
-                bg-primary
-                before:content-['']
-                before:absolute
-                before:inset-y-0
-                before:-left-6
-                before:-z-10
-                before:w-[150%]
-                before:bg-alternative
-                before:-skew-x-[20deg]
-                before:-translate-x-full
-                hover:before:translate-x-0
-                before:transition-transform
-                before:duration-300
-                before:ease-out
-              "
-            >
-              <FiDownload
-                className="
-                  h-4
-                  w-4
-                  hover:text-secondary
-                  transition-transform
-                  duration-300
-                  group-hover:rotate-6
-                "
-              />
-
-              Download CV
-            </a>
-
-
-            {/* My Works */}
-            <button
-              type="button"
-              rel="noopener noreferrer"
-              onClick={() => {
-                playClick();
-                scrollToSection("projects");
-              }}
-              className="
-                group
-                relative
-                  isolate
-                  overflow-hidden
-                  flex
-                  items-center
-                  justify-center
-                  gap-2
-                  rounded-card
-                  border
-                  border-primary
-                  bg-white
-                  px-5
-                  py-2.5
-                  font-poppins
-                  text-sm
-                  text-primary
-                  transition-all
-                  duration-300
-                  ease-in-out
-                  hover:scale-[1.03]
-                  hover:-translate-y-0.5
-                  hover:-rotate-2
-                  hover:text-alternative
-                  hover:border-alternative
-                  hover:shadow-[4px_4px_0_0_#1e6bff]
-                  active:scale-95
-                  before:content-['']
-                  before:absolute
-                  before:inset-y-0
-                  before:-left-6
-                  before:-z-10
-                  before:w-[150%]
-                  before:bg-secondary
-                  before:-skew-x-[20deg]
-                  before:-translate-x-full
-                  hover:before:translate-x-0
-                  before:transition-transform
-                  before:duration-300
-                  before:ease-out
-              "
-            >
-              <span>
-                View My Works
-              </span>
-
-              <FiArrowUpRight
-                className="
-                  h-4
-                  w-4
-                  hover:text-alternative
-                  transition-transform
-                  duration-300
-                  group-hover:translate-x-1
-                "
-              />
-            </button>
-
-          </motion.div>
-
-
-          {/* Social Media */}
-          <motion.div variants={softUp} className="mt-7 font-poppins text-sm text-Ldescription dark:text-Ddescription"> {/* new */}
-            Social Media's / Contact
-          </motion.div>
-
-
-          {/* Social Icons */}
-          <motion.div variants={softUp} className="mt-5 flex items-center gap-5"> {/* new */}
-
-            {/* Facebook */}
-            <a
-              href="https://www.facebook.com/RaizenRaneses.K/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-              onClick={playClick}
-              className="
-                text-secondary
-                dark:text-Ddescription
-                transition-all
-                hover:-translate-y-0.5
-                hover:text-primary
-              "
-            >
-              <FaFacebookF className="h-5 w-5" />
-            </a>
-
-            {/* Instagram */}
-            <a
-              href="https://www.instagram.com/raizenraneses/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              onClick={playClick}
-              className="
-                text-secondary
-                dark:text-Ddescription
-                transition-all
-                duration-300
-                hover:-translate-y-0.5
-                hover:text-primary
-              "
-            >
-              <FaInstagram className="h-5 w-5" />
-            </a>
-
-            {/* X / Twitter */}
-            <a
-              href="https://x.com/raizenraneses"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="X / Twitter"
-              onClick={playClick}
-              className="
-                text-secondary
-                dark:text-Ddescription
-                transition-all
-                duration-300
-                hover:-translate-y-0.5
-                hover:text-primary
-              "
-            >
-              <FaXTwitter className="h-5 w-5" />
-            </a>
-
-            {/* LinkedIn */}
-            <a
-              href="https://www.linkedin.com/in/raizenra%C3%B1eses/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              onClick={playClick}
-              className="
-                text-secondary
-                dark:text-Ddescription
-                transition-all
-                duration-300
-                hover:-translate-y-0.5
-                hover:text-primary
-              "
-            >
-              <FaLinkedinIn className="h-5 w-5" />
-            </a>
-
-          </motion.div>
-
-        </motion.div>
-
-
-        {/* =====================================
-            RIGHT SIDE - IMAGE COLLAGE
-        ====================================== */}
-        <motion.div  // new: dating <div
-          variants={collage} // new: sunod-sunod na reveal ng photos
-          className="
-            grid
-            h-[560px]
-            w-full
-            grid-cols-2
-            grid-rows-3
-            gap-3
-            mb-5
-          "
-        >
-
-          {/* Top Left */}
-          <PhotoCard
-            src={heroTwo}
-            alt="Hero image 1"
-            objectPosition="center 30%"
-            className="
-              col-start-1
-              row-start-1
-            "
-          />
-
-
-          {/* Big Right Image */}
-          <PhotoCard
-            src={heroOne}
-            alt="Profile portrait"
-            objectPosition="center 20%"
-            className="
-              col-start-2
-              row-start-1
-              row-span-2
-            "
-          />
-
-
-          {/* Middle Left */}
-          <PhotoCard
-            src={heroThree}
-            alt="Hero image 3"
-            objectPosition="center 40%"
-            className="
-              col-start-1
-              row-start-2
-            "
-          />
-
-
-          {/* Bottom Full Width */}
-          <PhotoCard
-            src={heroFour}
-            alt="Graduation"
-            objectPosition="center 37%"
-            className="
-              col-span-2
-              col-start-1
-              row-start-3 
-            "
-          />
-
-        </motion.div>
-
+    <motion.div variants={leftStack} className="flex flex-col">
+      <motion.div variants={slideLeft} className={greetingClass}>
+        ─── Hello Everyone! I am
       </motion.div>
 
+      <MaskReveal className={nameClass}>RAIZEN RAÑESES</MaskReveal>
+
+      <MaskReveal className={roleClass}>
+        <RotatingText words={roles} interval={2000} />
+      </MaskReveal>
+
+      <motion.div variants={softUp} className={descriptionClass}>
+        I am a passionate front-end developer who enjoys transforming ideas
+        into clean, responsive, and user friendly digital experiences.
+      </motion.div>
+
+      {/* Animation lives on the wrapper, not the buttons, to avoid clashing with Tailwind hover */}
+      <motion.div variants={softUp} className="mt-8 flex flex-wrap gap-4">
+        <a
+          href={cv}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={playClickLD}
+          className={primaryButtonClass}
+        >
+          <FiDownload className={downloadIconClass} />
+          Download CV
+        </a>
+
+        <button
+          type="button"
+          rel="noopener noreferrer"
+          onClick={() => {
+            playClick();
+            scrollToSection("projects");
+          }}
+          className={outlineButtonClass}
+        >
+          <span>View My Works</span>
+          <FiArrowUpRight className={arrowIconClass} />
+        </button>
+      </motion.div>
+
+      <motion.div variants={softUp} className={socialLabelClass}>
+        Social Media's / Contact
+      </motion.div>
+
+      <motion.div variants={softUp} className="mt-5 flex items-center gap-5">
+        {socials.map(({ label, href, Icon }) => (
+          <a
+            key={label}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={label}
+            onClick={playClick}
+            className={socialLinkClass}
+          >
+            <Icon className="h-5 w-5" />
+          </a>
+        ))}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function HeroCollage() {
+  return (
+    <motion.div variants={collage} className={collageClass}>
+      {photos.map((photo) => (
+        <PhotoCard key={photo.alt} {...photo} />
+      ))}
+    </motion.div>
+  );
+}
+
+/* ---------- Hero ---------- */
+
+function Hero() {
+  return (
+    <section
+      id="home"
+      className="w-full bg-wbg-soft px-6 py-10 sm:px-6 lg:px-8 dark:bg-dbg-soft"
+    >
+      <motion.div
+        variants={heroContainer}
+        initial="hidden"
+        animate="show"
+        className={gridClass}
+      >
+        <HeroContent />
+        <HeroCollage />
+      </motion.div>
     </section>
   );
 }

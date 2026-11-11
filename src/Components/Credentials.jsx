@@ -1,841 +1,418 @@
-// Dinagdagan ng useRef para sa scroll detection (useState at useEffect, meron na dati)
 import { useState, useEffect, useRef } from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
-
-import { FiX, FiEye, FiChevronLeft, FiChevronRight, } from "react-icons/fi";
+import { FiX, FiEye, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 import { useSound } from "./Sound/soundControl";
 
-// ------------------------------------------------------------
-// CERTIFICATE IMAGES
-// Dati PDF ang ini-import dito. Ngayon, IMAGE (png/jpg) na.
-// Ilagay mo yung mga image files sa: src/assets/documents/
-// Pwede kang magdagdag ng maraming image per certificate (see below).
-// ------------------------------------------------------------
 import gnCert from "../assets/documents/gnImages/gnCert.png";
 import gnCert2 from "../assets/documents/gnImages/gnCert2.png";
 import gnCert3 from "../assets/documents/gnImages/gnCert3.png";
 import gnCert4 from "../assets/documents/gnImages/gnCert4.png";
-
-import inquirerCert from "../assets/documents/inquirerImages/inquirerCert.png"
-
+import inquirerCert from "../assets/documents/inquirerImages/inquirerCert.png";
 import reactCert from "../assets/documents/reactCert.png";
 import seCert from "../assets/documents/seCert.png";
 import dsCert from "../assets/documents/dsCert.png";
 import ethicalCert from "../assets/documents/ethicalCert.png";
-// Tinanggal ang "FaEye" from react-icons/fa6 dahil hindi naman ginagamit
 
+/* ---------- Data ---------- */
 
-// ------------------------------------------------------------
-// REVEAL COMPONENT
-// Ang laman niya ay lalabas na may animation kapag nakita na sa screen.
-// Dito, ang Reveal mismo ang magiging card, kaya may "className" tayo.
-// Ang className na ibibigay mo ay mapupunta sa mismong card (border, rounded, etc.)
-// ------------------------------------------------------------
-function Reveal({ children, className = "" }) {
-
-    // false = hindi pa nakikita (nakatago), true = nakita na (lalabas na)
-    const [isVisible, setIsVisible] = useState(false);
-
-    // Ito ang "pangturo" natin kung aling box ang babantayan
-    const boxRef = useRef(null);
-
-    useEffect(() => {
-        // Ang observer ay nagbabantay kung pumasok na ang box sa screen
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                // Kapag nakita na sa screen
-                if (entry.isIntersecting) {
-                    setIsVisible(true);    // ipakita na
-                    observer.disconnect(); // tigil na ang pagbabantay (isang beses lang lalabas)
-                }
-            },
-            { threshold: 0.2 } // lalabas kapag 20% ng box ay nakikita na
-        );
-
-        // Simulan ang pagbabantay sa box
-        if (boxRef.current) {
-            observer.observe(boxRef.current);
-        }
-
-        // Linisin ang observer kapag nawala ang component
-        return () => observer.disconnect();
-    }, []);
-
-    return (
-        <div
-            ref={boxRef}
-            // Kapag hindi pa visible: transparent at nasa ibaba ng kaunti
-            // Kapag visible na: kita na at nasa tamang pwesto (gumagalaw paakyat)
-            className={`${className} transition-all duration-700 ease-out ${
-                isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-16"
-            }`}
-        >
-            {children}
-        </div>
-    );
-}
-
-
-// ------------------------------------------------------------
-// CERTIFICATE DATA
-// Dito nakalagay lahat ng info na lalabas sa modal (popup).
-// - title       : pangalan ng certificate
-// - description : paliwanag tungkol sa certificate
-// - date        : kailan mo nakuha
-// - link        : link ng certificate (kung walang link, "" lang)
-// - images      : listahan ng pictures. Kung more than 1, may arrows
-//                 at thumbnails na lalabas. Halimbawa: [gnCert, gnCert2]
-// ------------------------------------------------------------
-const gnData = {
-    title: "Certificate of Recognition - Gawad Ningas Award",
-    description:
+// `cardDate` is what the card shows; `details` is what the modal shows.
+// `link: ""` hides the "View Online Certificate" button; more than one image enables arrows and thumbnails.
+const certificates = [
+  {
+    cardDate: "MAY 2026",
+    issuer: "NATIONAL TEACHERS COLLEGE",
+    details: {
+      title: "Certificate of Recognition - Gawad Ningas Award",
+      description:
         "Awarded by National Teachers College in recognition of outstanding achievement and dedication in best capstone.",
-    date: "MAY 2026",
-    link: "",
-    images: [gnCert, gnCert2, gnCert3, gnCert4],
-};
-
-const webData = {
-    title: "Certificate of Completion - Web Developer",
-    description:
+      date: "MAY 2026",
+      link: "",
+      images: [gnCert, gnCert2, gnCert3, gnCert4],
+    },
+  },
+  {
+    cardDate: "MAY 2026",
+    issuer: "Inquirer Interactive",
+    details: {
+      title: "Certificate of Completion - Web Developer",
+      description:
         "Awarded by Inquirer Interactive upon completing the Web Developer as an Intern program.",
-    date: "MAY 2026",
-    link: "",
-    images: [inquirerCert],
-};
-
-const reactData = {
-    title: "Certificate of Completion - Developing Front-end Apps with React",
-    description:
+      date: "MAY 2026",
+      link: "",
+      images: [inquirerCert],
+    },
+  },
+  {
+    cardDate: "MAY 2026",
+    issuer: "International Business Machines Co.",
+    details: {
+      title: "Certificate of Completion - Developing Front-end Apps with React",
+      description:
         "Awarded by IBM upon completing the course on building front-end applications using React.",
-    date: "MAY 2026",
-    link: "https://coursera.org/share/b57073bf53d3d6a40ee0eb25d6e43b7a",
-    images: [reactCert],
-};
-
-const softwareData = {
-    title: "Certificate of Completion - Software Engineer",
-    description:
+      date: "MAY 2026",
+      link: "https://coursera.org/share/b57073bf53d3d6a40ee0eb25d6e43b7a",
+      images: [reactCert],
+    },
+  },
+  {
+    cardDate: "SEP 2025",
+    issuer: "International Business Machines Co.",
+    details: {
+      title: "Certificate of Completion - Software Engineer",
+      description:
         "Awarded by IBM upon completing the course on understanding the fundamentals of Software Engineer.",
-    date: "MAY 2025",
-    link: "https://coursera.org/share/b73a44c6f9b442f5e739370d3572dedf",
-    images: [seCert],
-};
-
-const dsData = {
-    title: "Certificate of Completion - Data Science Ethics",
-    description:
+      date: "MAY 2025",
+      link: "https://coursera.org/share/b73a44c6f9b442f5e739370d3572dedf",
+      images: [seCert],
+    },
+  },
+  {
+    cardDate: "SEP 2025",
+    issuer: "University of Michigan",
+    details: {
+      title: "Certificate of Completion - Data Science Ethics",
+      description:
         "Awarded by the University of Michigan upon completing a course on ethical principles and responsible practices in data science.",
-    date: "SEP 2025",
-    link: "https://coursera.org/share/cc304008087cd492a7c65f60e9aaf317",
-    images: [dsCert],
-};
-
-const ethicalData = {
-    title: "Certificate of Completion - Ethical Issues in AI and Professional Ethics",
-    description:
+      date: "SEP 2025",
+      link: "https://coursera.org/share/cc304008087cd492a7c65f60e9aaf317",
+      images: [dsCert],
+    },
+  },
+  {
+    cardDate: "SEP 2024",
+    issuer: "University of Colorado Boulder",
+    details: {
+      title: "Certificate of Completion - Ethical Issues in AI and Professional Ethics",
+      description:
         "Awarded by the University of Colorado Boulder upon completing a course exploring ethical issues in artificial intelligence and professional responsibility.",
-    date: "SEP 2025",
-    link: "https://coursera.org/share/afcc3047b6e19730bbd5e320131cc45b",
-    images: [ethicalCert],
-};
+      date: "SEP 2025",
+      link: "https://coursera.org/share/afcc3047b6e19730bbd5e320131cc45b",
+      images: [ethicalCert],
+    },
+  },
+];
 
+/* ---------- Styles ---------- */
 
+const eyebrowClass =
+  "mb-6 font-poppins text-2xl text-primary sm:mb-8 sm:text-3xl lg:mb-10 lg:text-3xl";
 
-// ------------------------------------------------------------
-// CERTIFICATE MODAL (yung popup na lalabas pag clinick ang "View")
-// Left side  : Image(s) ng certificate
-// Right side : Title, Description, Date, View button (kung may link)
-// ------------------------------------------------------------
-function CertificateModal({ isOpen, onClose, certificate }) {
-    // Para malaman kung anong image ang kasalukuyang pinapakita
-    const [activeIndex, setActiveIndex] = useState(0);
-    const { playClick, playClickLD, playBackMenu } = useSound();
+const headingClass =
+  "font-poppins text-[40px] font-bold sm:text-[52px] lg:text-[64px]";
 
-    // Bumalik sa first image tuwing may bubuksan na certificate
-    useEffect(() => {
-        if (isOpen) setActiveIndex(0);
-    }, [isOpen, certificate]);
+const gridClass =
+  "mx-auto mt-8 grid max-w-7xl grid-cols-1 gap-5 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3";
 
-    // Close pag pinindot ang Escape + i-lock ang scroll ng background
-    useEffect(() => {
-        if (!isOpen) return;
+const cardClass =
+  "min-w-0 rounded-2xl border border-primary/60 bg-wbg hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)] dark:bg-dbg";
 
-        const handleKeyDown = (e) => {
-            if (e.key === "Escape") onClose();
-        };
+const cardDateClass =
+  "pl-5 pr-5 pt-5 font-poppins text-[20px] font-bold text-primary sm:pr-8 sm:text-[22px] lg:pr-10 lg:text-[24px]";
 
-        document.addEventListener("keydown", handleKeyDown);
-        document.body.style.overflow = "hidden";
+const cardTitleClass =
+  "break-words pl-5 pr-5 pt-3 font-poppins text-[20px] font-bold text-secondary sm:pr-8 sm:text-[22px] lg:pr-10 lg:text-[24px] dark:text-white";
 
-        // Cleanup: ibalik sa normal pag nag-close
-        return () => {
-            document.removeEventListener("keydown", handleKeyDown);
-            document.body.style.overflow = "";
-        };
-    }, [isOpen, onClose]);
+const cardIssuerClass =
+  "break-words pl-5 pr-5 pt-3 font-poppins text-[14px] italic text-Ldescription sm:pr-8 sm:text-[15px] lg:pr-10 lg:text-[16px] dark:text-Ddescription";
 
-    // Kung hindi open o walang certificate, wala tayong ipapakita
-    if (!isOpen || !certificate) return null;
+const viewButtonClass = [
+  "group relative isolate inline-flex items-center justify-center gap-2 overflow-hidden",
+  "ml-5 mt-3 mb-3 rounded-2xl p-2 px-5 py-1",
+  "bg-primary font-poppins text-[12px] text-white dark:text-white hover:text-secondary",
+  "transition-all duration-300 ease-out",
+  "hover:-translate-y-0.5 hover:-rotate-2 hover:scale-105 hover:tracking-widest",
+  "hover:shadow-[4px_4px_0_0_#1e6bff] active:scale-95",
+  "before:absolute before:inset-y-0 before:-left-6 before:-z-10 before:w-[150%]",
+  "before:content-[''] before:bg-alternative before:-skew-x-[20deg] before:-translate-x-full",
+  "before:transition-transform before:duration-300 before:ease-out",
+  "hover:before:translate-x-0",
+].join(" ");
 
-    // FIXED: dinagdag ang "link" dito
-    const { title, description, date, link, images = [] } = certificate;
+const modalArrowClass =
+  "absolute top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-colors hover:bg-primary";
 
-    // Previous image (kung nasa first, pupunta sa last)
-    const goPrev = () =>
-        setActiveIndex((i) => (i === 0 ? images.length - 1 : i - 1));
+/* ---------- Hooks ---------- */
 
-    // Next image (kung nasa last, babalik sa first)
-    const goNext = () =>
-        setActiveIndex((i) => (i === images.length - 1 ? 0 : i + 1));
+function useModalBehavior(isOpen, onClose) {
+  useEffect(() => {
+    if (!isOpen) return;
 
-    
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
 
-    return (
-        // Dark/blur na background. Pag clinick ito, magca-close ang modal.
-        <div
-            className="fixed inset-0 z-50 flex items-start md:items-center justify-center overflow-y-auto bg-white/10 backdrop-blur-xl p-4 scroll-smooth"
-            onClick={onClose}
-        >
-            {/* White box ng modal. stopPropagation = hindi magca-close pag sa loob nag-click */}
-            <div
-                className="relative w-full md:max-w-2xl max-h-[calc(100vh-2rem)] bg-white rounded-3xl overflow-y-auto grid grid-cols-1 md:grid-cols-2 shadow-2xl my-4 md:my-0  scroll-smooth scrollbar-none"
-                onClick={(e) => e.stopPropagation()}
-            >
-                {/* Close button (X) */}
-                <button
-                    onClick={() => {
-                        playBackMenu();
-                        onClose();
-                    }}
-                    aria-label="Close"
-                    className="absolute top-4 right-4 z-10 text-text hover:text-primary transition-colors"
-                >
-                    <FiX size={18} />
-                </button>
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
 
-                {/* LEFT SIDE — Image ng Certificate */}
-                <div className="flex flex-col gap-2 p-8 md:p-5 lg:p-8 bg-white">
-                    {/* Main image */}
-                    <div className="relative flex-1 min-h-[260px] rounded-2xl overflow-hidden bg-white/40">
-                        {images[activeIndex] && (
-                            <img
-                                src={images[activeIndex]}
-                                alt={`${title} preview ${activeIndex + 1}`}
-                                className="w-full h-full object-contain"
-                            />
-                        )}
-
-                        {/* Arrows — lalabas lang kung more than 1 ang image */}
-                        {images.length > 1 && (
-                            <>
-                                <button
-                                    onClick={() => {
-                                        goPrev();
-                                        playClick();
-                                    }}
-                                    aria-label="Previous image"
-                                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-primary text-white rounded-full p-2 transition-colors"
-                                >
-                                    <FiChevronLeft size={18} />
-                                </button>
-
-                                <button
-                                    onClick={() => {
-                                        goNext();
-                                        playClick();
-                                    }}
-                                    aria-label="Next image"
-                                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-primary text-white rounded-full p-2 transition-colors"
-                                >
-                                    <FiChevronRight size={18} />
-                                </button>
-                            </>
-                        )}
-                    </div>
-
-                    {/* Thumbnails — maliliit na pictures sa baba, pwedeng iclick */}
-                    {images.length > 1 && (
-                        <div className="flex items-center justify-center gap-2 flex-wrap">
-                            {images.map((img, idx) => (
-                                <button
-                                    key={idx}
-                                    onClick={() =>  {
-                                        setActiveIndex(idx);
-                                        playClick();
-                                    }}
-                                    className={`w-12 h-12 shrink-0 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
-                                        idx === activeIndex
-                                            ? "border-primary scale-105"
-                                            : "border-transparent opacity-50 hover:opacity-90"
-                                    }`}
-                                >
-                                    <img
-                                        src={img}
-                                        alt={`${title} thumbnail ${idx + 1}`}
-                                        className="w-full h-full object-cover"
-                                    />
-                                </button>
-                            ))}
-                        </div>
-                    )}
-                </div>
-
-                {/* RIGHT SIDE — Title, Description, Date, View button */}
-                <div className="flex flex-col justify-between p-5 md:p-5 lg:p-5 font-poppins text-primary">
-                    <div>
-                        {/* Certificate Title */}
-                        <h1 className="text-2xl lg:text-2xl font-bold mt-3">{title}</h1>
-
-                        {/* Description about the Certificate */}
-                        <p className="text-Ldescription text-justify mt-4 mb-3 leading-relaxed text-xs">
-                            {description}
-                        </p>
-                    </div>
-
-                    {/* Date of Accomplished */}
-                    <div className="mt-2 lg:mt-5">
-                        <p className="text-sm text-secondary mb-3 font-semibold">
-                            Date of Accomplished
-                        </p>
-
-                        <span className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">
-                            {date}
-                        </span>
-
-                        {/* View button: lalabas lang kung may link */}
-                        {link && (
-                            <a
-                                href={link}
-                                target="_blank"
-                                onClick={playClickLD}
-                                rel="noopener noreferrer"
-                                className="group flex flex-wrap items-center bg-primary font-poppins text-white hover:text-secondary text-xs transition-all duration-300 hover:bg-alternative hover:scale-105 rounded-2xl gap-3 w-59 h-8 mt-5 lg:mt-5 font-bold"
-                            >
-                               <span className="ml-9"> 
-                               View Online Certificate
-                               </span>
-
-                               <FaExternalLinkAlt className="text-xs"
-                               />
-
-                            </a>
-                        )}
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [isOpen, onClose]);
 }
+
+/* ---------- Reveal (fades in once when scrolled into view) ---------- */
+
+function Reveal({ children, className = "" }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const boxRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (boxRef.current) observer.observe(boxRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={boxRef}
+      className={`${className} transition-all duration-700 ease-out ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
+      }`}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ---------- Modal ---------- */
+
+function CertificateGallery({ title, images, activeIndex, onChange }) {
+  const { playClick } = useSound();
+
+  const goPrev = () => onChange(activeIndex === 0 ? images.length - 1 : activeIndex - 1);
+  const goNext = () => onChange(activeIndex === images.length - 1 ? 0 : activeIndex + 1);
+
+  return (
+    <div className="flex flex-col gap-2 bg-white p-8 md:p-5 lg:p-8">
+      <div className="relative min-h-[260px] flex-1 overflow-hidden rounded-2xl bg-white/40">
+        {images[activeIndex] && (
+          <img
+            src={images[activeIndex]}
+            alt={`${title} preview ${activeIndex + 1}`}
+            className="h-full w-full object-contain"
+          />
+        )}
+
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={() => {
+                goPrev();
+                playClick();
+              }}
+              aria-label="Previous image"
+              className={`${modalArrowClass} left-2`}
+            >
+              <FiChevronLeft size={18} />
+            </button>
+
+            <button
+              onClick={() => {
+                goNext();
+                playClick();
+              }}
+              aria-label="Next image"
+              className={`${modalArrowClass} right-2`}
+            >
+              <FiChevronRight size={18} />
+            </button>
+          </>
+        )}
+      </div>
+
+      {images.length > 1 && (
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          {images.map((img, idx) => (
+            <button
+              key={idx}
+              onClick={() => {
+                onChange(idx);
+                playClick();
+              }}
+              className={`h-12 w-12 shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-200 ${
+                idx === activeIndex
+                  ? "scale-105 border-primary"
+                  : "border-transparent opacity-50 hover:opacity-90"
+              }`}
+            >
+              <img
+                src={img}
+                alt={`${title} thumbnail ${idx + 1}`}
+                className="h-full w-full object-cover"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CertificateInfo({ title, description, date, link }) {
+  const { playClickLD } = useSound();
+
+  return (
+    <div className="flex flex-col justify-between p-5 font-poppins text-primary md:p-5 lg:p-5">
+      <div>
+        <h1 className="mt-3 text-2xl font-bold lg:text-2xl">{title}</h1>
+
+        <p className="mb-3 mt-4 text-justify text-xs leading-relaxed text-Ldescription">
+          {description}
+        </p>
+      </div>
+
+      <div className="mt-2 lg:mt-5">
+        <p className="mb-3 text-sm font-semibold text-secondary">
+          Date of Accomplished
+        </p>
+
+        <span className="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">
+          {date}
+        </span>
+
+        {link && (
+          <a
+            href={link}
+            target="_blank"
+            onClick={playClickLD}
+            rel="noopener noreferrer"
+            className="group mt-5 flex h-8 w-59 flex-wrap items-center gap-3 rounded-2xl bg-primary font-poppins text-xs font-bold text-white transition-all duration-300 hover:scale-105 hover:bg-alternative hover:text-secondary lg:mt-5"
+          >
+            <span className="ml-9">View Online Certificate</span>
+            <FaExternalLinkAlt className="text-xs" />
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function CertificateModal({ isOpen, onClose, certificate }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const { playBackMenu } = useSound();
+
+  useEffect(() => {
+    if (isOpen) setActiveIndex(0);
+  }, [isOpen, certificate]);
+
+  useModalBehavior(isOpen, onClose);
+
+  if (!isOpen || !certificate) return null;
+
+  const { title, description, date, link, images = [] } = certificate;
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto scroll-smooth bg-white/10 p-4 backdrop-blur-xl md:items-center"
+      onClick={onClose}
+    >
+      <div
+        className="relative my-4 grid max-h-[calc(100vh-2rem)] w-full grid-cols-1 overflow-y-auto scroll-smooth rounded-3xl bg-white shadow-2xl scrollbar-none md:my-0 md:max-w-2xl md:grid-cols-2"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={() => {
+            playBackMenu();
+            onClose();
+          }}
+          aria-label="Close"
+          className="absolute right-4 top-4 z-10 text-text transition-colors hover:text-primary"
+        >
+          <FiX size={18} />
+        </button>
+
+        <CertificateGallery
+          title={title}
+          images={images}
+          activeIndex={activeIndex}
+          onChange={setActiveIndex}
+        />
+
+        <CertificateInfo
+          title={title}
+          description={description}
+          date={date}
+          link={link}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Card ---------- */
+
+function CredentialCard({ certificate, onSelect }) {
+  const { cardDate, issuer, details } = certificate;
+
+  return (
+    <Reveal className={cardClass}>
+      <div className={cardDateClass}>{cardDate}</div>
+      <div className={cardTitleClass}>{details.title}</div>
+      <div className={cardIssuerClass}>{issuer}</div>
+
+      <button
+        type="button"
+        onClick={() => onSelect(details)}
+        className={viewButtonClass}
+      >
+        <FiEye size={15} />
+        View Credential
+      </button>
+    </Reveal>
+  );
+}
+
+/* ---------- Credentials ---------- */
 
 function Credentials() {
-    // Dito itatabi kung aling certificate ang bubuksan.
-    // null = sarado ang modal. Kapag may laman = bukas ang modal.
-    const { playClick, playClickLD, playBackMenu } = useSound();
-    const [selectedCert, setSelectedCert] = useState(null);
+  const { playClick } = useSound();
+  const [selectedCert, setSelectedCert] = useState(null);
 
-    return (
+  const handleSelect = (details) => {
+    playClick();
+    setSelectedCert(details);
+  };
 
-        <section className="w-full px-6 sm:px-6 lg:px-8 py-10 bg-wbg-soft dark:bg-dbg-soft">
+  return (
+    <section className="w-full bg-wbg-soft px-6 py-10 sm:px-6 lg:px-8 dark:bg-dbg-soft">
+      <div className="mx-auto mt-10 max-w-7xl items-center">
+        <div className={eyebrowClass}>Credentials</div>
 
-            {/*Structure of the Components*/}
-            <div
-            className="mx-auto max-w-7xl items-center mt-10">
+        <div className={headingClass}>
+          <span className="text-secondary dark:text-white">Certifications &</span>{" "}
+          <span className="text-primary">Training</span>
+        </div>
 
-                {/*Mini Description*/}
-                <div
-                className="font-poppins text-2xl sm:text-3xl lg:text-3xl text-primary mb-6 sm:mb-8 lg:mb-10">
-                    Credentials
-                </div>
-
-                {/*Main Description*/}
-                <div className="font-poppins text-[40px] sm:text-[52px] lg:text-[64px] font-bold">
-                    <span className="text-secondary dark:text-white">
-                        Certifications &</span>{" "}
-                    <span
-                    className="text-primary">
-                        Training
-                    </span>
-                </div>
-
-                {/*Main Contents*/}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto max-w-7xl mt-8 sm:mt-10">
-
-                    {/*First Card
-                        Dati <div className="border ...">, ngayon <Reveal className="border ...">
-                        Walang ibang binago, pareho lang ang className */}
-                    <Reveal className="bg-wbg dark:bg-dbg border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
-
-                        <div
-                        className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
-                            MAY 2026
-                        </div>
-
-                        <div
-                        className="font-poppins text-text text-[20px] sm:text-[22px] lg:text-[24px] font-bold pl-5 pt-3 pr-5 sm:pr-8 lg:pr-10 break-words text-secondary dark:text-white">
-                            Certificate of Recognition - Gawad Ningas Award
-                        </div>
-
-                        <div
-                        className="font-poppins text-Ldescription dark:text-Ddescription text-[14px] sm:text-[15px] lg:text-[16px] italic pl-5 pr-5 sm:pr-8 lg:pr-10 pt-3 break-words">
-                            NATIONAL TEACHERS COLLEGE
-                        </div>
-
-                        <button
-                        type="button"
-                        onClick={() => {
-                            playClick();
-                            setSelectedCert(gnData)
-                        }}
-                        className="
-                        group
-                        relative
-                        isolate
-                        overflow-hidden
-                        inline-flex
-                        items-center
-                        justify-center
-                        gap-2
-                        font-poppins
-                        text-white
-                        bg-primary
-                        hover:text-secondary
-                        hover:scale-105
-                        hover:-translate-y-0.5
-                        hover:-rotate-2
-                        hover:tracking-widest
-                        active:scale-95
-                        hover:shadow-[4px_4px_0_0_#1e6bff]
-                        text-[12px]
-                        rounded-2xl
-                        p-2
-                        px-5
-                        py-1
-                        ml-5
-                        mt-3
-                        mb-3
-                        transition-all
-                        duration-300
-                        ease-out
-                        before:content-['']
-                        before:absolute
-                        before:inset-y-0
-                        before:-left-6
-                        before:-z-10
-                        before:w-[150%]
-                        before:bg-alternative
-                        before:-skew-x-[20deg]
-                        before:-translate-x-full
-                        hover:before:translate-x-0
-                        before:transition-transform
-                        before:duration-300
-                        before:ease-out
-                        " >
-                            <FiEye size={15} />
-                        View Credential 
-                        </button>
-
-                    </Reveal>
-
-                    {/*Second Card*/}
-                    <Reveal className=" bg-wbg dark:bg-dbg border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
-
-                        <div
-                        className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
-                            MAY 2026
-                        </div>
-
-                        <div
-                        className="font-poppins text-secondary dark:text-white text-[20px] sm:text-[22px] lg:text-[24px] font-bold pl-5 pt-3 pr-5 sm:pr-8 lg:pr-10 break-words">
-                            Certificate of Completion - Web Developer
-                        </div>
-
-                        <div
-                        className="font-poppins text-Ldescription dark:text-Ddescription text-[14px] sm:text-[15px] lg:text-[16px] italic pl-5 pr-5 sm:pr-8 lg:pr-10 pt-3 break-words">
-                            Inquirer Interactive
-                        </div>
-
-                        <button
-                            type="button"
-                            onClick={() => {
-                                playClick();
-                                setSelectedCert(webData)
-                            }}
-                            className="
-                            group
-                            relative
-                            isolate
-                            overflow-hidden
-                            inline-flex
-                            items-center 
-                            justify-center
-                            gap-2
-                            font-poppins
-                            text-white
-                            dark:text-white
-                            bg-primary
-                            hover:text-secondary
-                            hover:scale-105
-                            hover:-translate-y-0.5
-                            hover:-rotate-2
-                            hover:tracking-widest
-                            active:scale-95
-                            hover:shadow-[4px_4px_0_0_#1e6bff]
-                            text-[12px]
-                            rounded-2xl
-                            p-2
-                            px-5
-                            py-1
-                            ml-5
-                            mt-3
-                            mb-3
-                            transition-all
-                            duration-300
-                            ease-out
-                            before:content-['']
-                            before:absolute
-                            before:inset-y-0
-                            before:-left-6
-                            before:-z-10
-                            before:w-[150%]
-                            before:bg-alternative
-                            before:-skew-x-[20deg]
-                            before:-translate-x-full
-                            hover:before:translate-x-0
-                            before:transition-transform
-                            before:duration-300
-                            before:ease-out
-                            "
-                        >
-                                <FiEye size={15} />
-
-                            View Credential
-                        </button>
-
-                    </Reveal>
-
-                    {/*Third Card*/}
-                    <Reveal className="bg-wbg dark:bg-dbg border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
-
-                        <div
-                        className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
-                            MAY 2026
-                        </div>
-
-                        <div
-                        className="font-poppins text-secondary dark:text-white text-[20px] sm:text-[22px] lg:text-[24px] font-bold pl-5 pt-3 pr-5 sm:pr-8 lg:pr-10 break-words">
-                            Certificate of Completion - Developing Front-end Apps with React
-                        </div>
-
-                        <div
-                        className="font-poppins text-Ldescription dark:text-Ddescription text-[14px] sm:text-[15px] lg:text-[16px] italic pl-5 pr-5 sm:pr-8 lg:pr-10 pt-3 break-words">
-                            International Business Machines Co.
-                        </div>
-
-                        <button
-                        type="button"
-                        onClick={() => {
-                            playClick();
-                            setSelectedCert(reactData)
-                        }}
-                        className="
-                        group
-                            relative
-                            isolate
-                            overflow-hidden
-                            inline-flex
-                            items-center
-                            justify-center
-                            gap-2
-                            font-poppins
-                            text-white
-                            dark:text-white
-                            bg-primary
-                            hover:text-secondary
-                            hover:scale-105
-                            hover:-translate-y-0.5
-                            hover:-rotate-2
-                            hover:tracking-widest
-                            active:scale-95
-                            hover:shadow-[4px_4px_0_0_#1e6bff]
-                            text-[12px]
-                            rounded-2xl
-                            p-2
-                            px-5
-                            py-1
-                            ml-5
-                            mt-3
-                            mb-3
-                            transition-all
-                            duration-300
-                            ease-out
-                            before:content-['']
-                            before:absolute
-                            before:inset-y-0
-                            before:-left-6
-                            before:-z-10
-                            before:w-[150%]
-                            before:bg-alternative
-                            before:-skew-x-[20deg]
-                            before:-translate-x-full
-                            hover:before:translate-x-0
-                            before:transition-transform
-                            before:duration-300
-                            before:ease-out
-                        " >
-                            <FiEye size={15} />
-
-                             View Credential  </button>
-                    </Reveal>
-
-
-                    {/*Fourth Card*/}
-                    <Reveal className="bg-wbg dark:bg-dbg border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
-
-                        <div
-                        className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
-                            SEP 2025
-                        </div>
-
-                        <div
-                        className="font-poppins text-secondary dark:text-white text-[20px] sm:text-[22px] lg:text-[24px] font-bold pl-5 pt-3 pr-5 sm:pr-8 lg:pr-10 break-words">
-                            Certificate of Completion - Software Engineer
-                        </div>
-
-                        <div
-                        className="font-poppins text-Ldescription dark:text-Ddescription text-[14px] sm:text-[15px] lg:text-[16px] italic pl-5 pr-5 sm:pr-8 lg:pr-10 pt-3 break-words">
-                            International Business Machines Co.
-                        </div>
-
-                        <button
-                            type="button"
-                            onClick={() => {
-                            playClick();
-                            setSelectedCert(softwareData)
-                        }}
-                            className="
-                            group
-                            relative
-                            isolate
-                            overflow-hidden
-                            inline-flex
-                            items-center 
-                            justify-center
-                            gap-2
-                            font-poppins
-                            text-white
-                            dark:text-white
-                            bg-primary
-                            hover:text-secondary
-                            hover:scale-105
-                            hover:-translate-y-0.5
-                            hover:-rotate-2
-                            hover:tracking-widest
-                            active:scale-95
-                            hover:shadow-[4px_4px_0_0_#1e6bff]
-                            text-[12px]
-                            rounded-2xl
-                            p-2
-                            px-5
-                            py-1
-                            ml-5
-                            mt-3
-                            mb-3
-                            transition-all
-                            duration-300
-                            ease-out
-                            before:content-['']
-                            before:absolute
-                            before:inset-y-0
-                            before:-left-6
-                            before:-z-10
-                            before:w-[150%]
-                            before:bg-alternative
-                            before:-skew-x-[20deg]
-                            before:-translate-x-full
-                            hover:before:translate-x-0
-                            before:transition-transform
-                            before:duration-300
-                            before:ease-out
-                            "
-                        >
-                            <FiEye size={15} />
-
-                            View Credential
-                        </button>
-
-                    </Reveal>
-
-                    {/*Fifth Card*/}
-                    <Reveal className="bg-wbg dark:bg-dbg border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
-
-                        <div
-                        className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
-                            SEP 2025
-                        </div>
-
-                        <div
-                        className="font-poppins text-secondary dark:text-white text-[20px] sm:text-[22px] lg:text-[24px] font-bold pl-5 pt-3 pr-5 sm:pr-8 lg:pr-10 break-words">
-                            Certificate of Completion - Data Science Ethics
-                        </div>
-
-                        <div
-                        className="font-poppins text-Ldescription dark:text-Ddescription text-[14px] sm:text-[15px] lg:text-[16px] italic pl-5 pr-5 sm:pr-8 lg:pr-10 pt-3 break-words">
-                            University of Michigan
-                        </div>
-
-                        <button
-                            type="button"
-                            onClick={() => {
-                            playClick();
-                            setSelectedCert(dsData)
-                        }}
-                            className="
-                            group
-                            relative
-                            isolate
-                            overflow-hidden
-                            inline-flex
-                            items-center
-                            justify-center
-                            gap-2 
-                            font-poppins
-                            text-white
-                            dark:text-white
-                            bg-primary
-                            hover:text-secondary
-                            hover:scale-105
-                            hover:-translate-y-0.5
-                            hover:-rotate-2
-                            hover:tracking-widest
-                            active:scale-95
-                            hover:shadow-[4px_4px_0_0_#1e6bff]
-                            text-[12px]
-                            rounded-2xl
-                            p-2
-                            px-5
-                            py-1
-                            ml-5
-                            mt-3
-                            mb-3
-                            transition-all
-                            duration-300
-                            ease-out
-                            before:content-['']
-                            before:absolute
-                            before:inset-y-0
-                            before:-left-6
-                            before:-z-10
-                            before:w-[150%]
-                            before:bg-alternative
-                            before:-skew-x-[20deg]
-                            before:-translate-x-full
-                            hover:before:translate-x-0
-                            before:transition-transform
-                            before:duration-300
-                            before:ease-out
-                            "
-                        >
-                            <FiEye size={15} />
-
-                            View Credential
-                        </button>
-
-                    </Reveal>
-
-                    {/*Sixth Card*/}
-                    <Reveal className="bg-wbg dark:bg-dbg border border-primary/60 rounded-2xl min-w-0 hover:border-primary hover:shadow-[0_8px_30px_rgba(30,107,255,0.35)]">
-
-                        <div
-                        className="font-poppins text-primary font-bold text-[20px] sm:text-[22px] lg:text-[24px] pl-5 pr-5 sm:pr-8 lg:pr-10 pt-5">
-                            SEP 2024
-                        </div>
-
-                        <div
-                        className="font-poppins text-secondary dark:text-white text-[20px] sm:text-[22px] lg:text-[24px] font-bold pl-5 pt-3 pr-5 sm:pr-8 lg:pr-10 break-words">
-                            Certificate of Completion - Ethical Issues in AI and Professional Ethics
-                        </div>
-
-                        <div
-                        className="font-poppins text-Ldescription dark:text-Ddescription text-[14px] sm:text-[15px] lg:text-[16px] italic pl-5 pr-5 sm:pr-8 lg:pr-10 pt-3 break-words">
-                            University of Colorado Boulder
-                        </div>
-
-                        <button
-                            type="button"
-                            onClick={() => {
-                            playClick();
-                            setSelectedCert(ethicalData)
-                        }}
-                            className="
-                            group
-                            relative
-                            isolate
-                            overflow-hidden
-                            inline-flex
-                            items-center
-                            justify-center 
-                            gap-2
-                            font-poppins
-                            text-white
-                            dark:text-white
-                            bg-primary
-                            hover:text-secondary
-                            hover:scale-105
-                            hover:-translate-y-0.5
-                            hover:-rotate-2
-                            hover:tracking-widest
-                            active:scale-95
-                            hover:shadow-[4px_4px_0_0_#1e6bff]
-                            text-[12px]
-                            rounded-2xl
-                            p-2
-                            px-5
-                            py-1
-                            ml-5
-                            mt-3
-                            mb-3
-                            transition-all
-                            duration-300
-                            ease-out
-                            before:content-['']
-                            before:absolute
-                            before:inset-y-0
-                            before:-left-6
-                            before:-z-10
-                            before:w-[150%]
-                            before:bg-alternative
-                            before:-skew-x-[20deg]
-                            before:-translate-x-full
-                            hover:before:translate-x-0
-                            before:transition-transform
-                            before:duration-300
-                            before:ease-out
-                            "
-                        >
-                            <FiEye size={15} />
-
-                            View Credential
-                        </button>
-
-                    </Reveal>
-
-                </div>  
-
-            </div>
-
-            {/* MODAL: lalabas lang kapag may napiling certificate.
-                Pag nag-close, ibabalik sa null para magsara. */}
-            <CertificateModal
-                isOpen={selectedCert !== null}
-                onClose={() => setSelectedCert(null)}
-                certificate={selectedCert}
+        <div className={gridClass}>
+          {certificates.map((certificate) => (
+            <CredentialCard
+              key={certificate.details.title}
+              certificate={certificate}
+              onSelect={handleSelect}
             />
-        </section>
-    );
+          ))}
+        </div>
+      </div>
+
+      <CertificateModal
+        isOpen={selectedCert !== null}
+        onClose={() => setSelectedCert(null)}
+        certificate={selectedCert}
+      />
+    </section>
+  );
 }
 
 export default Credentials;

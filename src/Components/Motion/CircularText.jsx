@@ -1,35 +1,48 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { cancelFrame, frame, motion, useMotionValue, useReducedMotion, useSpring } from 'motion/react';
 
+/* Constants */
+
 const HOVER_SPEED = { slowDown: 0.5, speedUp: 4, pause: 0, goBonkers: 20 };
 const MAX_FLING = 1440;
 const LETTER_EASE = 'transition-transform duration-500 ease-[cubic-bezier(0,0,0,1)]';
 
+/* Helpers */
+
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
+
+/* Component */
 
 const CircularText = ({
   text,
   spinDuration = 10,
   onHover = 'speedUp',
   direction = 'clockwise',
+
   size = 200,
   fontSize = 24,
   fontWeight = 900,
   letterSpacing = 0,
   color = '',
+
   startAngle = 0,
   fill = true,
   repeat = 1,
+
   ring = false,
   ringColor = '',
+
   tilt = 0,
   hoverTilt = 0,
   draggable = false,
+
   children,
   className = ''
 }) => {
+  /* Refs & state */
+
   const rootRef = useRef(null);
   const glyphRefs = useRef([]);
   const stateRef = useRef({
@@ -41,15 +54,21 @@ const CircularText = ({
     travel: 0,
     samples: []
   });
+
   const [advances, setAdvances] = useState(null);
   const [settled, setSettled] = useState(false);
   const [dragging, setDragging] = useState(false);
+
+  /* Motion values */
+
   const reduceMotion = useReducedMotion();
   const rotation = useMotionValue(0);
   const speed = useSpring(1, { stiffness: 60, damping: 18 });
   const scale = useSpring(1, { stiffness: 300, damping: 20 });
   const tiltX = useSpring(0, { stiffness: 150, damping: 18 });
   const tiltY = useSpring(0, { stiffness: 150, damping: 18 });
+
+  /* Derived values */
 
   const glyphs = useMemo(() => Array.from(text ?? ''), [text]);
   const copies = Math.max(1, Math.round(repeat) || 1);
@@ -59,6 +78,7 @@ const CircularText = ({
     const count = glyphs.length;
     if (!count) return [];
     if (fill) return letters.map((_, i) => startAngle + (360 / letters.length) * i);
+
     const known = advances && advances.length === count ? advances : null;
     const toDegrees = 180 / (Math.PI * Math.max(size / 2 - fontSize * 0.6, 1));
     const arcs = glyphs.map((glyph, i) => {
@@ -67,6 +87,7 @@ const CircularText = ({
     });
     const span = arcs.reduce((sum, arc) => sum + arc, 0);
     const fit = span > 0 ? Math.min(1, 360 / (span * copies)) : 1;
+
     const result = [];
     for (let copy = 0; copy < copies; copy += 1) {
       let cursor = startAngle + (360 / copies) * copy - (arcs[0] * fit) / 2;
@@ -79,8 +100,11 @@ const CircularText = ({
     return result;
   }, [glyphs, letters, copies, fill, startAngle, size, fontSize, letterSpacing, advances]);
 
+  /* Effects */
+
   useIsomorphicLayoutEffect(() => {
     if (fill) return undefined;
+
     let alive = true;
     const measure = () => {
       if (!alive) return;
@@ -89,8 +113,10 @@ const CircularText = ({
         prev && prev.length === widths.length && prev.every((width, i) => width === widths[i]) ? prev : widths
       );
     };
+
     measure();
     document.fonts?.ready.then(measure).catch(() => {});
+
     return () => {
       alive = false;
     };
@@ -105,6 +131,7 @@ const CircularText = ({
     const root = rootRef.current;
     const state = stateRef.current;
     const turn = direction === 'counterclockwise' ? -1 : 1;
+
     state.cruise = spinDuration > 0 && !reduceMotion ? (360 / spinDuration) * turn : 0;
     if (!root || reduceMotion) return undefined;
 
@@ -138,6 +165,8 @@ const CircularText = ({
     tiltY.set(0);
   }, [hoverTilt, reduceMotion, tiltX, tiltY]);
 
+  /* Pointer helpers */
+
   const applyScale = () => {
     const state = stateRef.current;
     const bonkers = state.hovering && onHover === 'goBonkers' && !reduceMotion;
@@ -147,12 +176,16 @@ const CircularText = ({
   const pointerAngle = e => {
     const root = rootRef.current;
     if (!root) return null;
+
     const rect = root.getBoundingClientRect();
     const dx = e.clientX - (rect.left + rect.width / 2);
     const dy = e.clientY - (rect.top + rect.height / 2);
     if (Math.hypot(dx, dy) < rect.width * 0.06) return null;
+
     return (Math.atan2(dy, dx) * 180) / Math.PI;
   };
+
+  /* Pointer handlers */
 
   const handleEnter = () => {
     stateRef.current.hovering = true;
@@ -168,6 +201,21 @@ const CircularText = ({
     applyScale();
   };
 
+  const handleDown = e => {
+    if (!draggable || (e.pointerType === 'mouse' && e.button !== 0)) return;
+
+    const state = stateRef.current;
+    state.dragging = true;
+    state.fling = 0;
+    state.angle = pointerAngle(e);
+    state.travel = 0;
+    state.samples = [[e.timeStamp, 0]];
+
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+    setDragging(true);
+    applyScale();
+  };
+
   const handleMove = e => {
     const state = stateRef.current;
     const root = rootRef.current;
@@ -180,6 +228,7 @@ const CircularText = ({
           let delta = angle - state.angle;
           if (delta > 180) delta -= 360;
           if (delta < -180) delta += 360;
+
           state.travel += delta;
           rotation.set((rotation.get() + delta) % 360);
           state.samples.push([e.timeStamp, state.travel]);
@@ -190,6 +239,7 @@ const CircularText = ({
     }
 
     if (!hoverTilt || reduceMotion || e.pointerType === 'touch') return;
+
     const rect = root.getBoundingClientRect();
     const nx = clamp(((e.clientX - rect.left) / rect.width) * 2 - 1, -1, 1);
     const ny = clamp(((e.clientY - rect.top) / rect.height) * 2 - 1, -1, 1);
@@ -197,31 +247,23 @@ const CircularText = ({
     tiltY.set(nx * hoverTilt);
   };
 
-  const handleDown = e => {
-    if (!draggable || (e.pointerType === 'mouse' && e.button !== 0)) return;
-    const state = stateRef.current;
-    state.dragging = true;
-    state.fling = 0;
-    state.angle = pointerAngle(e);
-    state.travel = 0;
-    state.samples = [[e.timeStamp, 0]];
-    e.currentTarget.setPointerCapture?.(e.pointerId);
-    setDragging(true);
-    applyScale();
-  };
-
   const handleUp = e => {
     const state = stateRef.current;
     if (!state.dragging) return;
+
     state.dragging = false;
     setDragging(false);
     applyScale();
+
     const [startTime, startTravel] = state.samples[0];
     const lastTime = state.samples[state.samples.length - 1][0];
     const elapsed = e.timeStamp - startTime;
     const velocity = elapsed > 0 && e.timeStamp - lastTime < 80 ? ((state.travel - startTravel) / elapsed) * 1000 : 0;
+
     state.fling = reduceMotion ? 0 : clamp(velocity, -MAX_FLING, MAX_FLING) - state.cruise * speed.get();
   };
+
+  /* Render */
 
   return (
     <div
@@ -262,6 +304,7 @@ const CircularText = ({
               opacity: ring ? 1 : 0
             }}
           />
+
           <motion.div className="absolute inset-0" role="img" aria-label={text} style={{ rotate: rotation }}>
             {letters.map((letter, i) => (
               <span
@@ -284,6 +327,7 @@ const CircularText = ({
             ))}
           </motion.div>
         </div>
+
         {children != null && children !== false ? (
           <div className="absolute inset-0 flex items-center justify-center">{children}</div>
         ) : null}

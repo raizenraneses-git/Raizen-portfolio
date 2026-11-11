@@ -1,30 +1,35 @@
-const items = [
-  "Front-End",
-  "Web Design",
-  "UI/UX",
-  "Freelancer",
-  "Developer",
-];
+const items = ["Front-End", "Web Design", "UI/UX", "Freelancer", "Developer"];
+
+const groups = [0, 1, 2, 3, 4, 5];
+
+const itemClass =
+  "mx-6 whitespace-nowrap text-lg font-extrabold uppercase tracking-wide text-white sm:text-xl";
+
+const starClass = "text-lg text-white sm:text-xl";
+
+function SliderItem({ label }) {
+  return (
+    <div className="flex items-center">
+      <span className={itemClass}>{label}</span>
+      <span className={starClass} aria-hidden="true">
+        ★
+      </span>
+    </div>
+  );
+}
 
 function Slider() {
   return (
-    <div className="w-full max-w-full overflow-hidden py-4 bg-primary">
+    <div className="w-full max-w-full overflow-hidden bg-primary py-4">
       <div className="slider-track flex w-max items-center">
-        {[0, 1, 2, 3, 4, 5].map((groupIndex) => (
+        {groups.map((group) => (
           <div
-            key={groupIndex}
-            className="flex items-center flex-shrink-0"
-            aria-hidden={groupIndex !== 0 ? "true" : undefined}
+            key={group}
+            className="flex flex-shrink-0 items-center"
+            aria-hidden={group !== 0 ? "true" : undefined}
           >
-            {items.map((item, i) => (
-              <div key={`${groupIndex}-${i}`} className="flex items-center">
-                <span className="mx-6 whitespace-nowrap text-lg font-extrabold uppercase tracking-wide text-white sm:text-xl">
-                  {item}
-                </span>
-                <span className="text-white text-lg sm:text-xl" aria-hidden="true">
-                  ★
-                </span>
-              </div>
+            {items.map((item) => (
+              <SliderItem key={`${group}-${item}`} label={item} />
             ))}
           </div>
         ))}

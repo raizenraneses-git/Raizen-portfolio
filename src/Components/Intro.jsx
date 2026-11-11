@@ -93,18 +93,6 @@ function Intro({ onComplete, duration = 2400 }) {
           </motion.h1>
         </div>
 
-        {/* Role (isang linya lang) */}
-        <div className="mt-3 overflow-hidden">
-          <motion.p
-            initial={{ y: "110%" }}
-            animate={{ y: "0%" }}
-            transition={{ duration: 0.9, ease: smoothEase, delay: 0.45 }}
-            className="font-poppins text-xs uppercase tracking-[0.35em] text-primary sm:text-sm"
-          >
-            Frontend · UI/UX
-          </motion.p>
-        </div>
-
         {/* Progress line */}
         <div className="mt-10 h-px w-full max-w-xs bg-secondary/10">
           <div

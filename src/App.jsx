@@ -1,64 +1,47 @@
 import { useState, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 
 import Intro from "./Components/Intro";
 import Navbar from "./Components/Navbar";
 import Hero from "./Components/Hero";
 import Slider from "./Components/Slider";
+import Projects from "./Components/Projects";
 import Skills from "./Components/Skills";
+import Timeline from "./Components/Timeline";
 import Credentials from "./Components/Credentials";
 import AboutMe from "./Components/AboutMe";
-import Projects from "./Components/Projects";
 import Footer from "./Components/Footer";
-
-import { AnimatePresence } from "framer-motion"; // new
-
-// CHANGE 1: i-import ang bagong transition component
-import  Timeline  from "./Components/Timeline";
 import DarkMode from "./Components/DarkMode/DarkMode";
+
+const THEME_SWITCH_DELAY = 650;
+const TRANSITION_END_DELAY = 1150;
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-
-  // CHANGE 2: Dito naka-save ang text ng transition.
-  // null = walang transition, may text = tumatakbo ang transition
+  const [introDone, setIntroDone] = useState(false);
   const [transitionLabel, setTransitionLabel] = useState(null);
-  const [introDone, setIntroDone] = useState(false); // new
 
-  // Update the dark mode class (same pa rin)
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
-  // CHANGE 3: Ito na ang tatawagin ng toggle button.
-  // Hindi agad nagpapalit ng theme; ipapakita muna ang animation.
   const handleToggle = () => {
-    // Kapag may tumatakbong transition, huwag nang ulitin
     if (transitionLabel) return;
 
-    // 1) Ipakita ang overlay at piliin ang text
     setTransitionLabel(darkMode ? "LIGHT MODE" : "DARK MODE");
-
-    // 2) Sa ~650ms, takip na ang buong screen, doon magpapalit ng theme
-    setTimeout(() => setDarkMode((prev) => !prev), 650);
-
-    // 3) Sa ~1150ms, tapos na ang animation, tanggalin ang overlay
-    setTimeout(() => setTransitionLabel(null), 1150);
+    setTimeout(() => setDarkMode((prev) => !prev), THEME_SWITCH_DELAY);
+    setTimeout(() => setTransitionLabel(null), TRANSITION_END_DELAY);
   };
 
   return (
     <div>
-
-      {/* new: AnimatePresence + key + onComplete */}
       <AnimatePresence>
         {!introDone && (
           <Intro key="intro" onComplete={() => setIntroDone(true)} />
         )}
       </AnimatePresence>
 
-      {/* Pinalitan ang setDarkMode ng handleToggle. Hindi na kailangang galawin ang Navbar */}
       <Navbar darkMode={darkMode} setDarkMode={handleToggle} />
-
-      {/* Lalabas lang kapag may label (habang tumatakbo ang transition) */}
       {transitionLabel && <DarkMode label={transitionLabel} />}
 
       <Hero play={introDone} />
@@ -69,7 +52,6 @@ function App() {
       <Credentials />
       <AboutMe />
       <Footer />
-
     </div>
   );
 }

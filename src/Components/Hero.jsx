@@ -38,7 +38,7 @@ const socials = [
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/raizenra%C3%B1eses/",
+    href: "https://www.linkedin.com/in/raizen-ra%C3%B1eses/",
     Icon: FaLinkedinIn,
   },
 ];

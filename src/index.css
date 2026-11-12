@@ -1,15 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Playwrite+ID:wght@100..400&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+ID:wght@100..400&display=swap");
 @import "tailwindcss";
 
+@plugin "tailwindcss-motion";
 @custom-variant dark (&:where(.dark, .dark *));
 
-@plugin "tailwindcss-motion";
+/* Theme */
+@theme {
+  --color-primary: #1269cc;
+  --color-secondary: #051f3d;
+  --color-alternative: #51eefc;
+  --color-dbg: #000306;
+  --color-wbg: #ffff;
+  --color-Ldescription: #334155;
+  --color-Ddescription: #cbd5e1;
 
+  --color-wbg-soft: #f4f9ff;
+  --color-wbg-tint: #e6f1fd;
+  --color-wbg-glow: #e3fafd;
+  --color-dbg-soft: #030c18;
+  --color-dbg-tint: #051f3d;
+
+  --font-poppins: "Poppins", sans-serif;
+  --font-play: "Play", sans-serif;
+
+  --radius-card: 12px;
+  --radius-button: 9999px;
+}
+
+@theme inline {
+  --btn-liquid-fill: var(--foreground);
+}
+
+/* Base */
 html {
   width: 100%;
   max-width: 100%;
   overflow-x: clip;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -24,46 +54,11 @@ body {
   min-height: 100vh;
 }
 
-html::-webkit-scrollbar {
-  display: none;
-}
-
-{/* Color */}
-@theme {
-  --color-primary: #1269cc;
-  --color-secondary: #051f3d;
-  --color-alternative: #51eefc;
-  --color-dbg: #000306;
-  --color-wbg: #ffff;
-  --color-Ldescription: #334155;
-  --color-Ddescription: #cbd5e1;
-
-  /* Soft tints para sa background (light mode) */
-  --color-wbg-soft: #f4f9ff;   /* halos puti, may bahid ng blue */
-  --color-wbg-tint: #e6f1fd;   /* soft blue */
-  --color-wbg-glow: #e3fafd;   /* soft cyan */
-
-  --color-dbg-soft: #030c18;   /* halos itim, may bahid ng navy */
-  --color-dbg-tint: #051f3d;   /* = secondary mo */
-}
-
-
-{/* Fonts */}
-@theme {
-  --font-poppins: "Poppins", sans-serif;
-  --font-play: "Play", sans-serif;
-}
-
-{/* Radius */}
-@theme {
-  --radius-card: 12px;
-  --radius-button: 9999px;
-}
-
 .scroll-behavior {
   scroll-behavior: smooth;
 }
 
+/* Slider */
 .slider-track {
   animation: slider-scroll 8s linear infinite;
 }
@@ -73,57 +68,46 @@ html::-webkit-scrollbar {
     transform: translateX(0);
   }
   to {
-    /* Shifts exactly one full group's width to the left, so it loops seamlessly */
+    /* One full group's width, so the loop is seamless */
     transform: translateX(-5%);
   }
 }
 
-/* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .slider-track {
     animation: none;
   }
 }
 
-/*Tilt Card Colored*/
-
-/* Light Mode */
+/* Tilt card */
 :root {
   --tilt-glare: #051f3d;
 }
 
-/* Dark Mode */
 .dark {
   --tilt-glare: #1269cc;
 }
 
-/* ===== Persona-style theme transition ===== */
-
-/* Base style ng bawat panel.
-   - Mas malapad (130vw) kaysa screen para hindi lumitaw ang gilid ng slant.
-   - clip-path = ang pagiging pahilis (slanted) ng hugis.
-   - Nagsisimula sa labas ng screen sa kaliwa (translateX(-110%)). */
+/* Theme transition */
 .theme-panel {
   position: absolute;
   top: 0;
   bottom: 0;
   left: -15vw;
   width: 130vw;
-  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-  transform: translateX(-110%);
-  animation: theme-slide 900ms cubic-bezier(0.7, 0, 0.3, 1) forwards;
   display: flex;
   align-items: center;
   justify-content: center;
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+  transform: translateX(-110%);
+  animation: theme-slide 900ms cubic-bezier(0.7, 0, 0.3, 1) forwards;
 }
 
-/* Magkakaiba ng kulay at delay para sunod-sunod ang pasok */
-.theme-panel-blue   { background: #1269cc; animation-delay: 0ms; }
+.theme-panel-blue  { background: #1269cc; animation-delay: 0ms; }
 .theme-panel-white { background: #ffffff; animation-delay: 100ms; }
 .theme-panel-black { background: #0a0a0a; animation-delay: 200ms; }
 .theme-panel-light { background: #f5f5f5; animation-delay: 200ms; }
 
-/* Ang malaking text sa gitna, pahilis din at may blue na shadow */
 .theme-label {
   font-family: "Poppins", sans-serif;
   font-weight: 900;
@@ -139,17 +123,10 @@ html::-webkit-scrollbar {
   text-shadow: 6px 6px 0 #1269cc;
 }
 
-/* Ang galaw: pasok -> takip ang screen -> labas sa kanan.
-   0%-40%  = pumapasok mula kaliwa
-   40%-60% = nakatakip ang buong screen (dito nagpapalit ng theme)
-   60%-100% = lumalabas sa kanan */
+/* Slide in (0-40%), cover screen (40-60%), slide out (60-100%) */
 @keyframes theme-slide {
   0%   { transform: translateX(-110%); }
   40%  { transform: translateX(0); }
   60%  { transform: translateX(0); }
   100% { transform: translateX(110%); }
-}
-
-@theme inline {
-  --btn-liquid-fill: var(--foreground);
 }
